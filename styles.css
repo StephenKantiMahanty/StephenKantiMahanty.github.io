@@ -1,98 +1,396 @@
-/* ===========================
-   GLOBAL PAGE STYLING
-   =========================== */
+:root {
+    --bg-dark: #0a0e1a;
+    --bg-darker: #050810;
+    --circuit-green: #00ff41;
+    --accent-green: #00cc33;
+    --dim-green: #00661a;
+    --grid-color: rgba(0, 255, 65, 0.08);
+    --glow-green: rgba(0, 255, 65, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-  background-color: #050807;      /* deep PCB black */
-  color: #00ff66;                 /* bright schematic green */
-  font-family: "Courier New", monospace;
-  margin: 0;
-  padding: 0;
+    font-family: 'Courier New', monospace;
+    background: var(--bg-dark);
+    color: var(--circuit-green);
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
 }
 
-/* Center the circuit diagram on the page */
+/* Grid Background */
+.grid-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 0;
+    animation: gridPulse 4s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+}
+
+/* Circuit Container */
 .circuit-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
 }
 
-/* Make SVG scale nicely */
-.circuit-svg {
-  max-width: 100%;
-  height: auto;
+/* Circuit Traces (SVG Lines) */
+.circuit-traces {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
 }
 
-/* ===========================
-   SVG BASE STYLING
-   =========================== */
-
-svg {
-  stroke: #00ff66;
-  fill: none;
+.trace {
+    fill: none;
+    stroke: var(--circuit-green);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 8px var(--glow-green));
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawTrace 2s ease-out forwards;
 }
 
-/* Wires */
-.wire {
-  stroke-width: 3;
+.trace-1 {
+    animation-delay: 0.2s;
 }
 
-/* Components */
-.resistor,
-.capacitor,
-.inductor,
-.ground {
-  stroke-width: 3;
+.trace-2 {
+    animation-delay: 0.5s;
 }
 
-/* ===========================
-   TEXT LABELS
-   =========================== */
-
-.label {
-  fill: #00ff66;
-  font-size: 20px;
-  text-anchor: middle;
+.trace-3 {
+    animation-delay: 0.8s;
 }
 
-.ref-label {
-  fill: #00ff66;
-  font-size: 14px;
-  text-anchor: middle;
+.trace-4 {
+    animation-delay: 1.1s;
 }
 
-.small-label {
-  fill: #00ff66;
-  font-size: 12px;
+@keyframes drawTrace {
+    to {
+        stroke-dashoffset: 0;
+    }
 }
 
-.title-label {
-  fill: #00ff66;
-  font-size: 22px;
-  text-anchor: middle;
+.junction-point {
+    fill: var(--circuit-green);
+    filter: drop-shadow(0 0 6px var(--glow-green));
+    opacity: 0;
+    animation: pointFadeIn 0.5s ease-out 1.4s forwards;
 }
 
-/* ===========================
-   INTERACTIVITY + HOVER EFFECTS
-   =========================== */
+.power-point {
+    fill: var(--circuit-green);
+    filter: drop-shadow(0 0 10px var(--glow-green));
+    opacity: 0;
+    animation: pointFadeIn 0.5s ease-out 0.3s forwards, powerPulse 2s ease-in-out 2s infinite;
+}
 
+@keyframes pointFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes powerPulse {
+    0%, 100% { 
+        filter: drop-shadow(0 0 10px var(--glow-green));
+        transform: scale(1);
+    }
+    50% { 
+        filter: drop-shadow(0 0 20px var(--glow-green));
+        transform: scale(1.3);
+    }
+}
+
+/* Component Container */
+.component-container {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 120px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Individual Components */
 .component {
-  cursor: pointer;
+    text-decoration: none;
+    color: var(--circuit-green);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: componentSlideIn 0.8s ease-out forwards;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.hoverable {
-  transition: transform 0.25s ease, stroke 0.25s ease, filter 0.25s ease;
+.resistor {
+    animation-delay: 0.6s;
 }
 
-.hoverable:hover {
-  transform: scale(1.05);
-  stroke: #33ff99;
-  filter: drop-shadow(0 0 6px #00ff66);
+.capacitor {
+    animation-delay: 0.9s;
 }
 
-/* Remove default link styling */
-a {
-  text-decoration: none;
+.inductor {
+    animation-delay: 1.2s;
+}
+
+@keyframes componentSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.component-svg {
+    width: 280px;
+    height: 120px;
+    filter: drop-shadow(0 0 12px var(--glow-green));
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.component:hover .component-svg {
+    filter: drop-shadow(0 0 25px var(--circuit-green));
+    transform: scale(1.15);
+}
+
+.component:active .component-svg {
+    transform: scale(1.05);
+}
+
+.component-label {
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px var(--glow-green);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.component-label::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--circuit-green);
+    box-shadow: 0 0 10px var(--circuit-green);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateX(-50%);
+}
+
+.component:hover .component-label::after {
+    width: 100%;
+}
+
+.component:hover .component-label {
+    text-shadow: 0 0 20px var(--circuit-green);
+    letter-spacing: 4px;
+}
+
+.component-value {
+    font-size: 1rem;
+    color: var(--accent-green);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.component:hover .component-value {
+    opacity: 1;
+}
+
+/* Header */
+.header {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    animation: headerFadeIn 1s ease-out 0.2s forwards;
+}
+
+@keyframes headerFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.portfolio-title {
+    font-size: 2.5rem;
+    letter-spacing: 8px;
+    text-shadow: 0 0 20px var(--glow-green);
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+/* Voltage Indicator */
+.voltage-indicator {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+}
+
+.voltage-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 60px;
+}
+
+.voltage-bar {
+    width: 150px;
+    height: 8px;
+    background: var(--bg-darker);
+    border: 2px solid var(--circuit-green);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.voltage-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, var(--dim-green), var(--circuit-green));
+    box-shadow: 0 0 15px var(--glow-green);
+    animation: voltageFlicker 3s ease-in-out infinite;
+}
+
+@keyframes voltageFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Ground Symbol */
+.ground-symbol {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    z-index: 10;
+    opacity: 0;
+    animation: groundFadeIn 0.5s ease-out 1.8s forwards;
+}
+
+@keyframes groundFadeIn {
+    to {
+        opacity: 0.6;
+    }
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .component-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 60px;
+    }
+    
+    .resistor {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    
+    .capacitor {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .inductor {
+        grid-column: 3;
+        grid-row: 2;
+    }
+}
+
+@media (max-width: 767px) {
+    .portfolio-title {
+        font-size: 1.8rem;
+        letter-spacing: 4px;
+    }
+    
+    .component-svg {
+        width: 220px;
+        height: 100px;
+    }
+    
+    .component-label {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+    }
+    
+    .circuit-traces {
+        opacity: 0.3;
+    }
+}
+
+/* Cursor effect */
+body::before {
+    content: '';
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--circuit-green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Loading Animation */
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+.circuit-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to bottom, 
+        transparent, 
+        var(--circuit-green), 
+        transparent);
+    opacity: 0.3;
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+    z-index: 100;
 }

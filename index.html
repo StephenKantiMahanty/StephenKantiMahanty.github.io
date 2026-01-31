@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="circuit-container">
+        <!-- Background grid pattern -->
+        <div class="grid-background"></div>
+        
+        <!-- Circuit traces (connecting lines) -->
+        <svg class="circuit-traces" viewBox="0 0 1200 800" preserveAspectRatio="none">
+            <!-- Main power line -->
+            <path d="M 100 400 L 300 400" class="trace trace-1" />
+            
+            <!-- Branch to Projects (Resistor) -->
+            <path d="M 300 400 L 450 400" class="trace trace-2" />
+            
+            <!-- Branch to About (Capacitor) -->
+            <path d="M 300 400 L 300 200 L 600 200" class="trace trace-3" />
+            
+            <!-- Branch to Experience (Inductor) -->
+            <path d="M 300 400 L 300 600 L 900 600" class="trace trace-4" />
+            
+            <!-- Connection points -->
+            <circle cx="300" cy="400" r="5" class="junction-point" />
+            <circle cx="100" cy="400" r="6" class="power-point" />
+        </svg>
+        
+        <!-- Circuit Components as Navigation -->
+        <div class="component-container">
+            <!-- Resistor - Projects -->
+            <a href="projects/index.html" class="component resistor" data-component="resistor">
+                <svg viewBox="0 0 200 80" class="component-svg">
+                    <!-- Resistor body -->
+                    <rect x="20" y="25" width="160" height="30" fill="none" stroke="currentColor" stroke-width="2"/>
+                    
+                    <!-- Resistor bands (color coding) -->
+                    <rect x="50" y="25" width="8" height="30" fill="var(--accent-green)" opacity="0.8"/>
+                    <rect x="75" y="25" width="8" height="30" fill="var(--accent-green)" opacity="0.6"/>
+                    <rect x="100" y="25" width="8" height="30" fill="var(--accent-green)" opacity="0.4"/>
+                    <rect x="125" y="25" width="8" height="30" fill="var(--accent-green)" opacity="0.9"/>
+                    
+                    <!-- Connection wires -->
+                    <line x1="0" y1="40" x2="20" y2="40" stroke="currentColor" stroke-width="2"/>
+                    <line x1="180" y1="40" x2="200" y2="40" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span class="component-label">PROJECTS</span>
+                <span class="component-value">R1</span>
+            </a>
+            
+            <!-- Capacitor - About Me -->
+            <a href="about/index.html" class="component capacitor" data-component="capacitor">
+                <svg viewBox="0 0 200 80" class="component-svg">
+                    <!-- Capacitor plates -->
+                    <line x1="95" y1="10" x2="95" y2="70" stroke="currentColor" stroke-width="3"/>
+                    <line x1="105" y1="10" x2="105" y2="70" stroke="currentColor" stroke-width="3"/>
+                    
+                    <!-- Curved plate indicators -->
+                    <path d="M 105 15 Q 115 40 105 65" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+                    
+                    <!-- Connection wires -->
+                    <line x1="0" y1="40" x2="95" y2="40" stroke="currentColor" stroke-width="2"/>
+                    <line x1="105" y1="40" x2="200" y2="40" stroke="currentColor" stroke-width="2"/>
+                    
+                    <!-- Plus/minus indicators -->
+                    <text x="75" y="45" font-size="20" fill="currentColor">+</text>
+                    <text x="115" y="45" font-size="20" fill="currentColor">−</text>
+                </svg>
+                <span class="component-label">ABOUT ME</span>
+                <span class="component-value">C1</span>
+            </a>
+            
+            <!-- Inductor - Experience -->
+            <a href="experience/index.html" class="component inductor" data-component="inductor">
+                <svg viewBox="0 0 200 80" class="component-svg">
+                    <!-- Inductor coils -->
+                    <path d="M 20 40 Q 35 20 50 40 Q 65 60 80 40 Q 95 20 110 40 Q 125 60 140 40 Q 155 20 170 40" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          stroke-width="2.5"
+                          stroke-linecap="round"/>
+                    
+                    <!-- Connection wires -->
+                    <line x1="0" y1="40" x2="20" y2="40" stroke="currentColor" stroke-width="2"/>
+                    <line x1="170" y1="40" x2="200" y2="40" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span class="component-label">EXPERIENCE</span>
+                <span class="component-value">L1</span>
+            </a>
+        </div>
+        
+        <!-- Title/Header -->
+        <div class="header">
+            <h1 class="portfolio-title">ENGINEERING PORTFOLIO</h1>
+            <div class="voltage-indicator">
+                <span class="voltage-value">5.0V</span>
+                <div class="voltage-bar">
+                    <div class="voltage-fill"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ground symbol -->
+        <div class="ground-symbol">
+            <svg viewBox="0 0 60 60" width="60" height="60">
+                <line x1="30" y1="0" x2="30" y2="20" stroke="var(--circuit-green)" stroke-width="2"/>
+                <line x1="10" y1="20" x2="50" y2="20" stroke="var(--circuit-green)" stroke-width="2"/>
+                <line x1="15" y1="28" x2="45" y2="28" stroke="var(--circuit-green)" stroke-width="2"/>
+                <line x1="20" y1="36" x2="40" y2="36" stroke="var(--circuit-green)" stroke-width="2"/>
+            </svg>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

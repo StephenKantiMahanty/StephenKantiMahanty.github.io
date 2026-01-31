@@ -1,7 +1,0 @@
----
-title: "About Me"
----
-
-# About Me
-
-Write your bio, background, and interests here.

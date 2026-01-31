@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience - Engineering Portfolio</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="section-styles.css">
+</head>
+<body>
+    <div class="section-container">
+        <div class="grid-background"></div>
+        
+        <!-- Back button as circuit component -->
+        <a href="../index.html" class="back-button">
+            <svg viewBox="0 0 100 40" class="back-svg">
+                <line x1="10" y1="20" x2="90" y2="20" stroke="currentColor" stroke-width="2"/>
+                <polyline points="20,10 10,20 20,30" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span>BACK TO CIRCUIT</span>
+        </a>
+        
+        <!-- Section Header -->
+        <header class="section-header">
+            <div class="component-icon">
+                <svg viewBox="0 0 200 80" class="header-component-svg">
+                    <path d="M 20 40 Q 35 20 50 40 Q 65 60 80 40 Q 95 20 110 40 Q 125 60 140 40 Q 155 20 170 40" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          stroke-width="2.5"
+                          stroke-linecap="round"/>
+                    <line x1="0" y1="40" x2="20" y2="40" stroke="currentColor" stroke-width="2"/>
+                    <line x1="170" y1="40" x2="200" y2="40" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </div>
+            <h1 class="section-title">EXPERIENCE</h1>
+            <p class="section-subtitle">Component: L1 (Inductor) | Status: Energized</p>
+        </header>
+        
+        <!-- Content Area -->
+        <main class="section-content">
+            <div class="content-wrapper">
+                <p class="placeholder-text">
+                    Your experience content will appear here.
+                    <br><br>
+                    Replace this placeholder with your actual experience information from your index.qmd file.
+                </p>
+            </div>
+        </main>
+        
+        <!-- Circuit decoration -->
+        <svg class="decoration-circuit" viewBox="0 0 400 400">
+            <circle cx="200" cy="200" r="150" fill="none" stroke="var(--circuit-green)" stroke-width="2" opacity="0.2"/>
+            <circle cx="200" cy="200" r="100" fill="none" stroke="var(--circuit-green)" stroke-width="1" opacity="0.3"/>
+            <line x1="50" y1="200" x2="350" y2="200" stroke="var(--circuit-green)" stroke-width="1" opacity="0.2"/>
+            <line x1="200" y1="50" x2="200" y2="350" stroke="var(--circuit-green)" stroke-width="1" opacity="0.2"/>
+        </svg>
+    </div>
+    
+    <script src="../script.js"></script>
+    <script src="section-script.js"></script>
+</body>
+</html>
