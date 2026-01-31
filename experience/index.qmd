@@ -1,0 +1,13 @@
+---
+title: "Industry Experience"
+format:
+  html:
+    page-layout: article
+---
+
+## Internship at Tech Corp
+**Role:** Electrical Engineering Intern  
+**Date:** Summer 2024
+
+* Designed PCBs using Altium Designer.
+* Validated hardware using oscilloscopes and logic analyzers.
