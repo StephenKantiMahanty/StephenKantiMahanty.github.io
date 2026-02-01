@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subpage Title - Your Name</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="subpage-styles.css">
+</head>
+<body>
+
+    <!-- Back Button -->
+    <a href="../index.html" class="back-button">
+        <svg viewBox="0 0 100 40" class="back-svg">
+            <line x1="10" y1="20" x2="90" y2="20" stroke="currentColor" stroke-width="2"/>
+            <polyline points="20,10 10,20 20,30" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span>BACK</span>
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">PORTFOLIO / PROJECTS</p>
+            <h1 class="hero-title">SUBPAGE TITLE</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-description">
+                Replace this with a short description of what this page is about.
+                A sentence or two is plenty.
+            </p>
+        </div>
+        <div class="hero-scroll-hint">
+            <span>SCROLL</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Image Sections: each image gets its own full-width row -->
+    <section class="content">
+
+        <!-- IMAGE BLOCK 1 -->
+        <article class="image-block">
+            <div class="image-block-inner">
+                <div class="image-number">01</div>
+                <div class="image-frame">
+                    <img src="images/img1.jpg" alt="Description of image 1">
+                </div>
+                <p class="image-caption">Caption for image 1. Describe what's shown here.</p>
+            </div>
+        </article>
+
+        <!-- IMAGE BLOCK 2 -->
+        <article class="image-block">
+            <div class="image-block-inner">
+                <div class="image-number">02</div>
+                <div class="image-frame">
+                    <img src="images/img2.jpg" alt="Description of image 2">
+                </div>
+                <p class="image-caption">Caption for image 2. Describe what's shown here.</p>
+            </div>
+        </article>
+
+        <!-- IMAGE BLOCK 3 -->
+        <article class="image-block">
+            <div class="image-block-inner">
+                <div class="image-number">03</div>
+                <div class="image-frame">
+                    <img src="images/img3.jpg" alt="Description of image 3">
+                </div>
+                <p class="image-caption">Caption for image 3. Describe what's shown here.</p>
+            </div>
+        </article>
+
+        <!--
+            ADD MORE IMAGES:
+            Copy the image-block article above, increment the number,
+            update the src and caption. That's it.
+        -->
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="subpage-footer">
+        <a href="../index.html" class="footer-back-link">← BACK TO CIRCUIT</a>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">✕</span>
+        <img id="lightbox-img" src="" alt="Lightbox">
+    </div>
+
+    <script src="subpage-script.js"></script>
+</body>
+</html>

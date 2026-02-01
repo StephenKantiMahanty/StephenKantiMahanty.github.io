@@ -45,13 +45,12 @@ body {
 
 /* Circuit Container */
 .circuit-container {
-    position: relative;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    overflow: hidden;
 }
 
 /* Circuit Traces (SVG Lines) */
@@ -75,21 +74,17 @@ body {
     animation: drawTrace 2s ease-out forwards;
 }
 
-.trace-1 {
-    animation-delay: 0.2s;
-}
-
-.trace-2 {
-    animation-delay: 0.5s;
-}
-
-.trace-3 {
-    animation-delay: 0.8s;
-}
-
-.trace-4 {
-    animation-delay: 1.1s;
-}
+.trace-1 { animation-delay: 0.2s; }
+.trace-2 { animation-delay: 0.6s; }
+.trace-3 { animation-delay: 0.9s; }
+.trace-4 { animation-delay: 0.6s; }
+.trace-5 { animation-delay: 1.2s; }
+.trace-6 { animation-delay: 1.5s; }
+.trace-7 { animation-delay: 1.8s; }
+.trace-8 { animation-delay: 1.8s; }
+.trace-9 { animation-delay: 1.8s; }
+.trace-10 { animation-delay: 2.1s; }
+.trace-11 { animation-delay: 2.4s; }
 
 @keyframes drawTrace {
     to {
@@ -101,14 +96,28 @@ body {
     fill: var(--circuit-green);
     filter: drop-shadow(0 0 6px var(--glow-green));
     opacity: 0;
-    animation: pointFadeIn 0.5s ease-out 1.4s forwards;
+    animation: pointFadeIn 0.5s ease-out forwards;
 }
+
+.junction-1 { animation-delay: 0.5s; }
+.junction-2 { animation-delay: 0.8s; }
+.junction-3 { animation-delay: 1.1s; }
+.junction-4 { animation-delay: 2.0s; }
+.junction-5 { animation-delay: 2.2s; }
+.junction-6 { animation-delay: 2.4s; }
 
 .power-point {
     fill: var(--circuit-green);
     filter: drop-shadow(0 0 10px var(--glow-green));
     opacity: 0;
     animation: pointFadeIn 0.5s ease-out 0.3s forwards, powerPulse 2s ease-in-out 2s infinite;
+}
+
+.ground-point {
+    fill: var(--circuit-green);
+    filter: drop-shadow(0 0 10px var(--glow-green));
+    opacity: 0;
+    animation: pointFadeIn 0.5s ease-out 2.6s forwards;
 }
 
 @keyframes pointFadeIn {
@@ -130,46 +139,64 @@ body {
 
 /* Component Container */
 .component-container {
-    position: relative;
-    z-index: 10;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 120px;
-    max-width: 1400px;
-    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: none; 
+    display: block;
 }
 
 /* Individual Components */
 .component {
+    position: absolute;
+    transform: translate(-50%, -50%); 
+    margin: 0;
+    
+    /* CRITICAL: Add these properties that were missing */
     text-decoration: none;
     color: var(--circuit-green);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    position: relative;
+    gap: 15px;
+    
     opacity: 0;
-    transform: translateY(30px);
-    animation: componentSlideIn 0.8s ease-out forwards;
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: componentSlideIn 0.8s ease-out forwards;
+}
+
+.component:visited {
+    color: var(--circuit-green);
 }
 
 .resistor {
     animation-delay: 0.6s;
+    top: 299px; 
+    left: 851px;
 }
 
 .capacitor {
     animation-delay: 0.9s;
+    top: 412px;
+    left: 851px;
 }
 
 .inductor {
     animation-delay: 1.2s;
+    top: 187px;
+    left: 851px;
 }
 
 @keyframes componentSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(30px);
+    }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate(-50%, -50%) translateY(0);
     }
 }
 
@@ -182,7 +209,6 @@ body {
 
 .component:hover .component-svg {
     filter: drop-shadow(0 0 25px var(--circuit-green));
-    transform: scale(1.15);
 }
 
 .component:active .component-svg {
@@ -257,12 +283,19 @@ body {
     font-weight: 300;
 }
 
-/* Voltage Indicator */
+/* Voltage Indicator - Moved below circuit */
 .voltage-indicator {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: 15px;
     justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    animation: headerFadeIn 1s ease-out 0.4s forwards;
 }
 
 .voltage-value {
@@ -296,12 +329,12 @@ body {
 
 /* Ground Symbol */
 .ground-symbol {
-    position: absolute;
-    bottom: 40px;
-    left: 80px;
+    position: relative;
+    bottom: -33px;
+    left: 600px;
     z-index: 10;
     opacity: 0;
-    animation: groundFadeIn 0.5s ease-out 1.8s forwards;
+    animation: groundFadeIn 4.5s ease-out 1.8s forwards;
 }
 
 @keyframes groundFadeIn {
@@ -311,46 +344,22 @@ body {
 }
 
 /* Responsive Design */
-@media (min-width: 768px) {
-    .component-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 60px;
-    }
-    
-    .resistor {
-        grid-column: 2;
-        grid-row: 1;
-    }
-    
-    .capacitor {
-        grid-column: 1;
-        grid-row: 2;
-    }
-    
-    .inductor {
-        grid-column: 3;
-        grid-row: 2;
+/* Responsive Scaling */
+@media (max-width: 1024px) {
+    .circuit-board {
+        transform: scale(0.8);
     }
 }
 
-@media (max-width: 767px) {
-    .portfolio-title {
-        font-size: 1.8rem;
-        letter-spacing: 4px;
+@media (max-width: 768px) {
+    .circuit-board {
+        transform: scale(0.6);
     }
-    
-    .component-svg {
-        width: 220px;
-        height: 100px;
-    }
-    
-    .component-label {
-        font-size: 1.2rem;
-        letter-spacing: 2px;
-    }
-    
-    .circuit-traces {
-        opacity: 0.3;
+}
+
+@media (max-width: 480px) {
+    .circuit-board {
+        transform: scale(0.4);
     }
 }
 
@@ -394,3 +403,23 @@ body::before {
     pointer-events: none;
     z-index: 100;
 }
+
+/* Fallback if you aren't using the text-group wrapper */
+.inductor .component-label,
+.inductor .component-value {
+    top: -50px !important; /* Negative number pulls it UP above the line */
+    position: relative;    /* Ensures the top value takes effect */
+}
+
+.resistor .component-label,
+.resistor .component-value {
+    top: -20px !important; /* Negative number pulls it UP above the line */
+    position: relative;    /* Ensures the top value takes effect */
+}
+
+.capacitor .component-label,
+.capacitor .component-value {
+    top: -10px !important; /* Negative number pulls it UP above the line */
+    position: relative;    /* Ensures the top value takes effect */
+}
+

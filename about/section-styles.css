@@ -2,7 +2,6 @@
 .section-container {
     position: relative;
     min-height: 100vh;
-    padding: 40px;
     display: flex;
     flex-direction: column;
 }
@@ -64,6 +63,8 @@
     margin-bottom: 60px;
     opacity: 0;
     animation: fadeInDown 0.8s ease-out 0.5s forwards;
+    position: relative;
+    z-index: 10;
 }
 
 @keyframes fadeInDown {
@@ -114,107 +115,226 @@
     opacity: 0.8;
 }
 
-/* Content Area */
+/* Content Area - Now contains circuit */
 .section-content {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
     position: relative;
-    z-index: 10;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out 0.8s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
+/* Subsection Circuit SVG */
+.subsection-circuit-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.8s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
     }
+}
+
+.sub-trace {
+    fill: none;
+    stroke: var(--accent-green);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 8px var(--glow-green));
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawSubTrace 2s ease-out forwards;
+}
+
+.sub-trace-1 { animation-delay: 0.9s; }
+.sub-trace-2 { animation-delay: 1.2s; }
+.sub-trace-3 { animation-delay: 1.4s; }
+.sub-trace-4 { animation-delay: 1.2s; }
+.sub-trace-5 { animation-delay: 1.6s; }
+.sub-trace-6 { animation-delay: 1.8s; }
+.sub-trace-7 { animation-delay: 2.0s; }
+.sub-trace-8 { animation-delay: 2.0s; }
+.sub-trace-9 { animation-delay: 2.0s; }
+.sub-trace-10 { animation-delay: 2.3s; }
+.sub-trace-11 { animation-delay: 2.6s; }
+
+@keyframes drawSubTrace {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.sub-junction {
+    fill: var(--accent-green);
+    filter: drop-shadow(0 0 6px var(--glow-green));
+    opacity: 0;
+    animation: pointFadeIn 0.5s ease-out forwards;
+}
+
+.sub-junction:nth-of-type(1) { animation-delay: 1.3s; }
+.sub-junction:nth-of-type(2) { animation-delay: 1.5s; }
+.sub-junction:nth-of-type(3) { animation-delay: 1.7s; }
+.sub-junction:nth-of-type(4) { animation-delay: 2.4s; }
+.sub-junction:nth-of-type(5) { animation-delay: 2.5s; }
+.sub-junction:nth-of-type(6) { animation-delay: 2.6s; }
+
+@keyframes pointFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.sub-power-point {
+    fill: var(--circuit-green);
+    filter: drop-shadow(0 0 10px var(--glow-green));
+    opacity: 0;
+    animation: pointFadeIn 0.5s ease-out 0.9s forwards, powerPulse 2s ease-in-out 3s infinite;
+}
+
+@keyframes powerPulse {
+    0%, 100% { 
+        filter: drop-shadow(0 0 10px var(--glow-green));
+        transform: scale(1);
+    }
+    50% { 
+        filter: drop-shadow(0 0 20px var(--glow-green));
+        transform: scale(1.3);
+    }
+}
+
+.sub-ground-point {
+    fill: var(--circuit-green);
+    filter: drop-shadow(0 0 10px var(--glow-green));
+    opacity: 0;
+    animation: pointFadeIn 0.5s ease-out 2.8s forwards;
+}
+
+/* Subsection Links Container */
+.subsection-links-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 200px;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Subsection Component Links */
+.subsection-component-link {
+    text-decoration: none;
+    color: var(--circuit-green);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.subsection-top {
+    animation: componentSlideIn 0.8s ease-out 1.5s forwards;
+}
+
+.subsection-middle {
+    animation: componentSlideIn 0.8s ease-out 1.7s forwards;
+}
+
+.subsection-bottom {
+    animation: componentSlideIn 0.8s ease-out 1.9s forwards;
+}
+
+@keyframes componentSlideIn {
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.content-wrapper {
-    max-width: 900px;
-    width: 100%;
-    background: rgba(10, 14, 26, 0.7);
-    border: 2px solid var(--circuit-green);
-    border-radius: 8px;
-    padding: 50px;
-    box-shadow: 
-        0 0 30px rgba(0, 255, 65, 0.2),
-        inset 0 0 50px rgba(0, 0, 0, 0.5);
-    position: relative;
-    overflow: hidden;
+.subsection-component-link:hover {
+    transform: scale(1.1);
 }
 
-.content-wrapper::before {
+.subsection-component-link:active {
+    transform: scale(1.05);
+}
+
+.subsection-component-svg {
+    width: 200px;
+    height: 100px;
+    filter: drop-shadow(0 0 12px var(--glow-green));
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.subsection-component-link:hover .subsection-component-svg {
+    filter: drop-shadow(0 0 25px var(--circuit-green));
+}
+
+.subsection-component-label {
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px var(--glow-green);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.subsection-component-label::after {
     content: '';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, 
-        var(--circuit-green), 
-        transparent, 
-        var(--accent-green), 
-        transparent);
-    border-radius: 8px;
-    opacity: 0.3;
-    z-index: -1;
-    animation: borderGlow 4s linear infinite;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--circuit-green);
+    box-shadow: 0 0 10px var(--circuit-green);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateX(-50%);
 }
 
-@keyframes borderGlow {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+.subsection-component-link:hover .subsection-component-label::after {
+    width: 100%;
 }
 
-.placeholder-text {
-    color: var(--circuit-green);
-    font-size: 1.1rem;
-    line-height: 2;
-    text-align: center;
+.subsection-component-link:hover .subsection-component-label {
+    text-shadow: 0 0 20px var(--circuit-green);
+    letter-spacing: 4px;
+}
+
+.subsection-component-value {
+    font-size: 0.9rem;
+    color: var(--accent-green);
     opacity: 0.7;
+    transition: opacity 0.3s ease;
 }
 
-/* Decoration Circuit */
-.decoration-circuit {
+.subsection-component-link:hover .subsection-component-value {
+    opacity: 1;
+}
+
+/* Ground Symbol */
+.subsection-ground-symbol {
     position: fixed;
-    bottom: -100px;
-    right: -100px;
-    width: 400px;
-    height: 400px;
-    z-index: 1;
+    bottom: 40px;
+    right: 80px;
+    z-index: 10;
     opacity: 0;
-    animation: rotateIn 2s ease-out 1s forwards, rotate 30s linear infinite 3s;
+    animation: groundFadeIn 0.5s ease-out 3s forwards;
 }
 
-@keyframes rotateIn {
-    from {
-        opacity: 0;
-        transform: rotate(-180deg) scale(0.5);
-    }
+@keyframes groundFadeIn {
     to {
-        opacity: 1;
-        transform: rotate(0deg) scale(1);
-    }
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
+        opacity: 0.6;
     }
 }
 
@@ -223,10 +343,6 @@
     .section-title {
         font-size: 2.5rem;
         letter-spacing: 6px;
-    }
-    
-    .content-wrapper {
-        padding: 30px;
     }
     
     .back-button {
@@ -241,15 +357,32 @@
         height: 20px;
     }
     
-    .decoration-circuit {
-        width: 300px;
-        height: 300px;
-        bottom: -150px;
-        right: -150px;
+    .subsection-links-container {
+        gap: 150px;
+        max-width: 90%;
+    }
+    
+    .subsection-component-svg {
+        width: 160px;
+        height: 80px;
+    }
+    
+    .subsection-component-label {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+    }
+    
+    .subsection-circuit-svg {
+        opacity: 0.3;
+    }
+    
+    .subsection-ground-symbol {
+        right: 40px;
+        bottom: 30px;
     }
 }
 
-/* Smooth transitions on page load */
+/* Smooth page load */
 body {
     opacity: 0;
     animation: pageLoad 0.5s ease-out forwards;
