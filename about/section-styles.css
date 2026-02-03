@@ -18,7 +18,7 @@
     align-items: center;
     gap: 15px;
     padding: 15px 25px;
-    background: rgba(10, 14, 26, 0.9);
+    background: rgba(10, 14, 56, 0.9);
     border: 2px solid var(--circuit-green);
     border-radius: 4px;
     font-size: 0.9rem;
