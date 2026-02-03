@@ -20,8 +20,13 @@
             <span>BACK TO CIRCUIT</span>
         </a>
         
-        <!-- Section Header -->
-        <header class="section-header">
+        <!-- Section Indicator -->
+        <div class="section-indicator">
+            <span id="current-section">// BACKGROUND</span>
+        </div>
+        
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
             <div class="component-icon">
                 <svg viewBox="0 0 200 80" class="header-component-svg">
                     <line x1="95" y1="10" x2="95" y2="70" stroke="currentColor" stroke-width="3"/>
@@ -35,102 +40,50 @@
             </div>
             <h1 class="section-title">ABOUT ME</h1>
             <p class="section-subtitle">Value: 100 nF | Status: Charged</p>
-        </header>
+        </section>
         
-        <!-- Content Area -->
-        <main class="section-content">
-            <!-- Subsection Circuit -->
-            <svg class="subsection-circuit-svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid meet">
-                <!-- Input lines to gates from the right -->
-                <path d="M 600 220 L 650 220" class="sub-trace sub-trace-1" />
-                <path d="M 600 280 L 650 280" class="sub-trace sub-trace-2" />
-                <path d="M 600 420 L 650 420" class="sub-trace sub-trace-3" />
-                <path d="M 600 480 L 650 480" class="sub-trace sub-trace-4" />
-                <path d="M 600 620 L 650 620" class="sub-trace sub-trace-5" />
-                <path d="M 600 680 L 650 680" class="sub-trace sub-trace-6" />
-                
-                <!-- Output paths from gates -->
-                <path d="M 800 250 L 1000 250" class="sub-trace sub-trace-7" />
-                <path d="M 800 450 L 1000 450" class="sub-trace sub-trace-8" />
-                <path d="M 800 650 L 1000 650" class="sub-trace sub-trace-9" />
-                
-                <!-- Collector -->
-                <path d="M 1000 250 L 1000 650" class="sub-trace sub-trace-10" />
-                <path d="M 1000 450 L 1250 450" class="sub-trace sub-trace-11" />
-                
-                <!-- Junction points -->
-                <circle cx="1000" cy="450" r="5" class="sub-junction" />
-                <circle cx="1000" cy="250" r="4" class="sub-junction" />
-                <circle cx="1000" cy="650" r="4" class="sub-junction" />
-                
-                <!-- Ground -->
-                <circle cx="1250" cy="450" r="6" class="sub-ground-point" />
-            </svg>
-            
-            <!-- Component Links Container -->
-            <div class="subsection-links-container">
-                <!-- AND Gate -->
-                <a href="background/index.html" class="subsection-component-link subsection-top">
-                    <svg viewBox="0 0 120 80" class="subsection-component-svg">
-                        <path d="M 20 20 L 20 60 L 60 60 Q 100 60 100 40 Q 100 20 60 20 Z" 
-                              fill="none" stroke="currentColor" stroke-width="2"/>
-                        <line x1="0" y1="30" x2="20" y2="30" stroke="currentColor" stroke-width="2"/>
-                        <line x1="0" y1="50" x2="20" y2="50" stroke="currentColor" stroke-width="2"/>
-                        <line x1="100" y1="40" x2="120" y2="40" stroke="currentColor" stroke-width="2"/>
-                        <text x="35" y="45" font-size="16" fill="currentColor" font-weight="bold">&amp;</text>
-                    </svg>
-                    <span class="subsection-component-label">BACKGROUND</span>
-                    <span class="subsection-component-value">AND1</span>
-                </a>
-                
-                <!-- OR Gate -->
-                <a href="skills/index.html" class="subsection-component-link subsection-middle">
-                    <svg viewBox="0 0 120 80" class="subsection-component-svg">
-                        <path d="M 20 20 Q 40 40 20 60 L 60 60 Q 100 60 100 40 Q 100 20 60 20 Z" 
-                              fill="none" stroke="currentColor" stroke-width="2"/>
-                        <line x1="0" y1="30" x2="20" y2="30" stroke="currentColor" stroke-width="2"/>
-                        <line x1="0" y1="50" x2="20" y2="50" stroke="currentColor" stroke-width="2"/>
-                        <line x1="100" y1="40" x2="120" y2="40" stroke="currentColor" stroke-width="2"/>
-                        <text x="35" y="45" font-size="16" fill="currentColor" font-weight="bold">≥1</text>
-                    </svg>
-                    <span class="subsection-component-label">SKILLS</span>
-                    <span class="subsection-component-value">OR1</span>
-                </a>
-                
-                <!-- XOR Gate -->
-                <a href="interests/index.html" class="subsection-component-link subsection-bottom">
-                    <svg viewBox="0 0 120 80" class="subsection-component-svg">
-                        <path d="M 15 20 Q 35 40 15 60" fill="none" stroke="currentColor" stroke-width="2"/>
-                        <path d="M 25 20 Q 45 40 25 60 L 60 60 Q 100 60 100 40 Q 100 20 60 20 Z" 
-                              fill="none" stroke="currentColor" stroke-width="2"/>
-                        <line x1="0" y1="30" x2="20" y2="30" stroke="currentColor" stroke-width="2"/>
-                        <line x1="0" y1="50" x2="20" y2="50" stroke="currentColor" stroke-width="2"/>
-                        <line x1="100" y1="40" x2="120" y2="40" stroke="currentColor" stroke-width="2"/>
-                        <text x="35" y="45" font-size="16" fill="currentColor" font-weight="bold">=1</text>
-                    </svg>
-                    <span class="subsection-component-label">INTERESTS</span>
-                    <span class="subsection-component-value">XOR1</span>
-                </a>
+        <!-- Scrollable Content Sections -->
+        <section class="content-section" id="background" data-section="BACKGROUND">
+            <div class="content-wrapper">
+                <h2 class="section-heading">BACKGROUND</h2>
+                <div class="section-content-area">
+                    <p class="section-description">
+                        // Your background and personal journey
+                    </p>
+                    <div class="content-placeholder">
+                        <div class="placeholder-text">Content for Background section</div>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Ground symbol -->
-            <div class="subsection-ground-symbol">
-                <svg viewBox="0 0 60 60" width="60" height="60">
-                    <line x1="30" y1="0" x2="30" y2="20" stroke="var(--circuit-green)" stroke-width="2"/>
-                    <line x1="10" y1="20" x2="50" y2="20" stroke="var(--circuit-green)" stroke-width="2"/>
-                    <line x1="15" y1="28" x2="45" y2="28" stroke="var(--circuit-green)" stroke-width="2"/>
-                    <line x1="20" y1="36" x2="40" y2="36" stroke="var(--circuit-green)" stroke-width="2"/>
-                </svg>
-            </div>
-        </main>
+        </section>
         
-        <!-- Circuit decoration -->
-        <svg class="decoration-circuit" viewBox="0 0 400 400">
-            <circle cx="200" cy="200" r="150" fill="none" stroke="var(--circuit-green)" stroke-width="2" opacity="0.2"/>
-            <circle cx="200" cy="200" r="100" fill="none" stroke="var(--circuit-green)" stroke-width="1" opacity="0.3"/>
-            <line x1="50" y1="200" x2="350" y2="200" stroke="var(--circuit-green)" stroke-width="1" opacity="0.2"/>
-            <line x1="200" y1="50" x2="200" y2="350" stroke="var(--circuit-green)" stroke-width="1" opacity="0.2"/>
-        </svg>
+        <section class="content-section" id="skills" data-section="SKILLS">
+            <div class="content-wrapper">
+                <h2 class="section-heading">SKILLS</h2>
+                <div class="section-content-area">
+                    <p class="section-description">
+                        // Technical skills and competencies
+                    </p>
+                    <div class="content-placeholder">
+                        <div class="placeholder-text">Content for Skills section</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-section" id="interests" data-section="INTERESTS">
+            <div class="content-wrapper">
+                <h2 class="section-heading">INTERESTS</h2>
+                <div class="section-content-area">
+                    <p class="section-description">
+                        // Personal interests and hobbies
+                    </p>
+                    <div class="content-placeholder">
+                        <div class="placeholder-text">Content for Interests section</div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     
     <script src="../script.js"></script>

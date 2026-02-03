@@ -18,17 +18,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Add entrance animation for content
-    const contentWrapper = document.querySelector('.content-wrapper');
-    if (contentWrapper) {
-        // Simulate data loading effect
-        setTimeout(() => {
-            contentWrapper.style.transform = 'scale(1.02)';
-            setTimeout(() => {
-                contentWrapper.style.transform = 'scale(1)';
-            }, 200);
-        }, 1000);
-    }
+    // Keyboard shortcut to go back (ESC key)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && backButton) {
+            backButton.click();
+        }
+    });
+    
+    // Section indicator and scroll detection
+    const sectionIndicator = document.getElementById('current-section');
+    const contentSections = document.querySelectorAll('.content-section');
+    
+    // IntersectionObserver for section detection
+    const observerOptions = {
+        root: null,
+        rootMargin: '-50% 0px -50% 0px',
+        threshold: 0
+    };
+    
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionName = entry.target.getAttribute('data-section');
+                if (sectionIndicator && sectionName) {
+                    sectionIndicator.textContent = `// ${sectionName}`;
+                }
+                
+                // Add in-view class for animation
+                entry.target.classList.add('in-view');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all content sections
+    contentSections.forEach(section => {
+        sectionObserver.observe(section);
+    });
     
     // Glitch effect on header component
     const headerComponent = document.querySelector('.header-component-svg');
@@ -45,52 +70,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 100);
             }
         }, 1000);
-    }
-    
-    // Keyboard shortcut to go back (ESC key)
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && backButton) {
-            backButton.click();
-        }
-    });
-    
-    // Add power indicator to content wrapper
-    const contentWrapperElement = document.querySelector('.content-wrapper');
-    if (contentWrapperElement) {
-        const powerIndicator = document.createElement('div');
-        powerIndicator.style.position = 'absolute';
-        powerIndicator.style.top = '20px';
-        powerIndicator.style.right = '20px';
-        powerIndicator.style.display = 'flex';
-        powerIndicator.style.alignItems = 'center';
-        powerIndicator.style.gap = '8px';
-        powerIndicator.style.fontSize = '0.8rem';
-        powerIndicator.style.color = 'var(--accent-green)';
-        powerIndicator.style.opacity = '0.6';
-        
-        const indicator = document.createElement('div');
-        indicator.style.width = '8px';
-        indicator.style.height = '8px';
-        indicator.style.borderRadius = '50%';
-        indicator.style.background = 'var(--circuit-green)';
-        indicator.style.boxShadow = '0 0 10px var(--circuit-green)';
-        indicator.style.animation = 'blink 2s ease-in-out infinite';
-        
-        const text = document.createElement('span');
-        text.textContent = 'ACTIVE';
-        
-        powerIndicator.appendChild(indicator);
-        powerIndicator.appendChild(text);
-        contentWrapperElement.appendChild(powerIndicator);
-        
-        // Add blink animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes blink {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.3; }
-            }
-        `;
-        document.head.appendChild(style);
     }
 });

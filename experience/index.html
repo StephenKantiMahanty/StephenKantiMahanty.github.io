@@ -20,8 +20,13 @@
             <span>BACK TO CIRCUIT</span>
         </a>
         
-        <!-- Section Header -->
-        <header class="section-header">
+        <!-- Section Indicator -->
+        <div class="section-indicator">
+            <span id="current-section">// WORK EXPERIENCE</span>
+        </div>
+        
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
             <div class="component-icon">
                 <svg viewBox="0 0 200 80" class="header-component-svg">
                     <path d="M 20 40 Q 35 20 50 40 Q 65 60 80 40 Q 95 20 110 40 Q 125 60 140 40 Q 155 20 170 40" 
@@ -35,123 +40,50 @@
             </div>
             <h1 class="section-title">EXPERIENCE</h1>
             <p class="section-subtitle">Component: L1 (Inductor) | Status: Energized</p>
-        </header>
+        </section>
         
-        <!-- Content Area -->
-        <main class="section-content">
-            <!-- Subsection Circuit -->
-            <svg class="subsection-circuit-svg" viewBox="0 0 1400 900" preserveAspectRatio="none">
-                <!-- Power line -->
-                <path d="M 150 450 L 400 450" class="sub-trace sub-trace-1" />
-                
-                <!-- Branch to top transistor -->
-                <path d="M 400 450 L 400 250" class="sub-trace sub-trace-2" />
-                <path d="M 400 250 L 600 250" class="sub-trace sub-trace-3" />
-                
-                <!-- Middle transistor -->
-                <path d="M 400 450 L 600 450" class="sub-trace sub-trace-4" />
-                
-                <!-- Bottom transistor -->
-                <path d="M 400 450 L 400 650" class="sub-trace sub-trace-5" />
-                <path d="M 400 650 L 600 650" class="sub-trace sub-trace-6" />
-                
-                <!-- Return paths -->
-                <path d="M 800 250 L 1000 250" class="sub-trace sub-trace-7" />
-                <path d="M 800 450 L 1000 450" class="sub-trace sub-trace-8" />
-                <path d="M 800 650 L 1000 650" class="sub-trace sub-trace-9" />
-                
-                <!-- Collector -->
-                <path d="M 1000 250 L 1000 650" class="sub-trace sub-trace-10" />
-                <path d="M 1000 450 L 1250 450" class="sub-trace sub-trace-11" />
-                
-                <!-- Junction points -->
-                <circle cx="400" cy="450" r="5" class="sub-junction" />
-                <circle cx="400" cy="250" r="4" class="sub-junction" />
-                <circle cx="400" cy="650" r="4" class="sub-junction" />
-                <circle cx="1000" cy="450" r="5" class="sub-junction" />
-                <circle cx="1000" cy="250" r="4" class="sub-junction" />
-                <circle cx="1000" cy="650" r="4" class="sub-junction" />
-                
-                <!-- Power & Ground -->
-                <circle cx="150" cy="450" r="6" class="sub-power-point" />
-                <circle cx="1250" cy="450" r="6" class="sub-ground-point" />
-            </svg>
-            
-            <!-- Component Links Container -->
-            <div class="subsection-links-container">
-                <!-- NPN Transistor -->
-                <a href="work/index.html" class="subsection-component-link subsection-top">
-                    <svg viewBox="0 0 120 80" class="subsection-component-svg">
-                        <circle cx="60" cy="40" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
-                        <line x1="45" y1="25" x2="45" y2="55" stroke="currentColor" stroke-width="3"/>
-                        <line x1="0" y1="40" x2="45" y2="40" stroke="currentColor" stroke-width="2"/>
-                        <line x1="45" y1="30" x2="75" y2="15" stroke="currentColor" stroke-width="2"/>
-                        <line x1="75" y1="15" x2="75" y2="0" stroke="currentColor" stroke-width="2"/>
-                        <line x1="45" y1="50" x2="75" y2="65" stroke="currentColor" stroke-width="2"/>
-                        <line x1="75" y1="65" x2="75" y2="80" stroke="currentColor" stroke-width="2"/>
-                        <polygon points="70,60 75,65 70,70" fill="currentColor"/>
-                        <text x="85" y="12" font-size="10" fill="currentColor">C</text>
-                        <text x="85" y="75" font-size="10" fill="currentColor">E</text>
-                    </svg>
-                    <span class="subsection-component-label">WORK EXPERIENCE</span>
-                    <span class="subsection-component-value">Q1</span>
-                </a>
-                
-                <!-- PNP Transistor -->
-                <a href="research/index.html" class="subsection-component-link subsection-middle">
-                    <svg viewBox="0 0 120 80" class="subsection-component-svg">
-                        <circle cx="60" cy="40" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
-                        <line x1="45" y1="25" x2="45" y2="55" stroke="currentColor" stroke-width="3"/>
-                        <line x1="0" y1="40" x2="45" y2="40" stroke="currentColor" stroke-width="2"/>
-                        <line x1="45" y1="30" x2="75" y2="15" stroke="currentColor" stroke-width="2"/>
-                        <line x1="75" y1="15" x2="75" y2="0" stroke="currentColor" stroke-width="2"/>
-                        <line x1="45" y1="50" x2="75" y2="65" stroke="currentColor" stroke-width="2"/>
-                        <line x1="75" y1="65" x2="75" y2="80" stroke="currentColor" stroke-width="2"/>
-                        <polygon points="50,25 45,30 50,35" fill="currentColor"/>
-                        <text x="85" y="12" font-size="10" fill="currentColor">E</text>
-                        <text x="85" y="75" font-size="10" fill="currentColor">C</text>
-                    </svg>
-                    <span class="subsection-component-label">RESEARCH</span>
-                    <span class="subsection-component-value">Q2</span>
-                </a>
-                
-                <!-- MOSFET -->
-                <a href="leadership/index.html" class="subsection-component-link subsection-bottom">
-                    <svg viewBox="0 0 120 80" class="subsection-component-svg">
-                        <circle cx="60" cy="40" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
-                        <line x1="50" y1="20" x2="50" y2="60" stroke="currentColor" stroke-width="3"/>
-                        <line x1="0" y1="40" x2="45" y2="40" stroke="currentColor" stroke-width="2"/>
-                        <line x1="55" y1="25" x2="75" y2="25" stroke="currentColor" stroke-width="2"/>
-                        <line x1="75" y1="25" x2="75" y2="0" stroke="currentColor" stroke-width="2"/>
-                        <line x1="55" y1="40" x2="75" y2="40" stroke="currentColor" stroke-width="2"/>
-                        <line x1="75" y1="40" x2="75" y2="80" stroke="currentColor" stroke-width="2"/>
-                        <line x1="55" y1="55" x2="75" y2="55" stroke="currentColor" stroke-width="2"/>
-                        <text x="85" y="12" font-size="10" fill="currentColor">D</text>
-                        <text x="85" y="75" font-size="10" fill="currentColor">S</text>
-                    </svg>
-                    <span class="subsection-component-label">LEADERSHIP</span>
-                    <span class="subsection-component-value">Q3</span>
-                </a>
+        <!-- Scrollable Content Sections -->
+        <section class="content-section" id="work" data-section="WORK EXPERIENCE">
+            <div class="content-wrapper">
+                <h2 class="section-heading">WORK EXPERIENCE</h2>
+                <div class="section-content-area">
+                    <p class="section-description">
+                        // Professional work experience and roles
+                    </p>
+                    <div class="content-placeholder">
+                        <div class="placeholder-text">Content for Work Experience section</div>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Ground symbol -->
-            <div class="subsection-ground-symbol">
-                <svg viewBox="0 0 60 60" width="60" height="60">
-                    <line x1="30" y1="0" x2="30" y2="20" stroke="var(--circuit-green)" stroke-width="2"/>
-                    <line x1="10" y1="20" x2="50" y2="20" stroke="var(--circuit-green)" stroke-width="2"/>
-                    <line x1="15" y1="28" x2="45" y2="28" stroke="var(--circuit-green)" stroke-width="2"/>
-                    <line x1="20" y1="36" x2="40" y2="36" stroke="var(--circuit-green)" stroke-width="2"/>
-                </svg>
-            </div>
-        </main>
+        </section>
         
-        <!-- Circuit decoration -->
-        <svg class="decoration-circuit" viewBox="0 0 400 400">
-            <circle cx="200" cy="200" r="150" fill="none" stroke="var(--circuit-green)" stroke-width="2" opacity="0.2"/>
-            <circle cx="200" cy="200" r="100" fill="none" stroke="var(--circuit-green)" stroke-width="1" opacity="0.3"/>
-            <line x1="50" y1="200" x2="350" y2="200" stroke="var(--circuit-green)" stroke-width="1" opacity="0.2"/>
-            <line x1="200" y1="50" x2="200" y2="350" stroke="var(--circuit-green)" stroke-width="1" opacity="0.2"/>
-        </svg>
+        <section class="content-section" id="research" data-section="RESEARCH">
+            <div class="content-wrapper">
+                <h2 class="section-heading">RESEARCH</h2>
+                <div class="section-content-area">
+                    <p class="section-description">
+                        // Research projects and publications
+                    </p>
+                    <div class="content-placeholder">
+                        <div class="placeholder-text">Content for Research section</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-section" id="leadership" data-section="LEADERSHIP">
+            <div class="content-wrapper">
+                <h2 class="section-heading">LEADERSHIP</h2>
+                <div class="section-content-area">
+                    <p class="section-description">
+                        // Leadership roles and activities
+                    </p>
+                    <div class="content-placeholder">
+                        <div class="placeholder-text">Content for Leadership section</div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     
     <script src="../script.js"></script>
