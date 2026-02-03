@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Section indicator and scroll detection
     const sectionIndicator = document.getElementById('current-section');
     const contentSections = document.querySelectorAll('.content-section');
+    const sectionsArray = Array.from(contentSections);
+    
+    // Get all section names
+    const allSectionNames = sectionsArray.map(section => section.getAttribute('data-section'));
     
     // IntersectionObserver for section detection
     const observerOptions = {
@@ -40,8 +44,19 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const sectionName = entry.target.getAttribute('data-section');
-                if (sectionIndicator && sectionName) {
-                    sectionIndicator.textContent = `// ${sectionName}`;
+                const currentIndex = sectionsArray.indexOf(entry.target);
+                
+                if (sectionIndicator) {
+                    // Build the indicator HTML with all sections
+                    let indicatorHTML = '';
+                    
+                    allSectionNames.forEach((name, index) => {
+                        const isActive = index === currentIndex;
+                        const className = isActive ? '' : 'inactive';
+                        indicatorHTML += `<span class="${className}">// ${name}</span>`;
+                    });
+                    
+                    sectionIndicator.innerHTML = indicatorHTML;
                 }
                 
                 // Add in-view class for animation

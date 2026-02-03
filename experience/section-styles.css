@@ -49,8 +49,8 @@ html {
 /* Section Indicator */
 .section-indicator {
     position: fixed;
-    top: 120px;
-    left: 30px;
+    top: 30px;
+    right: 30px;
     z-index: 100;
     color: var(--circuit-green);
     font-size: 0.85rem;
@@ -61,15 +61,31 @@ html {
     border: 2px solid var(--circuit-green);
     border-radius: 4px;
     opacity: 0;
-    transform: translateX(-30px);
-    animation: slideInFromLeft 0.6s ease-out 0.5s forwards;
+    transform: translateX(30px);
+    animation: slideInFromRight 0.6s ease-out 0.5s forwards;
     box-shadow: 0 0 15px var(--glow-green);
     transition: all 0.3s ease;
+    text-align: right;
+}
+
+@keyframes slideInFromRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .section-indicator span {
     display: block;
     text-shadow: 0 0 10px var(--glow-green);
+    transition: all 0.3s ease;
+}
+
+.section-indicator span.inactive {
+    color: #808080;
+    opacity: 0.4;
+    text-shadow: none;
+    font-weight: normal;
 }
 
 .back-svg {
