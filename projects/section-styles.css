@@ -88,6 +88,12 @@ html {
     font-weight: normal;
 }
 
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .back-svg {
     width: 60px;
     height: 24px;
