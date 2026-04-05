@@ -312,8 +312,12 @@ function renderDrawing(holes, allEntities, useIn, bounds) {
     const MARGIN = 40;        // px
     const TITLE_H = 80;       // title block height px
     const W = 900, H = 620;
-    canvas.width  = W;
-    canvas.height = H;
+    const PIXEL_RATIO = 3;    // render at 3× for high-res PNG export
+    canvas.width  = W * PIXEL_RATIO;
+    canvas.height = H * PIXEL_RATIO;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.scale(PIXEL_RATIO, PIXEL_RATIO);
 
     const drawW = W - MARGIN * 2;
     const drawH = H - MARGIN * 2 - TITLE_H;
