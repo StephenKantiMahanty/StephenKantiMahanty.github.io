@@ -1,0 +1,321 @@
+.section-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+body {
+    opacity: 0;
+    animation: pageLoad 0.5s ease-out forwards;
+}
+
+.upload-page {
+    min-height: 100vh;
+    position: relative;
+}
+
+.hero-section {
+    min-height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    padding: 100px 24px 40px;
+}
+
+.viewer-hero {
+    min-height: 38vh;
+}
+
+.component-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeInDown 0.8s ease-out 0.4s forwards;
+}
+
+.header-component-svg {
+    width: 200px;
+    height: 80px;
+    filter: drop-shadow(0 0 15px var(--glow-green));
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.section-title {
+    font-size: 3rem;
+    letter-spacing: 10px;
+    text-shadow: 0 0 30px var(--glow-green);
+    margin-bottom: 14px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeInDown 0.8s ease-out 0.6s forwards;
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: var(--accent-green);
+    letter-spacing: 3px;
+    opacity: 0;
+    animation: fadeInDown 0.8s ease-out 0.8s forwards;
+}
+
+.content-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 10;
+}
+
+.content-wrapper {
+    width: min(100%, 1000px);
+    opacity: 0;
+    transform: translateY(40px);
+    animation: contentRise 0.6s ease-out 0.7s forwards;
+}
+
+.section-heading {
+    font-size: 2rem;
+    letter-spacing: 6px;
+    text-shadow: 0 0 20px var(--glow-green);
+    margin-bottom: 22px;
+    font-weight: 300;
+    color: var(--circuit-green);
+    border-bottom: 2px solid var(--circuit-green);
+    padding-bottom: 18px;
+    box-shadow: 0 2px 15px var(--glow-green);
+}
+
+.section-content-area {
+    padding: 28px;
+    background: rgba(10, 14, 56, 0.68);
+    border: 2px solid var(--circuit-green);
+    border-radius: 8px;
+    box-shadow: 0 0 20px var(--glow-green);
+}
+
+.section-description {
+    font-size: 1.05rem;
+    color: var(--accent-green);
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.upload-form {
+    display: grid;
+    gap: 16px;
+}
+
+.upload-dropzone {
+    display: grid;
+    gap: 8px;
+    padding: 28px;
+    border: 2px dashed var(--accent-green);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.25s ease;
+}
+
+.upload-dropzone:hover,
+.upload-dropzone.drag-active {
+    border-color: var(--circuit-green);
+    box-shadow: 0 0 16px var(--glow-green);
+    transform: translateY(-2px);
+}
+
+.upload-dropzone-title {
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    color: var(--circuit-green);
+}
+
+.upload-dropzone-subtitle,
+.file-summary,
+.status-message,
+.link-label {
+    color: var(--accent-green);
+}
+
+.file-summary,
+.status-message {
+    min-height: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.upload-button,
+.secondary-button {
+    appearance: none;
+    border: 2px solid var(--circuit-green);
+    background: rgba(0, 0, 0, 0.28);
+    color: var(--circuit-green);
+    font: inherit;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.upload-button {
+    justify-self: start;
+    padding-inline: 24px;
+    box-shadow: 0 0 14px var(--glow-green);
+}
+
+.upload-button:hover,
+.secondary-button:hover {
+    background: var(--circuit-green);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--glow-green);
+}
+
+.upload-button:disabled,
+.secondary-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.preview-panel,
+.result-panel {
+    margin-top: 22px;
+    padding: 20px;
+    border: 1px solid rgba(0, 255, 65, 0.35);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.panel-title {
+    margin-bottom: 14px;
+    color: var(--circuit-green);
+    letter-spacing: 2px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.preview-panel img,
+.viewer-frame img {
+    display: block;
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 65, 0.25);
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.link-row,
+.action-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.link-row {
+    margin-bottom: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 255, 65, 0.12);
+}
+
+.link-value {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    color: var(--circuit-green);
+    margin-top: 4px;
+}
+
+.danger {
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+.danger:hover {
+    background: #ff6b6b;
+    color: #0a0e1a;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.35);
+}
+
+.viewer-wrapper {
+    width: min(100%, 900px);
+}
+
+.viewer-frame {
+    margin: 20px 0 24px;
+    padding: 18px;
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.22);
+}
+
+.viewer-actions {
+    justify-content: flex-start;
+}
+
+@keyframes contentRise {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pageLoad {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 38vh;
+        padding-top: 82px;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+        letter-spacing: 6px;
+    }
+
+    .section-heading {
+        font-size: 1.6rem;
+        letter-spacing: 4px;
+    }
+
+    .section-content-area {
+        padding: 20px;
+    }
+
+    .upload-dropzone {
+        padding: 20px;
+    }
+
+    .link-row,
+    .action-row {
+        align-items: flex-start;
+    }
+}

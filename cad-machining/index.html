@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAD</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="section-container cad-page">
+        <div class="grid-background"></div>
+
+        <section class="hero-section">
+            <div class="component-icon">
+                <svg viewBox="0 0 200 80" class="header-component-svg" aria-hidden="true">
+                    <!-- Drill bit icon -->
+                    <line x1="10" y1="40" x2="80" y2="40" stroke="currentColor" stroke-width="2"/>
+                    <polygon points="80,34 100,40 80,46" fill="currentColor"/>
+                    <!-- Workpiece with holes -->
+                    <rect x="110" y="22" width="80" height="36" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="130" cy="40" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <line x1="130" y1="30" x2="130" y2="50" stroke="currentColor" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+                    <line x1="120" y1="40" x2="140" y2="40" stroke="currentColor" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+                    <circle cx="160" cy="40" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <line x1="160" y1="32" x2="160" y2="48" stroke="currentColor" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+                    <line x1="152" y1="40" x2="168" y2="40" stroke="currentColor" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+                </svg>
+            </div>
+            <h1 class="section-title">CAD</h1>
+            <p class="section-subtitle">Input: DXF export | Output: Drawing + Instructions</p>
+        </section>
+
+        <section class="content-section">
+            <div class="content-wrapper">
+
+                <!-- HOW TO USE -->
+                <div class="how-to-panel">
+                    <span class="how-to-label">// HOW TO USE</span>
+                    <ol class="how-to-steps">
+                        <li>In SolidWorks: <strong>File → Save As → DXF/DWG</strong> (choose flat pattern or drawing view)</li>
+                        <li>Open the saved <code>.dxf</code> file in a text editor, select all, copy</li>
+                        <li>Paste into the box below <em>or</em> use the file upload button</li>
+                        <li>Click <strong>Analyze</strong> — holes are detected and the drawing is generated</li>
+                        <li><strong>Boundary &amp; edge distances:</strong> the dashed rectangle on the drawing marks the part boundary (bounding box of all DXF geometry). Centerlines extend edge-to-edge and are labelled with the distance from each hole centre to that boundary edge. The table shows <em>Edge (ctr)</em> — nearest boundary distance from hole centre — and <em>Wall (min)</em> — remaining material (edge dist − radius). For accurate results, export the part outline too: in SolidWorks flat-pattern DXF export tick <strong>Include all sketch entities</strong> so the outer profile exports as geometry (LWPOLYLINE/LINE), not just the holes.</li>
+                    </ol>
+                </div>
+
+                <!-- TWO-COLUMN LAYOUT -->
+                <div class="two-col">
+
+                    <!-- LEFT: INPUT -->
+                    <div class="input-col">
+                        <h2 class="section-heading">INPUT</h2>
+                        <div class="section-content-area">
+                            <p class="section-description">// Paste DXF text or upload a .dxf file</p>
+
+                            <label class="upload-dropzone" for="dxf-file-input" id="dropzone">
+                                <input id="dxf-file-input" type="file" accept=".dxf,.dxb,.sldprt,.sldasm,.slddrw" hidden>
+                                <span class="upload-dropzone-title">Drop file here or click to browse</span>
+                                <span class="upload-dropzone-subtitle">SolidWorks parts (.sldprt, .sldasm, .slddrw) or DXF export</span>
+                            </label>
+
+                            <div class="or-divider"><span>OR</span></div>
+
+                            <textarea
+                                id="dxf-paste"
+                                class="dxf-textarea"
+                                placeholder="Paste DXF content here..."
+                                spellcheck="false"
+                                autocomplete="off"
+                            ></textarea>
+
+                            <div class="input-actions">
+                                <button class="upload-button" id="analyze-btn">Analyze</button>
+                                <button class="secondary-button" id="clear-btn">Clear</button>
+                            </div>
+
+                            <p class="status-message" id="status-msg" role="status" aria-live="polite"></p>
+                        </div>
+
+                        <!-- OPTIONS -->
+                        <h2 class="section-heading" style="margin-top:28px">OPTIONS</h2>
+                        <div class="section-content-area">
+                            <div class="option-row">
+                                <label class="option-label" for="unit-select">Units</label>
+                                <select id="unit-select" class="option-select">
+                                    <option value="mm">Millimeters (mm)</option>
+                                    <option value="in">Inches (in)</option>
+                                </select>
+                            </div>
+                            <div class="option-row">
+                                <label class="option-label" for="thread-select">Thread standard</label>
+                                <select id="thread-select" class="option-select">
+                                    <option value="metric">Metric (M-series)</option>
+                                    <option value="imperial">Imperial (UNC/UNF)</option>
+                                </select>
+                            </div>
+                            <div class="option-row">
+                                <label class="option-label" for="material-select">Material</label>
+                                <select id="material-select" class="option-select">
+                                    <option value="al">Aluminium</option>
+                                    <option value="steel">Mild Steel</option>
+                                    <option value="ss">Stainless Steel</option>
+                                    <option value="brass">Brass</option>
+                                    <option value="plastic">Plastic/Nylon</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: DRAWING OUTPUT -->
+                    <div class="output-col">
+                        <div class="drawing-header">
+                            <h2 class="section-heading">TECHNICAL DRAWING</h2>
+                            <button class="secondary-button" id="export-btn" disabled>Export PNG</button>
+                        </div>
+                        <div class="canvas-wrapper" id="canvas-wrapper">
+                            <div class="canvas-placeholder" id="canvas-placeholder">
+                                <svg viewBox="0 0 120 80" width="80" opacity="0.3" aria-hidden="true">
+                                    <rect x="5" y="5" width="110" height="70" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    <circle cx="35" cy="35" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="35" y1="20" x2="35" y2="50" stroke="currentColor" stroke-width="1" stroke-dasharray="3,2"/>
+                                    <line x1="20" y1="35" x2="50" y2="35" stroke="currentColor" stroke-width="1" stroke-dasharray="3,2"/>
+                                    <circle cx="80" cy="30" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    <circle cx="80" cy="55" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="5" y1="62" x2="115" y2="62" stroke="currentColor" stroke-width="1"/>
+                                    <text x="10" y="71" font-size="6" fill="currentColor" font-family="monospace">DRAWING WILL APPEAR HERE</text>
+                                </svg>
+                            </div>
+                            <canvas id="drawing-canvas" style="display:none"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MACHINING INSTRUCTIONS (full width, shown after analysis) -->
+                <div id="instructions-section" class="hidden">
+                    <h2 class="section-heading" style="margin-top:36px">MACHINING INSTRUCTIONS</h2>
+                    <div class="section-content-area">
+                        <p class="section-description" id="summary-line"></p>
+
+                        <!-- Hole table -->
+                        <div class="table-scroll">
+                            <table class="hole-table" id="hole-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Ø (dia)</th>
+                                        <th>Center X</th>
+                                        <th>Center Y</th>
+                                        <th>Edge (ctr)</th>
+                                        <th>Wall (min)</th>
+                                        <th>Type</th>
+                                        <th>Drill Size</th>
+                                        <th>Tap / Thread</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hole-tbody"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Step-by-step operations -->
+                        <h3 class="ops-heading">OPERATIONS SEQUENCE</h3>
+                        <ol class="ops-list" id="ops-list"></ol>
+
+                        <!-- Speed & feed notes -->
+                        <h3 class="ops-heading">SPEED &amp; FEED GUIDANCE</h3>
+                        <div class="sf-grid" id="sf-grid"></div>
+
+                        <div class="print-row">
+                            <button class="secondary-button" id="print-btn">Print Instructions</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
