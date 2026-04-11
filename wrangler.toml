@@ -1,7 +1,10 @@
 name = "stephen-kanti-mahanty-portfolio"
 main = "worker.js"
 compatibility_date = "2026-03-22"
-assets = { directory = ".", binding = "ASSETS" }
+
+[assets]
+directory = "."
+binding = "ASSETS"
 
 [[r2_buckets]]
 binding = "UPLOADS_BUCKET"

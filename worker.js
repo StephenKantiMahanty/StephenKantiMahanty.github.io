@@ -268,8 +268,8 @@ async function handleRawImage(request, env, id) {
 }
 
 async function handleChat(request, env) {
-  if (!env.ANTHROPIC_API_KEY) {
-    return jsonResponse({ error: 'ANTHROPIC_API_KEY secret not configured.' }, { status: 503 });
+  if (!env.GEMINI_API_KEY) {
+    return jsonResponse({ error: 'GEMINI_API_KEY secret not configured.' }, { status: 503 });
   }
 
   let body;
@@ -285,30 +285,32 @@ async function handleChat(request, env) {
   }
 
   // Trim to last 40 turns to keep context manageable
-  const trimmed = messages.slice(-40);
+  // Gemini uses "model" instead of "assistant" for the role
+  const trimmed = messages.slice(-40).map((m) => ({
+    role: m.role === 'assistant' ? 'model' : m.role,
+    parts: [{ text: m.content }],
+  }));
 
-  const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': env.ANTHROPIC_API_KEY,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 1024,
-      system: STEPHEN_SYSTEM_PROMPT,
-      messages: trimmed,
-    }),
-  });
+  const geminiRes = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${env.GEMINI_API_KEY}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: STEPHEN_SYSTEM_PROMPT }] },
+        contents: trimmed,
+        generationConfig: { maxOutputTokens: 1024 },
+      }),
+    }
+  );
 
-  if (!anthropicRes.ok) {
-    const err = await anthropicRes.json().catch(() => ({}));
+  if (!geminiRes.ok) {
+    const err = await geminiRes.json().catch(() => ({}));
     return jsonResponse({ error: err.error?.message || 'Upstream API error.' }, { status: 502 });
   }
 
-  const data = await anthropicRes.json();
-  const content = data.content?.[0]?.text ?? '';
+  const data = await geminiRes.json();
+  const content = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
   return jsonResponse({ content });
 }
 
