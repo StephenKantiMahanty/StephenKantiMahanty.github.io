@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="grid-background"></div>
+
+    <main class="page-shell">
+        <section class="hero-panel">
+            <div class="hero-copy">
+                <p class="eyebrow">Gesture Scoring Experiment</p>
+                <h1>CIRCULAR</h1>
+                <p class="lede">
+                    Draw a clean circle made of points. The score rewards a consistent radius,
+                    an unbroken loop, and tightly packed points.
+                </p>
+            </div>
+
+            <div class="controls">
+                <button id="clear-button" type="button">Clear Field</button>
+                <button id="demo-button" type="button">Show Target</button>
+            </div>
+        </section>
+
+        <section class="experience-panel">
+            <div class="hud-panel">
+                <div class="score-card total">
+                    <span class="label">Total Score</span>
+                    <strong id="total-score">0</strong>
+                    <span id="score-message" class="hint">Press and drag inside the field.</span>
+                </div>
+
+                <div class="score-grid">
+                    <article class="score-card">
+                        <span class="label">Radius</span>
+                        <strong id="radius-score">0</strong>
+                        <span id="radius-detail" class="detail">Consistency of distance from center</span>
+                    </article>
+
+                    <article class="score-card">
+                        <span class="label">Connectivity</span>
+                        <strong id="connectivity-score">0</strong>
+                        <span id="connectivity-detail" class="detail">Continuous stroke with minimal gaps</span>
+                    </article>
+
+                    <article class="score-card">
+                        <span class="label">Density</span>
+                        <strong id="density-score">0</strong>
+                        <span id="density-detail" class="detail">Points packed tightly along the path</span>
+                    </article>
+                </div>
+
+                <div class="telemetry">
+                    <div class="telemetry-row">
+                        <span>Points</span>
+                        <strong id="point-count">0</strong>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Estimated Radius</span>
+                        <strong id="radius-value">0 px</strong>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Loop Closure</span>
+                        <strong id="closure-value">0%</strong>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Average Gap</span>
+                        <strong id="gap-value">0 px</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="canvas-panel">
+                <div class="canvas-header">
+                    <span>Active Field</span>
+                    <span id="status-pill" class="status-pill">Waiting</span>
+                </div>
+                <canvas id="drawing-surface" width="880" height="640" aria-label="Circle drawing surface"></canvas>
+                <div class="canvas-footer">
+                    <p>Hold mouse or touch and trace one loop.</p>
+                    <p>Release to lock the score. Clear field to retry.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
