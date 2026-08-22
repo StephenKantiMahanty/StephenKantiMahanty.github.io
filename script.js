@@ -1,158 +1,102 @@
-// Smooth page transitions
+// Shared navigation, interaction, and accessibility behavior.
 document.addEventListener('DOMContentLoaded', () => {
-    // Add click sound effect simulation through visual feedback
-    const components = document.querySelectorAll('.component');
-    
-    components.forEach(component => {
-        component.addEventListener('click', (e) => {
-            // Create ripple effect
-            const ripple = document.createElement('div');
-            ripple.style.position = 'absolute';
-            ripple.style.width = '10px';
-            ripple.style.height = '10px';
-            ripple.style.background = 'var(--circuit-green)';
-            ripple.style.borderRadius = '50%';
-            ripple.style.pointerEvents = 'none';
-            ripple.style.left = e.clientX + 'px';
-            ripple.style.top = e.clientY + 'px';
-            ripple.style.transform = 'translate(-50%, -50%)';
-            ripple.style.animation = 'rippleEffect 0.6s ease-out';
-            ripple.style.zIndex = '1000';
-            
-            document.body.appendChild(ripple);
-            
-            setTimeout(() => ripple.remove(), 600);
-            
-            // Add flash effect to the component
-            const componentType = component.dataset.component;
-            component.style.filter = 'brightness(1.5)';
-            setTimeout(() => {
-                component.style.filter = '';
-            }, 200);
-        });
-        
-        // Hover effect for traces
-        component.addEventListener('mouseenter', () => {
-            const traces = document.querySelectorAll('.trace');
-            traces.forEach(trace => {
-                trace.style.stroke = 'var(--accent-green)';
-                trace.style.strokeWidth = '4';
-            });
-        });
-        
-        component.addEventListener('mouseleave', () => {
-            const traces = document.querySelectorAll('.trace');
-            traces.forEach(trace => {
-                trace.style.stroke = 'var(--circuit-green)';
-                trace.style.strokeWidth = '3';
-            });
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const components = Array.from(document.querySelectorAll('.component'));
+    const navigationLinks = document.querySelectorAll('.component, .back-button');
+    const traces = document.querySelectorAll('.trace');
+
+    // Give internal navigation enough time to show its circuit-box confirmation.
+    navigationLinks.forEach(link => {
+        link.addEventListener('click', event => {
+            const isModifiedClick = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+            const opensElsewhere = link.target && link.target !== '_self';
+
+            if (event.defaultPrevented || isModifiedClick || opensElsewhere || link.hasAttribute('download')) {
+                return;
+            }
+
+            event.preventDefault();
+
+            if (document.body.classList.contains('page-leaving')) {
+                return;
+            }
+
+            link.classList.add('is-activating');
+
+            if (prefersReducedMotion) {
+                window.location.assign(link.href);
+                return;
+            }
+
+            window.setTimeout(() => {
+                document.body.classList.add('page-leaving');
+            }, 180);
+
+            window.setTimeout(() => {
+                window.location.assign(link.href);
+            }, 380);
         });
     });
-    
-    // Voltage bar animation
+
+    // Highlight the complete circuit path while a navigation component is engaged.
+    components.forEach(component => {
+        const setTraceState = active => {
+            traces.forEach(trace => {
+                trace.style.stroke = active ? 'var(--accent-green)' : '';
+                trace.style.strokeWidth = active ? '4' : '';
+            });
+        };
+
+        component.addEventListener('mouseenter', () => setTraceState(true));
+        component.addEventListener('mouseleave', () => setTraceState(false));
+        component.addEventListener('focus', () => setTraceState(true));
+        component.addEventListener('blur', () => setTraceState(false));
+    });
+
+    // Keep the voltage display alive only on the homepage.
     const voltageValue = document.querySelector('.voltage-value');
     const voltageFill = document.querySelector('.voltage-fill');
-    
-    setInterval(() => {
-        const voltage = (4.95 + Math.random() * 0.1).toFixed(2);
-        voltageValue.textContent = voltage + 'V';
-        
-        const fillPercent = ((voltage - 4.95) / 0.1) * 100;
-        voltageFill.style.opacity = 0.8 + (fillPercent / 1000);
-    }, 2000);
-    
-    // Smooth scroll and page transitions
-    window.addEventListener('beforeunload', () => {
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.3s ease-out';
-    });
-    
-    // Custom cursor trail effect
-    let cursorTrail = [];
-    const maxTrailLength = 5;
-    
-    document.addEventListener('mousemove', (e) => {
-        const trail = document.createElement('div');
-        trail.className = 'cursor-trail';
-        trail.style.position = 'fixed';
-        trail.style.width = '4px';
-        trail.style.height = '4px';
-        trail.style.background = 'var(--circuit-green)';
-        trail.style.borderRadius = '50%';
-        trail.style.pointerEvents = 'none';
-        trail.style.left = e.clientX + 'px';
-        trail.style.top = e.clientY + 'px';
-        trail.style.transform = 'translate(-50%, -50%)';
-        trail.style.zIndex = '9998';
-        trail.style.opacity = '0.5';
-        trail.style.transition = 'all 0.5s ease-out';
-        
-        document.body.appendChild(trail);
-        cursorTrail.push(trail);
-        
-        if (cursorTrail.length > maxTrailLength) {
-            const oldTrail = cursorTrail.shift();
-            oldTrail.style.opacity = '0';
-            oldTrail.style.transform = 'translate(-50%, -50%) scale(0)';
-            setTimeout(() => oldTrail.remove(), 500);
-        }
-        
-        setTimeout(() => {
-            trail.style.opacity = '0';
-            trail.style.transform = 'translate(-50%, -50%) scale(0)';
-        }, 300);
-    });
-    
-    // Keyboard navigation
-    let currentComponentIndex = 0;
-    const componentElements = Array.from(components);
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-            e.preventDefault();
-            currentComponentIndex = (currentComponentIndex + 1) % componentElements.length;
-            componentElements[currentComponentIndex].focus();
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-            e.preventDefault();
-            currentComponentIndex = (currentComponentIndex - 1 + componentElements.length) % componentElements.length;
-            componentElements[currentComponentIndex].focus();
-        } else if (e.key === 'Enter' || e.key === ' ') {
-            if (document.activeElement.classList.contains('component')) {
-                e.preventDefault();
+
+    if (voltageValue && voltageFill && !prefersReducedMotion) {
+        window.setInterval(() => {
+            const voltage = (4.95 + Math.random() * 0.1).toFixed(2);
+            voltageValue.textContent = `${voltage}V`;
+
+            const fillPercent = ((voltage - 4.95) / 0.1) * 100;
+            voltageFill.style.opacity = 0.8 + (fillPercent / 1000);
+        }, 2000);
+    }
+
+    // Arrow keys cycle through the three homepage components.
+    if (components.length) {
+        let currentComponentIndex = 0;
+
+        document.addEventListener('keydown', event => {
+            const activeIndex = components.indexOf(document.activeElement);
+            if (activeIndex >= 0) {
+                currentComponentIndex = activeIndex;
+            }
+
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                event.preventDefault();
+                currentComponentIndex = (currentComponentIndex + 1) % components.length;
+                components[currentComponentIndex].focus();
+            } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                event.preventDefault();
+                currentComponentIndex = (currentComponentIndex - 1 + components.length) % components.length;
+                components[currentComponentIndex].focus();
+            } else if (event.key === ' ' && document.activeElement.classList.contains('component')) {
+                event.preventDefault();
                 document.activeElement.click();
             }
-        }
-    });
-    
-    // Add focus styles programmatically
-    components.forEach(component => {
-        component.setAttribute('tabindex', '0');
-        
-        component.addEventListener('focus', () => {
-            component.style.outline = '2px solid var(--circuit-green)';
-            component.style.outlineOffset = '10px';
         });
-        
-        component.addEventListener('blur', () => {
-            component.style.outline = 'none';
-        });
-    });
+    }
 });
 
-// Add ripple animation to CSS dynamically
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes rippleEffect {
-        0% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-            box-shadow: 0 0 0px var(--circuit-green);
-        }
-        100% {
-            transform: translate(-50%, -50%) scale(20);
-            opacity: 0;
-            box-shadow: 0 0 30px var(--circuit-green);
-        }
-    }
-`;
-document.head.appendChild(style);
+// Restore pages returned from the browser's back/forward cache.
+window.addEventListener('pageshow', () => {
+    document.body.classList.remove('page-leaving');
+    document.querySelectorAll('.is-activating').forEach(element => {
+        element.classList.remove('is-activating');
+    });
+});

@@ -1,22 +1,7 @@
 // Section page specific functionality
 document.addEventListener('DOMContentLoaded', () => {
-    // Smooth back button transition
+    // The shared script supplies the back-button transition.
     const backButton = document.querySelector('.back-button');
-    
-    if (backButton) {
-        backButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetUrl = backButton.getAttribute('href');
-            
-            // Add exit animation
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.4s ease-out';
-            
-            setTimeout(() => {
-                window.location.href = targetUrl;
-            }, 400);
-        });
-    }
     
     // Keyboard shortcut to go back (ESC key)
     document.addEventListener('keydown', (e) => {
@@ -70,9 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionObserver.observe(section);
     });
     
-    // Glitch effect on header component
+    // Keep the subtle header glitch for users who have not reduced motion.
     const headerComponent = document.querySelector('.header-component-svg');
-    if (headerComponent) {
+    if (headerComponent && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         setInterval(() => {
             // Random glitch effect
             if (Math.random() > 0.95) {

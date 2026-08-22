@@ -21,6 +21,32 @@ body {
     overflow-x: hidden;
     min-height: 100vh;
     position: relative;
+    opacity: 1;
+    transition: opacity 0.2s ease-out, filter 0.2s ease-out;
+    animation: sharedPageEnter 0.45s ease-out both;
+}
+
+html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 110px;
+}
+
+::selection {
+    color: var(--bg-darker);
+    background: var(--circuit-green);
+}
+
+@keyframes sharedPageEnter {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+body.page-leaving {
+    animation: none !important;
+    opacity: 0 !important;
+    filter: brightness(0.7);
+    pointer-events: none;
 }
 
 /* Grid Background */
@@ -72,6 +98,7 @@ body {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     animation: drawTrace 2s ease-out forwards;
+    transition: stroke 0.25s ease, stroke-width 0.25s ease, filter 0.25s ease;
 }
 
 .trace-1 { animation-delay: 0.2s; }
@@ -165,6 +192,27 @@ body {
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     animation: componentSlideIn 0.8s ease-out forwards;
+    isolation: isolate;
+}
+
+.component::before {
+    content: '';
+    position: absolute;
+    inset: -16px -22px;
+    z-index: -1;
+    border: 2px solid var(--circuit-green);
+    border-radius: 6px;
+    opacity: 0;
+    transform: scale(0.92);
+    pointer-events: none;
+}
+
+.component.is-activating::before {
+    animation: circuitBoxConfirm 0.38s ease-out both;
+}
+
+.component.is-activating {
+    filter: brightness(1.35);
 }
 
 .component:visited {
@@ -363,20 +411,6 @@ body {
     }
 }
 
-/* Cursor effect */
-body::before {
-    content: '';
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--circuit-green);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
 /* Loading Animation */
 @keyframes scanline {
     0% {
@@ -421,5 +455,180 @@ body::before {
 .capacitor .component-value {
     top: -10px !important; /* Negative number pulls it UP above the line */
     position: relative;    /* Ensures the top value takes effect */
+}
+
+/* Shared interaction polish */
+@keyframes circuitBoxConfirm {
+    0% {
+        opacity: 0;
+        transform: scale(0.92);
+        box-shadow: 0 0 0 rgba(0, 255, 65, 0);
+    }
+    35% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 24px var(--glow-green), inset 0 0 14px rgba(0, 255, 65, 0.12);
+    }
+    100% {
+        opacity: 0.15;
+        transform: scale(1.035);
+        box-shadow: 0 0 38px rgba(0, 255, 65, 0.18);
+    }
+}
+
+.component:focus-visible,
+.section-container .back-button:focus-visible {
+    outline: 2px solid var(--circuit-green);
+    outline-offset: 7px;
+    box-shadow: 0 0 24px var(--glow-green);
+}
+
+.section-container .back-button {
+    overflow: visible;
+    isolation: isolate;
+    will-change: transform;
+}
+
+.section-container .back-button::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    z-index: -1;
+    border: 2px solid var(--circuit-green);
+    border-radius: 7px;
+    opacity: 0;
+    transform: scale(0.92);
+    pointer-events: none;
+}
+
+.section-container .back-button.is-activating {
+    color: var(--bg-darker);
+    background: var(--circuit-green);
+    box-shadow: 0 0 28px var(--glow-green);
+}
+
+.section-container .back-button.is-activating::after {
+    animation: circuitBoxConfirm 0.38s ease-out both;
+}
+
+.section-container .back-button:active {
+    transform: translateX(-3px) scale(0.98);
+}
+
+.section-container .section-indicator {
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+}
+
+.section-container .section-content-area {
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-container .content-wrapper {
+    transition: opacity 0.65s ease-out, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-container .section-subtitle {
+    max-width: calc(100vw - 40px);
+    line-height: 1.7;
+    text-wrap: balance;
+}
+
+.section-container .content-placeholder img {
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.section-container .content-placeholder > div {
+    flex-wrap: wrap;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+* {
+    scrollbar-color: var(--dim-green) var(--bg-darker);
+    scrollbar-width: thin;
+}
+
+@media (hover: hover) {
+    .section-container .section-content-area:hover {
+        transform: translateY(-3px);
+        border-color: var(--accent-green);
+        box-shadow: 0 10px 32px rgba(0, 255, 65, 0.2);
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        scroll-padding-top: 90px;
+    }
+
+    .section-container .back-button {
+        top: 16px;
+        left: 16px;
+        min-height: 48px;
+    }
+
+    .section-container .section-indicator {
+        top: 16px;
+        right: 16px;
+        left: auto;
+        max-width: 45vw;
+        opacity: 1;
+        transform: none;
+        animation: none;
+        overflow-wrap: anywhere;
+    }
+
+    .section-container .section-content-area {
+        padding: 22px;
+    }
+
+    .section-container .center-image {
+        width: auto;
+        max-width: min(100%, 360px) !important;
+    }
+}
+
+@media (max-width: 520px) {
+    .section-container .back-button {
+        gap: 8px;
+        padding: 10px 12px;
+        letter-spacing: 1px;
+    }
+
+    .section-container .back-button span {
+        max-width: 9ch;
+        line-height: 1.2;
+    }
+
+    .section-container .section-indicator {
+        font-size: 0.66rem;
+        letter-spacing: 1px;
+        padding: 8px 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
