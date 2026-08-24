@@ -55,20 +55,4 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionObserver.observe(section);
     });
     
-    // Keep the subtle header glitch for users who have not reduced motion.
-    const headerComponent = document.querySelector('.header-component-svg');
-    if (headerComponent && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        setInterval(() => {
-            // Random glitch effect
-            if (Math.random() > 0.95) {
-                headerComponent.style.filter = 'drop-shadow(0 0 30px var(--circuit-green))';
-                headerComponent.style.transform = 'translateX(2px)';
-                
-                setTimeout(() => {
-                    headerComponent.style.filter = 'drop-shadow(0 0 15px var(--glow-green))';
-                    headerComponent.style.transform = 'translateX(0)';
-                }, 100);
-            }
-        }, 1000);
-    }
 });
