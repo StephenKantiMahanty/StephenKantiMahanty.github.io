@@ -10,41 +10,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Section indicator and scroll detection
+    // Clickable section navigation and scroll detection
     const sectionIndicator = document.getElementById('current-section');
     const contentSections = document.querySelectorAll('.content-section');
     const sectionsArray = Array.from(contentSections);
-    
-    // Get all section names
-    const allSectionNames = sectionsArray.map(section => section.getAttribute('data-section'));
+
+    const sectionLinks = sectionsArray.map((section, index) => {
+        const link = document.createElement('a');
+        link.className = `section-link${index === 0 ? ' is-active' : ''}`;
+        link.href = `#${section.id}`;
+        link.textContent = `// ${section.getAttribute('data-section')}`;
+        if (index === 0) link.setAttribute('aria-current', 'location');
+        sectionIndicator?.appendChild(link);
+        return link;
+    });
+
+    const setActiveSection = (activeSection) => {
+        const activeIndex = sectionsArray.indexOf(activeSection);
+        sectionLinks.forEach((link, index) => {
+            const isActive = index === activeIndex;
+            link.classList.toggle('is-active', isActive);
+            if (isActive) {
+                link.setAttribute('aria-current', 'location');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+    };
+
+    sectionLinks.forEach((link, index) => {
+        link.addEventListener('click', () => setActiveSection(sectionsArray[index]));
+    });
     
     // IntersectionObserver for section detection
     const observerOptions = {
         root: null,
-        rootMargin: '-50% 0px -50% 0px',
+        rootMargin: '-35% 0px -55% 0px',
         threshold: 0
     };
     
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const sectionName = entry.target.getAttribute('data-section');
-                const currentIndex = sectionsArray.indexOf(entry.target);
-                
-                if (sectionIndicator) {
-                    // Build the indicator HTML with all sections
-                    let indicatorHTML = '';
-                    
-                    allSectionNames.forEach((name, index) => {
-                        const isActive = index === currentIndex;
-                        const className = isActive ? '' : 'inactive';
-                        indicatorHTML += `<span class="${className}">// ${name}</span>`;
-                    });
-                    
-                    sectionIndicator.innerHTML = indicatorHTML;
-                }
-                
-                // Add in-view class for animation
+                setActiveSection(entry.target);
                 entry.target.classList.add('in-view');
             }
         });
