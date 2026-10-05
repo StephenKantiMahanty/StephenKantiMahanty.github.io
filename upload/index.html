@@ -25,26 +25,27 @@
 
         <section class="content-section">
             <div class="content-wrapper">
-                <h2 class="section-heading">UPLOAD IMAGE</h2>
+                <h2 class="section-heading">UPLOAD FILE</h2>
                 <div class="section-content-area">
                     <p class="section-description">
-                        // Upload an image, open it in a private tab, and let it disappear when you close the viewer.
+                        // Upload a file, download it from your private viewer, and delete it when you're done. Closing the viewer also requests deletion.
                     </p>
 
                     <form class="upload-form" id="upload-form">
-                        <label class="upload-dropzone" for="image-input">
-                            <input id="image-input" name="image" type="file" accept="image/*" required hidden>
-                            <span class="upload-dropzone-title">Choose an image</span>
-                            <span class="upload-dropzone-subtitle">PNG, JPG, GIF, WEBP, or other image formats</span>
+                        <label class="upload-dropzone" for="file-input">
+                            <input id="file-input" name="file" type="file" required hidden>
+                            <span class="upload-dropzone-title">Choose a file</span>
+                            <span class="upload-dropzone-subtitle">Any file type, up to 10 MB. Choose or drop a file here.</span>
                         </label>
 
                         <div class="file-summary" id="file-summary">No file selected.</div>
-                        <button class="upload-button" type="submit" id="upload-button">Upload image</button>
+                        <button class="upload-button" type="submit" id="upload-button">Upload file</button>
                     </form>
 
                     <div class="preview-panel hidden" id="preview-panel" aria-live="polite">
                         <h3 class="panel-title">Local preview</h3>
-                        <img id="preview-image" alt="Local image preview">
+                        <img id="preview-image" alt="Local image preview" hidden>
+                        <p id="preview-details" class="file-summary"></p>
                     </div>
 
                     <div class="result-panel hidden" id="result-panel" aria-live="polite">
@@ -60,10 +61,10 @@
 
                         <div class="link-row">
                             <div>
-                                <span class="link-label">Image URL</span>
-                                <code id="image-url" class="link-value"></code>
+                                <span class="link-label">Download URL</span>
+                                <code id="file-url" class="link-value"></code>
                             </div>
-                            <button class="secondary-button" type="button" data-copy-target="image-url">Copy</button>
+                            <button class="secondary-button" type="button" data-copy-target="file-url">Copy</button>
                         </div>
 
                         <div class="action-row">

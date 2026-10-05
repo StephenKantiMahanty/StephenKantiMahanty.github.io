@@ -1,35 +1,25 @@
 const viewerImage = document.getElementById('viewer-image');
 const viewerStatus = document.getElementById('viewer-status');
-const openRawButton = document.getElementById('open-raw-button');
+const fileDetails = document.getElementById('viewer-file-details');
+const downloadLink = document.getElementById('download-file-link');
 const closeDeleteButton = document.getElementById('close-delete-button');
 
 let deleteRequested = false;
-openRawButton.disabled = true;
+let currentUpload = null;
 closeDeleteButton.disabled = true;
 
 function getUploadId() {
-  const segments = window.location.pathname.split('/').filter(Boolean);
-  const uploadsIndex = segments.indexOf('uploads');
-  if (uploadsIndex === -1 || uploadsIndex + 1 >= segments.length) {
-    return null;
-  }
-
-  return segments[uploadsIndex + 1];
+  return window.location.pathname.match(/^\/uploads\/([^/]+)\/?$/)?.[1] || null;
 }
 
 function requestDeletion() {
-  if (deleteRequested) {
-    return;
-  }
-
-  const id = getUploadId();
-  if (!id) {
+  if (deleteRequested || !currentUpload) {
     return;
   }
 
   deleteRequested = true;
   const beacon = new Blob([''], { type: 'text/plain' });
-  const deleteUrl = new URL(`../../api/uploads/${id}/delete`, window.location.href).toString();
+  const deleteUrl = currentUpload.deleteUrl;
 
   if (navigator.sendBeacon && navigator.sendBeacon(deleteUrl, beacon)) {
     return;
@@ -39,43 +29,64 @@ function requestDeletion() {
     method: 'POST',
     credentials: 'include',
     keepalive: true,
-  });
+  }).catch(() => { deleteRequested = false; });
 }
 
-async function loadImage() {
+async function loadFile() {
   const id = getUploadId();
   if (!id) {
     viewerStatus.textContent = 'Invalid viewer URL.';
     return;
   }
 
-  const imageUrl = new URL(`../../uploads/${id}/image.png`, window.location.href).toString();
-  openRawButton.disabled = false;
-  closeDeleteButton.disabled = false;
-  openRawButton.addEventListener('click', () => {
-    window.open(imageUrl, '_blank', 'noopener,noreferrer');
-  });
+  try {
+    const response = await fetch(`/api/uploads/${encodeURIComponent(id)}`, { credentials: 'include' });
+    if (!response.ok) throw new Error('This private file is unavailable or has already been deleted.');
+    currentUpload = await response.json();
+    fileDetails.textContent = `${currentUpload.name} — ${(currentUpload.size / 1024 / 1024).toFixed(2)} MB — ${currentUpload.contentType}`;
+    downloadLink.href = currentUpload.fileUrl;
+    downloadLink.download = currentUpload.name;
+    downloadLink.classList.remove('hidden');
+    closeDeleteButton.disabled = false;
+    viewerStatus.textContent = 'Private file ready to download. Close this tab to request deletion.';
 
-  viewerImage.addEventListener('load', () => {
-    viewerStatus.textContent = 'Private image loaded. Close this tab to delete it.';
-    viewerImage.hidden = false;
-  });
-
-  viewerImage.addEventListener('error', () => {
-    viewerStatus.textContent = 'This private image is unavailable or has already been deleted.';
-    viewerImage.hidden = true;
-  });
-
-  viewerImage.src = imageUrl;
+    if (currentUpload.previewable) {
+      viewerImage.addEventListener('load', () => { viewerImage.hidden = false; });
+      viewerImage.addEventListener('error', () => {
+        viewerImage.hidden = true;
+        viewerStatus.textContent = 'Image preview unavailable. Use Download file to save the original.';
+      });
+      viewerImage.src = `${currentUpload.fileUrl}?preview=1`;
+    }
+  } catch (error) {
+    viewerStatus.textContent = error.message;
+  }
 }
 
 closeDeleteButton.addEventListener('click', async () => {
-  requestDeletion();
-  window.close();
-  viewerStatus.textContent = 'Deletion requested.';
+  if (!currentUpload || deleteRequested) return;
+  closeDeleteButton.disabled = true;
+  deleteRequested = true;
+  try {
+    const response = await fetch(currentUpload.deleteUrl, {
+      method: 'POST', credentials: 'include', keepalive: true,
+    });
+    if (!response.ok) throw new Error('Unable to delete the file. Please try again.');
+    viewerImage.hidden = true;
+    viewerImage.removeAttribute('src');
+    downloadLink.classList.add('hidden');
+    fileDetails.textContent = '';
+    currentUpload = null;
+    viewerStatus.textContent = 'File deleted. You can close this tab.';
+    window.close();
+  } catch (error) {
+    deleteRequested = false;
+    closeDeleteButton.disabled = false;
+    viewerStatus.textContent = error.message;
+  }
 });
 
 window.addEventListener('pagehide', requestDeletion);
 window.addEventListener('beforeunload', requestDeletion);
 
-loadImage();
+loadFile();

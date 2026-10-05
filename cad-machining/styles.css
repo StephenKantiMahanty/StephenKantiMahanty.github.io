@@ -4,8 +4,42 @@
    ============================================================ */
 
 body {
-    opacity: 0;
-    animation: pageLoad 0.5s ease-out forwards;
+    opacity: 1;
+    animation: none;
+    transition: none;
+}
+
+/* Keep the working interface out of retained animation/compositing layers. */
+.cad-page .content-wrapper {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+    transition: none;
+}
+
+.cad-page .section-content-area {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transform: none;
+    transition: none;
+}
+
+.cad-page .section-content-area:hover {
+    transform: none;
+}
+
+.cad-page .section-title,
+.cad-page .section-subtitle,
+.cad-page .component-icon {
+    opacity: 1;
+    transform: none;
+    animation: none;
+}
+
+.cad-page .section-title,
+.cad-page .section-heading {
+    text-shadow: none;
 }
 
 .cad-page {

@@ -1,0 +1,37 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Local private upload verification</title>
+<style>body{margin:0;background:#111;color:white;font:16px sans-serif}nav{padding:12px;display:flex;gap:10px;flex-wrap:wrap}button{padding:8px}iframe{display:block;border:0;width:100%;height:calc(100vh - 70px)}</style>
+<nav aria-label="Synthetic test files">
+  <button data-file="text">Select sample text file</button>
+  <button data-file="dxf">Select sample CAD file</button>
+  <button data-file="zip">Select sample ZIP file</button>
+  <button data-file="png">Select sample image</button>
+  <button data-file="svg">Select sample SVG file</button>
+  <button data-file="large">Select oversized file</button>
+</nav>
+<iframe src="../upload/" title="Actual upload page"></iframe>
+<script>
+// Generated disposable bytes only. No filesystem or browser permission access.
+const samples = {
+  text: ['verification-notes.txt', 'text/plain', 'Private upload verification\n'],
+  dxf: ['verification-part.dxf', 'application/dxf', '0\nSECTION\n2\nENTITIES\n0\nCIRCLE\n10\n20\n20\n15\n40\n3\n0\nENDSEC\n0\nEOF'],
+  zip: ['verification-archive.zip', 'application/zip', new Uint8Array([80,75,5,6,...Array(18).fill(0)])],
+  png: ['verification-image.png', 'image/png', Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aM1kAAAAASUVORK5CYII='), char => char.charCodeAt(0))],
+  svg: ['verification-vector.svg', 'image/svg+xml', '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle r="20" cx="50" cy="50"/></svg>'],
+  large: ['verification-oversized.bin', '', new Uint8Array(10 * 1024 * 1024 + 1)],
+};
+const width = Number(new URLSearchParams(location.search).get('width'));
+if ([320, 390].includes(width)) document.querySelector('iframe').style.width = `${width}px`;
+document.querySelector('nav').addEventListener('click', event => {
+  const sample = samples[event.target.dataset.file];
+  if (!sample) return;
+  const doc = document.querySelector('iframe').contentDocument;
+  const input = doc.getElementById('file-input');
+  if (input.disabled) return;
+  const transfer = new DataTransfer();
+  transfer.items.add(new File([sample[2]], sample[0], { type: sample[1] }));
+  input.files = transfer.files;
+  input.dispatchEvent(new Event('change'));
+});
+</script>

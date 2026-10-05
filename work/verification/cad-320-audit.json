@@ -1,0 +1,100 @@
+{
+  "canvasPixels": [
+    2700,
+    1860
+  ],
+  "overflow": false,
+  "styles": [
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "BODY",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    },
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "section-title",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    },
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "content-wrapper",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    },
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "section-heading",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    },
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "section-content-area",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    },
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "section-heading",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    },
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "section-content-area",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    },
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "section-heading",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    },
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "section-heading",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    },
+    {
+      "animation": "none",
+      "backdrop": "none",
+      "element": "section-content-area",
+      "filter": "none",
+      "opacity": "1",
+      "textShadow": "none",
+      "transform": "none"
+    }
+  ],
+  "width": 320
+}

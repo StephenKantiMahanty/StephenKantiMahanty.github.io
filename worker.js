@@ -121,10 +121,27 @@ function jsonResponse(data, init = {}) {
 }
 
 function sanitizeFileName(name) {
-  return (name || 'image')
+  return (name || 'file')
     .replace(/["\\]/g, '')
     .replace(/[^\w.\-() ]+/g, '_')
-    .slice(0, 120);
+    .slice(0, 120) || 'file';
+}
+
+// Only passive raster formats may be shown inline on the site's origin.
+const PREVIEW_TYPES = new Set(['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/avif', 'image/bmp']);
+
+function uploadDetails(record, id, origin) {
+  const contentType = record.httpMetadata?.contentType || 'application/octet-stream';
+  return {
+    id,
+    name: record.customMetadata?.originalName || 'file',
+    size: record.size,
+    contentType,
+    previewable: PREVIEW_TYPES.has(contentType),
+    fileUrl: `${origin}${getUploadKey(id)}`,
+    viewerUrl: `${origin}${getViewerPath(id)}`,
+    deleteUrl: `${origin}/api/uploads/${id}/delete`,
+  };
 }
 
 async function serveAsset(env, request, assetPath, extraHeaders = {}) {
@@ -142,7 +159,15 @@ async function serveAsset(env, request, assetPath, extraHeaders = {}) {
 }
 
 function getUploadKey(id) {
-  return `${UPLOAD_PREFIX}${id}/image.png`;
+  return `${UPLOAD_PREFIX}${id}/file`;
+}
+
+async function getUploadRecord(env, id) {
+  const key = getUploadKey(id);
+  const record = await env.UPLOADS_BUCKET.get(key);
+  if (record) return { record, key };
+  const legacyKey = `${UPLOAD_PREFIX}${id}/image.png`;
+  return { record: await env.UPLOADS_BUCKET.get(legacyKey), key: legacyKey };
 }
 
 function getViewerPath(id) {
@@ -150,7 +175,7 @@ function getViewerPath(id) {
 }
 
 function getUploadIdFromPath(pathname) {
-  const rawMatch = pathname.match(/^\/uploads\/([^/]+)\/image\.png$/);
+  const rawMatch = pathname.match(/^\/uploads\/([^/]+)\/(?:file|image\.png)$/);
   if (rawMatch) {
     return rawMatch[1];
   }
@@ -190,19 +215,20 @@ async function handleUploadPage(request, env) {
 
 async function handleUpload(request, env) {
   const { token, setCookie } = ensureSessionToken(request);
-  const formData = await request.formData();
-  const file = formData.get('image') || formData.get('file');
+  let formData;
+  try {
+    formData = await request.formData();
+  } catch {
+    return jsonResponse({ error: 'Please submit a file using the upload form.' }, { status: 400 });
+  }
+  const file = formData.get('file') || formData.get('image');
 
   if (!(file instanceof File)) {
-    return jsonResponse({ error: 'Please choose an image file.' }, { status: 400 });
-  }
-
-  if (!file.type.startsWith('image/')) {
-    return jsonResponse({ error: 'Only image files are allowed.' }, { status: 400 });
+    return jsonResponse({ error: 'Please choose a file.' }, { status: 400 });
   }
 
   if (file.size > MAX_UPLOAD_BYTES) {
-    return jsonResponse({ error: 'Image is too large. Please keep it under 10 MB.' }, { status: 413 });
+    return jsonResponse({ error: 'File is too large. Please keep it at or below 10 MB.' }, { status: 413 });
   }
 
   const id = crypto.randomUUID().replace(/-/g, '');
@@ -211,8 +237,8 @@ async function handleUpload(request, env) {
 
   await env.UPLOADS_BUCKET.put(key, buffer, {
     httpMetadata: {
-      contentType: file.type,
-      contentDisposition: `inline; filename="${sanitizeFileName(file.name)}"`,
+      contentType: file.type || 'application/octet-stream',
+      contentDisposition: `attachment; filename="${sanitizeFileName(file.name)}"`,
     },
     customMetadata: {
       sessionToken: token,
@@ -224,7 +250,12 @@ async function handleUpload(request, env) {
   const origin = new URL(request.url).origin;
   const payload = {
     id,
-    imageUrl: `${origin}${getUploadKey(id)}`,
+    name: file.name,
+    size: file.size,
+    contentType: file.type || 'application/octet-stream',
+    previewable: PREVIEW_TYPES.has(file.type),
+    fileUrl: `${origin}${getUploadKey(id)}`,
+    imageUrl: `${origin}${getUploadKey(id)}?preview=1`,
     viewerUrl: `${origin}${getViewerPath(id)}`,
     deleteUrl: `${origin}/api/uploads/${id}/delete`,
   };
@@ -238,9 +269,8 @@ async function handleUpload(request, env) {
   return jsonResponse(payload, { status: 201, headers });
 }
 
-async function handleRawImage(request, env, id) {
-  const key = getUploadKey(id);
-  const record = await env.UPLOADS_BUCKET.get(key);
+async function handleRawFile(request, env, id) {
+  const { record } = await getUploadRecord(env, id);
 
   if (!record || !isAuthorizedUpload(request, record)) {
     return new Response('Not found', {
@@ -254,10 +284,16 @@ async function handleRawImage(request, env, id) {
     : 'application/octet-stream';
   const originalName = record.customMetadata && record.customMetadata.originalName
     ? record.customMetadata.originalName
-    : 'image.png';
+    : 'file';
+  const url = new URL(request.url);
+  const inline = PREVIEW_TYPES.has(contentType) &&
+    (url.searchParams.get('preview') === '1' || url.pathname.endsWith('/image.png'));
+  const encodedName = encodeURIComponent(originalName).replace(/['()*]/g, char => `%${char.charCodeAt(0).toString(16)}`);
   const headers = new Headers({
     'Content-Type': contentType,
-    'Content-Disposition': `inline; filename="${sanitizeFileName(originalName)}"`,
+    'Content-Disposition': `${inline ? 'inline' : 'attachment'}; filename="${sanitizeFileName(originalName)}"; filename*=UTF-8''${encodedName}`,
+    'X-Content-Type-Options': 'nosniff',
+    'Content-Security-Policy': "default-src 'none'; sandbox",
     ...noStoreHeaders(),
   });
 
@@ -265,6 +301,14 @@ async function handleRawImage(request, env, id) {
     status: 200,
     headers,
   });
+}
+
+async function handleUploadDetails(request, env, id) {
+  const { record } = await getUploadRecord(env, id);
+  if (!record || !isAuthorizedUpload(request, record)) {
+    return jsonResponse({ error: 'Not found' }, { status: 404 });
+  }
+  return jsonResponse(uploadDetails(record, id, new URL(request.url).origin));
 }
 
 async function handleChat(request, env) {
@@ -315,8 +359,7 @@ async function handleChat(request, env) {
 }
 
 async function handleDelete(request, env, id) {
-  const key = getUploadKey(id);
-  const record = await env.UPLOADS_BUCKET.get(key);
+  const { key, record } = await getUploadRecord(env, id);
 
   if (!record || !isAuthorizedUpload(request, record)) {
     return jsonResponse({ error: 'Not found' }, { status: 404 });
@@ -331,7 +374,7 @@ export default {
     const url = new URL(request.url);
     const { pathname } = url;
 
-    if (pathname === '/upload' || pathname === '/upload/') {
+    if (pathname === '/upload' || pathname === '/upload/' || pathname === '/upload/index.html') {
       return handleUploadPage(request, env);
     }
 
@@ -348,12 +391,18 @@ export default {
       return handleDelete(request, env, deleteMatch[1]);
     }
 
-    const uploadId = getUploadIdFromPath(pathname);
-    if (uploadId && pathname.endsWith('/image.png') && request.method === 'GET') {
-      return handleRawImage(request, env, uploadId);
+    const detailsMatch = pathname.match(/^\/api\/uploads\/([^/]+)$/);
+    if (detailsMatch && request.method === 'GET') {
+      return handleUploadDetails(request, env, detailsMatch[1]);
     }
 
-    if (uploadId && !pathname.endsWith('/image.png') && request.method === 'GET') {
+    const uploadId = getUploadIdFromPath(pathname);
+    const isRawFile = /\/(?:file|image\.png)$/.test(pathname);
+    if (uploadId && isRawFile && request.method === 'GET') {
+      return handleRawFile(request, env, uploadId);
+    }
+
+    if (uploadId && !isRawFile && request.method === 'GET') {
       return serveAsset(env, request, '/upload/viewer.html', noStoreHeaders());
     }
 

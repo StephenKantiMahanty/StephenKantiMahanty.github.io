@@ -1,12 +1,13 @@
 const form = document.getElementById('upload-form');
-const input = document.getElementById('image-input');
+const input = document.getElementById('file-input');
 const fileSummary = document.getElementById('file-summary');
 const statusMessage = document.getElementById('status-message');
 const previewPanel = document.getElementById('preview-panel');
 const previewImage = document.getElementById('preview-image');
+const previewDetails = document.getElementById('preview-details');
 const resultPanel = document.getElementById('result-panel');
 const viewerUrlEl = document.getElementById('viewer-url');
-const imageUrlEl = document.getElementById('image-url');
+const fileUrlEl = document.getElementById('file-url');
 const openViewerButton = document.getElementById('open-viewer-button');
 const deleteButton = document.getElementById('delete-button');
 const dropzone = document.querySelector('.upload-dropzone');
@@ -14,6 +15,8 @@ const uploadApiUrl = new URL('../api/uploads', window.location.href);
 
 let previewObjectUrl = null;
 let currentUpload = null;
+const maxUploadBytes = 10 * 1024 * 1024;
+const previewTypes = new Set(['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/avif', 'image/bmp']);
 
 function setStatus(message, isError = false) {
   statusMessage.textContent = message;
@@ -33,10 +36,8 @@ function copyText(text) {
 
 function renderUploadResult(data) {
   currentUpload = data;
-  clearPreviewObjectUrl();
   viewerUrlEl.textContent = data.viewerUrl;
-  imageUrlEl.textContent = data.imageUrl;
-  previewImage.src = data.imageUrl;
+  fileUrlEl.textContent = data.fileUrl;
   resultPanel.classList.remove('hidden');
   openViewerButton.disabled = false;
   deleteButton.disabled = false;
@@ -45,7 +46,7 @@ function renderUploadResult(data) {
 function resetUploadResult(clearPreview = false) {
   currentUpload = null;
   viewerUrlEl.textContent = '';
-  imageUrlEl.textContent = '';
+  fileUrlEl.textContent = '';
   resultPanel.classList.add('hidden');
   openViewerButton.disabled = true;
   deleteButton.disabled = true;
@@ -53,6 +54,8 @@ function resetUploadResult(clearPreview = false) {
   if (clearPreview) {
     clearPreviewObjectUrl();
     previewImage.removeAttribute('src');
+    previewImage.hidden = true;
+    previewDetails.textContent = '';
     previewPanel.classList.add('hidden');
     input.value = '';
     fileSummary.textContent = 'No file selected.';
@@ -71,7 +74,7 @@ async function deleteCurrentUpload() {
   });
 
   if (!response.ok) {
-    throw new Error('Unable to delete the uploaded image.');
+    throw new Error('Unable to delete the uploaded file.');
   }
 
   resetUploadResult(true);
@@ -80,6 +83,9 @@ async function deleteCurrentUpload() {
 
 input.addEventListener('change', () => {
   clearPreviewObjectUrl();
+  previewImage.hidden = true;
+  previewImage.removeAttribute('src');
+  previewDetails.textContent = '';
 
   const [file] = input.files || [];
   if (!file) {
@@ -90,10 +96,21 @@ input.addEventListener('change', () => {
   }
 
   fileSummary.textContent = `${file.name} • ${(file.size / 1024 / 1024).toFixed(2)} MB`;
-  previewObjectUrl = URL.createObjectURL(file);
-  previewImage.src = previewObjectUrl;
+  previewDetails.textContent = `${file.name} (${file.type || 'Unknown file type'})`;
+  if (previewTypes.has(file.type)) {
+    previewObjectUrl = URL.createObjectURL(file);
+    previewImage.src = previewObjectUrl;
+    previewImage.hidden = false;
+  } else {
+    previewDetails.textContent += ' — Download this file from the private viewer after uploading.';
+  }
   previewPanel.classList.remove('hidden');
-  setStatus('Preview ready.', false);
+  setStatus(file.size > maxUploadBytes ? 'File is too large. Please keep it at or below 10 MB.' : 'File ready to upload.', file.size > maxUploadBytes);
+});
+
+previewImage.addEventListener('error', () => {
+  previewImage.hidden = true;
+  previewDetails.textContent = 'Image preview unavailable. You can still upload and download the file.';
 });
 
 form.addEventListener('submit', async (event) => {
@@ -101,18 +118,22 @@ form.addEventListener('submit', async (event) => {
 
   const [file] = input.files || [];
   if (!file) {
-    setStatus('Choose an image before uploading.', true);
+    setStatus('Choose a file before uploading.', true);
+    return;
+  }
+  if (file.size > maxUploadBytes) {
+    setStatus('File is too large. Please keep it at or below 10 MB.', true);
     return;
   }
 
   const payload = new FormData();
-  payload.append('image', file);
+  payload.append('file', file);
 
   form.querySelectorAll('button, input').forEach((control) => {
     control.disabled = true;
   });
 
-  setStatus('Uploading image...');
+  setStatus('Uploading file...');
 
   try {
     const response = await fetch(uploadApiUrl, {
@@ -128,7 +149,7 @@ form.addEventListener('submit', async (event) => {
     }
 
     renderUploadResult(data);
-    setStatus('Image uploaded successfully.');
+    setStatus('File uploaded successfully.');
   } catch (error) {
     setStatus(error.message, true);
   } finally {
@@ -156,7 +177,7 @@ document.querySelectorAll('[data-copy-target]').forEach((button) => {
 
 openViewerButton.addEventListener('click', () => {
   if (!currentUpload) {
-    setStatus('Upload an image first.', true);
+    setStatus('Upload a file first.', true);
     return;
   }
 
@@ -181,6 +202,8 @@ dropzone.addEventListener('drop', (event) => {
   event.preventDefault();
   dropzone.classList.remove('drag-active');
 
+  if (input.disabled) return;
+
   const [file] = event.dataTransfer.files || [];
   if (!file) {
     return;
@@ -193,4 +216,4 @@ dropzone.addEventListener('drop', (event) => {
 });
 
 resetUploadResult();
-setStatus('Pick an image to begin.');
+setStatus('Pick a file to begin.');
