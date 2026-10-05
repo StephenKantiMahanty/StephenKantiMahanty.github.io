@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const root = document.documentElement;
     const body = document.body;
     const components = Array.from(document.querySelectorAll('.component'));
-    const navigationLinks = document.querySelectorAll('.component, .back-button');
+    const navigationLinks = document.querySelectorAll('.component, .back-button, .secret-projects-link');
     const traces = Array.from(document.querySelectorAll('.trace'));
 
     // Let internal navigation acknowledge the click before leaving the page.
@@ -230,6 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentComponentIndex = 0;
 
         document.addEventListener('keydown', event => {
+            // Leave other controls, including the voltage slider, to their native keys.
+            if (event.target.closest('a, button, input, select, textarea, [contenteditable]') &&
+                !event.target.closest('.component')) return;
+
             const activeIndex = components.indexOf(document.activeElement);
             if (activeIndex >= 0) currentComponentIndex = activeIndex;
 

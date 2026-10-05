@@ -147,6 +147,7 @@ body {
 .status-message {
     min-height: 1.5rem;
     letter-spacing: 1px;
+    overflow-wrap: anywhere;
 }
 
 .upload-button,
@@ -318,4 +319,24 @@ body {
     .action-row {
         align-items: flex-start;
     }
+}
+
+@media (max-width: 600px) {
+    .upload-page .hero-section {
+        min-height: auto;
+        padding: 40px 16px 28px;
+    }
+
+    .upload-page .content-section {
+        padding-top: 24px;
+    }
+
+    .upload-dropzone { padding: 18px 12px; }
+    .upload-dropzone-title { font-size: 1rem; }
+    .upload-dropzone-subtitle { font-size: 0.9rem; letter-spacing: 0.03em; }
+    .upload-button, .secondary-button { min-height: 44px; max-width: 100%; }
+    .preview-panel, .result-panel, .viewer-frame { padding: 12px; }
+    .link-row > div { flex: 1 1 160px; min-width: 0; }
+    .action-row > button { flex: 1 1 180px; }
+    .panel-title, .link-value, .section-description { overflow-wrap: anywhere; }
 }

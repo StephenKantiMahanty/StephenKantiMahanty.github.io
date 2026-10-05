@@ -344,7 +344,7 @@ canvas.addEventListener("pointercancel", endDrawing);
 clearButton.addEventListener("click", resetField);
 demoButton.addEventListener("click", () => {
     showTarget = !showTarget;
-    demoButton.textContent = showTarget ? "Hide Target" : "Show Target";
+    demoButton.textContent = showTarget ? "Hide the Circle" : "Show a Circle";
     render();
 });
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Website Mobile Preview</title>
+    <style>
+        body { margin: 16px; background: #050810; color: #a0b8aa; font: 14px monospace; }
+        h1 { font-size: 16px; }
+        iframe { display: block; border: 1px solid #00661a; }
+    </style>
+</head>
+<body>
+    <h1 id="label">Mobile preview</h1>
+    <iframe id="site-preview" title="Website mobile preview"></iframe>
+    <script>
+        const pages = {
+            home: '../index.html', about: '../about/', projects: '../projects/',
+            experience: '../experience/', secret: '../secret/', circular: '../circular/',
+            cad: '../cad-machining/', upload: '../upload/', viewer: '../upload/viewer.html',
+            ai: '../stephen-ai/', uploadState: '../work/verification/mobile-upload-state.html',
+            viewerState: '../work/verification/mobile-viewer-state.html'
+        };
+        const params = new URLSearchParams(location.search);
+        const page = Object.hasOwn(pages, params.get('page')) ? params.get('page') : 'home';
+        const width = [320, 360, 390, 414, 768, 844, 1024].includes(Number(params.get('width'))) ? Number(params.get('width')) : 390;
+        const height = [390, 568, 640, 768, 844, 896].includes(Number(params.get('height'))) ? Number(params.get('height')) : 844;
+        const frame = document.getElementById('site-preview');
+        frame.width = width;
+        frame.height = height;
+        frame.src = pages[page];
+        document.getElementById('label').textContent = `${page}: ${width} × ${height}`;
+    </script>
+</body>
+</html>

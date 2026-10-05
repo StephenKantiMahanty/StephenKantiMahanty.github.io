@@ -36,6 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.removeAttribute('aria-current');
             }
         });
+        const activeLink = sectionLinks[activeIndex];
+        const linkList = activeLink?.parentElement;
+        if (linkList && linkList.scrollWidth > linkList.clientWidth) {
+            linkList.scrollTo({
+                left: Math.max(0, activeLink.offsetLeft - (linkList.clientWidth - activeLink.offsetWidth) / 2),
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+            });
+        }
     };
 
     sectionLinks.forEach((link, index) => {

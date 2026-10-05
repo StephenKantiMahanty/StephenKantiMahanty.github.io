@@ -112,13 +112,18 @@ body {
 /* ── Two-column layout ── */
 .two-col {
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
     gap: 28px;
     align-items: start;
 }
 
 @media (max-width: 900px) {
-    .two-col { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: minmax(0, 1fr); }
+}
+
+.input-col,
+.output-col {
+    min-width: 0;
 }
 
 /* ── Shared panel headings / content ── */
@@ -498,4 +503,32 @@ body {
     .section-heading { font-size: 1.25rem; letter-spacing: 3px; }
     .section-content-area { padding: 16px; }
     .how-to-steps { font-size: 0.82rem; }
+
+    .cad-page .hero-section {
+        min-height: auto;
+        padding: 40px 16px 28px;
+    }
+
+    .cad-page .content-section {
+        padding-top: 24px;
+    }
+
+    .cad-page .section-heading {
+        font-size: 1.3rem;
+        letter-spacing: 0.08em;
+    }
+
+    .how-to-panel { padding: 16px; }
+    .how-to-steps { font-size: 0.92rem; overflow-wrap: anywhere; }
+
+    .drawing-header { flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+    .drawing-header .section-heading { flex-basis: 100%; margin-bottom: 0; }
+    .option-row { flex-direction: column; align-items: stretch; gap: 8px; }
+    .option-select { width: 100%; min-height: 44px; font-size: 16px; }
+    .dxf-textarea { font-size: 16px; }
+    .upload-button, .secondary-button { min-height: 44px; max-width: 100%; }
+    .canvas-wrapper { min-height: 220px; }
+    .canvas-placeholder { padding: 24px; }
+    .sf-grid { grid-template-columns: minmax(0, 1fr); }
+    .ops-heading, .ops-list, .sf-card { overflow-wrap: anywhere; }
 }

@@ -315,8 +315,9 @@ function renderDrawing(holes, allEntities, useIn, bounds) {
     const PIXEL_RATIO = 3;    // render at 3× for high-res PNG export
     canvas.width  = W * PIXEL_RATIO;
     canvas.height = H * PIXEL_RATIO;
-    canvas.style.width  = W + 'px';
-    canvas.style.height = H + 'px';
+    canvas.style.width = '100%';
+    canvas.style.maxWidth = W + 'px';
+    canvas.style.height = 'auto';
     ctx.scale(PIXEL_RATIO, PIXEL_RATIO);
 
     const drawW = W - MARGIN * 2;

@@ -1,0 +1,768 @@
+{
+  "phone": [
+    {
+      "page": "home",
+      "width": 320,
+      "clientWidth": 320,
+      "scrollWidth": 320,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "about",
+      "width": 320,
+      "clientWidth": 310,
+      "scrollWidth": 310,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    {
+      "page": "projects",
+      "width": 320,
+      "clientWidth": 310,
+      "scrollWidth": 310,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none",
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    {
+      "page": "experience",
+      "width": 320,
+      "clientWidth": 310,
+      "scrollWidth": 310,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    {
+      "page": "secret",
+      "width": 320,
+      "clientWidth": 310,
+      "scrollWidth": 310,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "circular",
+      "width": 320,
+      "clientWidth": 305,
+      "scrollWidth": 305,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "cad",
+      "width": 320,
+      "clientWidth": 310,
+      "scrollWidth": 310,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none"
+      ]
+    },
+    {
+      "page": "upload",
+      "width": 320,
+      "clientWidth": 320,
+      "scrollWidth": 320,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none"
+      ]
+    },
+    {
+      "page": "viewer",
+      "width": 320,
+      "clientWidth": 320,
+      "scrollWidth": 320,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none"
+      ]
+    },
+    {
+      "page": "ai",
+      "width": 320,
+      "clientWidth": 310,
+      "scrollWidth": 310,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "home",
+      "width": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "about",
+      "width": 390,
+      "clientWidth": 380,
+      "scrollWidth": 380,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    {
+      "page": "projects",
+      "width": 390,
+      "clientWidth": 380,
+      "scrollWidth": 380,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none",
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    {
+      "page": "experience",
+      "width": 390,
+      "clientWidth": 380,
+      "scrollWidth": 380,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    {
+      "page": "secret",
+      "width": 390,
+      "clientWidth": 380,
+      "scrollWidth": 380,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "circular",
+      "width": 390,
+      "clientWidth": 375,
+      "scrollWidth": 375,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "cad",
+      "width": 390,
+      "clientWidth": 380,
+      "scrollWidth": 380,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none"
+      ]
+    },
+    {
+      "page": "upload",
+      "width": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none"
+      ]
+    },
+    {
+      "page": "viewer",
+      "width": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none"
+      ]
+    },
+    {
+      "page": "ai",
+      "width": 390,
+      "clientWidth": 380,
+      "scrollWidth": 380,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "home",
+      "width": 414,
+      "clientWidth": 414,
+      "scrollWidth": 414,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "about",
+      "width": 414,
+      "clientWidth": 404,
+      "scrollWidth": 404,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    {
+      "page": "projects",
+      "width": 414,
+      "clientWidth": 404,
+      "scrollWidth": 404,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none",
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    {
+      "page": "experience",
+      "width": 414,
+      "clientWidth": 404,
+      "scrollWidth": 404,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none",
+        "none",
+        "none"
+      ]
+    },
+    {
+      "page": "secret",
+      "width": 414,
+      "clientWidth": 404,
+      "scrollWidth": 404,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "circular",
+      "width": 414,
+      "clientWidth": 399,
+      "scrollWidth": 399,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    },
+    {
+      "page": "cad",
+      "width": 414,
+      "clientWidth": 404,
+      "scrollWidth": 404,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none"
+      ]
+    },
+    {
+      "page": "upload",
+      "width": 414,
+      "clientWidth": 414,
+      "scrollWidth": 414,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none"
+      ]
+    },
+    {
+      "page": "viewer",
+      "width": 414,
+      "clientWidth": 414,
+      "scrollWidth": 414,
+      "overflow": [],
+      "smallControls": [],
+      "blur": [
+        "none"
+      ]
+    },
+    {
+      "page": "ai",
+      "width": 414,
+      "clientWidth": 404,
+      "scrollWidth": 404,
+      "overflow": [],
+      "smallControls": [],
+      "blur": []
+    }
+  ],
+  "tabletDesktop": [
+    {
+      "page": "home",
+      "width": 768,
+      "result": {
+        "blur": [],
+        "clientWidth": 768,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 844,
+        "scrollWidth": 768,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "about",
+      "width": 768,
+      "result": {
+        "blur": [
+          "none",
+          "none",
+          "none"
+        ],
+        "clientWidth": 758,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 3466,
+        "scrollWidth": 758,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "projects",
+      "width": 768,
+      "result": {
+        "blur": [
+          "none",
+          "none",
+          "none",
+          "none"
+        ],
+        "clientWidth": 758,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 4899,
+        "scrollWidth": 758,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "experience",
+      "width": 768,
+      "result": {
+        "blur": [
+          "none",
+          "none",
+          "none"
+        ],
+        "clientWidth": 758,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 4415,
+        "scrollWidth": 758,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "secret",
+      "width": 768,
+      "result": {
+        "blur": [],
+        "clientWidth": 758,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 985,
+        "scrollWidth": 758,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "circular",
+      "width": 768,
+      "result": {
+        "blur": [],
+        "clientWidth": 753,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 1964,
+        "scrollWidth": 753,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "cad",
+      "width": 768,
+      "result": {
+        "blur": [
+          "none"
+        ],
+        "clientWidth": 758,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 2329,
+        "scrollWidth": 758,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "upload",
+      "width": 768,
+      "result": {
+        "blur": [
+          "none"
+        ],
+        "clientWidth": 758,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 980,
+        "scrollWidth": 758,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "viewer",
+      "width": 768,
+      "result": {
+        "blur": [
+          "none"
+        ],
+        "clientWidth": 768,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 844,
+        "scrollWidth": 768,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "ai",
+      "width": 768,
+      "result": {
+        "blur": [],
+        "clientWidth": 758,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 871,
+        "scrollWidth": 758,
+        "smallControls": [],
+        "width": 768
+      }
+    },
+    {
+      "page": "home",
+      "width": 1024,
+      "result": {
+        "blur": [],
+        "clientWidth": 1024,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 844,
+        "scrollWidth": 1024,
+        "smallControls": [],
+        "width": 1024
+      }
+    },
+    {
+      "page": "about",
+      "width": 1024,
+      "result": {
+        "blur": [
+          "none",
+          "none",
+          "none"
+        ],
+        "clientWidth": 1014,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 3625,
+        "scrollWidth": 1014,
+        "smallControls": [
+          {
+            "height": 20,
+            "text": "// BACKGROUND"
+          },
+          {
+            "height": 20,
+            "text": "// INTERESTS"
+          },
+          {
+            "height": 20,
+            "text": "// CONTACT ME"
+          },
+          {
+            "height": 19,
+            "text": "skantimahanty@hmc.edu"
+          },
+          {
+            "height": 19,
+            "text": "this link"
+          },
+          {
+            "height": 19,
+            "text": "here"
+          }
+        ],
+        "width": 1024
+      }
+    },
+    {
+      "page": "projects",
+      "width": 1024,
+      "result": {
+        "blur": [
+          "none",
+          "none",
+          "none",
+          "none"
+        ],
+        "clientWidth": 1014,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 4433,
+        "scrollWidth": 1014,
+        "smallControls": [
+          {
+            "height": 20,
+            "text": "// MuddSub"
+          },
+          {
+            "height": 20,
+            "text": "// Argonne National Lab"
+          },
+          {
+            "height": 20,
+            "text": "// MACH"
+          },
+          {
+            "height": 20,
+            "text": "// PID Controller"
+          }
+        ],
+        "width": 1024
+      }
+    },
+    {
+      "page": "experience",
+      "width": 1024,
+      "result": {
+        "blur": [
+          "none",
+          "none",
+          "none"
+        ],
+        "clientWidth": 1014,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 4161,
+        "scrollWidth": 1014,
+        "smallControls": [
+          {
+            "height": 20,
+            "text": "// RESEARCH"
+          },
+          {
+            "height": 20,
+            "text": "// CLUBS"
+          },
+          {
+            "height": 20,
+            "text": "// JOBS"
+          },
+          {
+            "height": 19,
+            "text": "DOFPro"
+          },
+          {
+            "height": 19,
+            "text": "MuddSub"
+          },
+          {
+            "height": 19,
+            "text": "ExploraVist"
+          }
+        ],
+        "width": 1024
+      }
+    },
+    {
+      "page": "secret",
+      "width": 1024,
+      "result": {
+        "blur": [],
+        "clientWidth": 1014,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 987,
+        "scrollWidth": 1014,
+        "smallControls": [],
+        "width": 1024
+      }
+    },
+    {
+      "page": "circular",
+      "width": 1024,
+      "result": {
+        "blur": [],
+        "clientWidth": 1009,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 2194,
+        "scrollWidth": 1009,
+        "smallControls": [],
+        "width": 1024
+      }
+    },
+    {
+      "page": "cad",
+      "width": 1024,
+      "result": {
+        "blur": [
+          "none"
+        ],
+        "clientWidth": 1014,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 1638,
+        "scrollWidth": 1014,
+        "smallControls": [
+          {
+            "height": 40,
+            "text": "ANALYZE"
+          },
+          {
+            "height": 40,
+            "text": "CLEAR"
+          },
+          {
+            "height": 32,
+            "text": "Millimeters (mm)\nInches (in)"
+          },
+          {
+            "height": 32,
+            "text": "Metric (M-series)\nImperial (UNC/UNF)"
+          },
+          {
+            "height": 32,
+            "text": "Aluminium\nMild Steel\nStainless Steel\nBra"
+          },
+          {
+            "height": 40,
+            "text": "EXPORT PNG"
+          }
+        ],
+        "width": 1024
+      }
+    },
+    {
+      "page": "upload",
+      "width": 1024,
+      "result": {
+        "blur": [
+          "none"
+        ],
+        "clientWidth": 1014,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 907,
+        "scrollWidth": 1014,
+        "smallControls": [],
+        "width": 1024
+      }
+    },
+    {
+      "page": "viewer",
+      "width": 1024,
+      "result": {
+        "blur": [
+          "none"
+        ],
+        "clientWidth": 1024,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 844,
+        "scrollWidth": 1024,
+        "smallControls": [],
+        "width": 1024
+      }
+    },
+    {
+      "page": "ai",
+      "width": 1024,
+      "result": {
+        "blur": [],
+        "clientWidth": 1014,
+        "height": 844,
+        "overflow": [],
+        "scrollHeight": 981,
+        "scrollWidth": 1014,
+        "smallControls": [
+          {
+            "height": 27,
+            "text": "What are you studying?"
+          },
+          {
+            "height": 27,
+            "text": "MADD Lab research"
+          },
+          {
+            "height": 27,
+            "text": "MuddSub AUV"
+          },
+          {
+            "height": 27,
+            "text": "Instruments you play"
+          },
+          {
+            "height": 27,
+            "text": "Hobbies"
+          },
+          {
+            "height": 27,
+            "text": "Colorado Mines REU"
+          }
+        ],
+        "width": 1024
+      }
+    }
+  ]
+}
