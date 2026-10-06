@@ -1,0 +1,11 @@
+# Deploy website assets without local worktrees or server-side source files.
+/.git/
+/.wrangler/
+/.codex
+/node_modules/
+/work/
+/tests/
+/worker.js
+/wrangler.toml
+/README.md
+/DELIVERY.md

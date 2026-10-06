@@ -42,7 +42,12 @@ async function loadFile() {
   try {
     const response = await fetch(`/api/uploads/${encodeURIComponent(id)}`, { credentials: 'include' });
     if (!response.ok) throw new Error('This private file is unavailable or has already been deleted.');
-    currentUpload = await response.json();
+    const data = await readUploadApiResponse(response);
+    if (typeof data.name !== 'string' || typeof data.size !== 'number' ||
+        typeof data.fileUrl !== 'string' || typeof data.deleteUrl !== 'string') {
+      throw new Error('The upload service returned an invalid response. Please try again.');
+    }
+    currentUpload = data;
     fileDetails.textContent = `${currentUpload.name} — ${(currentUpload.size / 1024 / 1024).toFixed(2)} MB — ${currentUpload.contentType}`;
     downloadLink.href = currentUpload.fileUrl;
     downloadLink.download = currentUpload.name;
@@ -71,7 +76,7 @@ closeDeleteButton.addEventListener('click', async () => {
     const response = await fetch(currentUpload.deleteUrl, {
       method: 'POST', credentials: 'include', keepalive: true,
     });
-    if (!response.ok) throw new Error('Unable to delete the file. Please try again.');
+    await readUploadApiResponse(response);
     viewerImage.hidden = true;
     viewerImage.removeAttribute('src');
     downloadLink.classList.add('hidden');

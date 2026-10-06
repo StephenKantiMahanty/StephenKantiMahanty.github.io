@@ -136,3 +136,42 @@ test('both upload page paths establish a private session cookie', async () => {
     assert.equal(response.headers.get('Cache-Control'), 'no-store');
   }
 });
+
+test('upload API method and path errors return JSON without falling through to assets', async () => {
+  const { worker, env } = await previewEnvironment();
+  env.ASSETS.fetch = () => { throw new Error('API requests must not serve static HTML'); };
+  for (const [route, method, status, allow] of [
+    ['/api/uploads', 'GET', 405, 'POST'],
+    ['/api/uploads/id', 'POST', 405, 'GET'],
+    ['/api/uploads/id/delete', 'GET', 405, 'POST'],
+    ['/api/uploads/id/unknown', 'POST', 404, null],
+  ]) {
+    const response = await request(worker, env, `${origin}${route}`, undefined, method);
+    assert.equal(response.status, status);
+    assert.equal(response.headers.get('Allow'), allow);
+    assert.match(response.headers.get('Content-Type'), /application\/json/);
+    assert.equal(typeof (await response.json()).error, 'string');
+  }
+});
+
+test('missing storage returns a useful JSON error rather than a Worker HTML error', async () => {
+  const { worker, env } = await previewEnvironment();
+  delete env.UPLOADS_BUCKET;
+  const { response, data } = await upload(worker, env, { name: 'main.py', type: 'text/x-python', bytes: 'print(42)' });
+  assert.equal(response.status, 503);
+  assert.match(data.error, /File storage is unavailable/);
+});
+
+test('storage failures return JSON for upload, metadata and deletion', async (t) => {
+  const { worker, env } = await previewEnvironment();
+  t.mock.method(console, 'error', () => {});
+  env.UPLOADS_BUCKET.put = env.UPLOADS_BUCKET.get = async () => { throw new Error('Storage unavailable'); };
+  const { response, data } = await upload(worker, env);
+  assert.equal(response.status, 503);
+  assert.match(data.error, /temporarily unavailable/);
+  for (const [route, method] of [['/api/uploads/id', 'GET'], ['/api/uploads/id/delete', 'POST']]) {
+    const result = await request(worker, env, `${origin}${route}`, undefined, method);
+    assert.equal(result.status, 503);
+    assert.match((await result.json()).error, /temporarily unavailable/);
+  }
+});

@@ -1,2 +1,5 @@
 # Local parallel-design working copies are not deployable submodules.
 /work/design-runs/*/worktrees/
+
+# Local Cloudflare runtime caches and test storage.
+/.wrangler/

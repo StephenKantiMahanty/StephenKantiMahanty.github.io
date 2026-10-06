@@ -11,7 +11,7 @@ const fileUrlEl = document.getElementById('file-url');
 const openViewerButton = document.getElementById('open-viewer-button');
 const deleteButton = document.getElementById('delete-button');
 const dropzone = document.querySelector('.upload-dropzone');
-const uploadApiUrl = new URL('../api/uploads', window.location.href);
+const uploadApiUrl = new URL('/api/uploads', window.location.origin);
 
 let previewObjectUrl = null;
 let currentUpload = null;
@@ -73,9 +73,7 @@ async function deleteCurrentUpload() {
     keepalive: true,
   });
 
-  if (!response.ok) {
-    throw new Error('Unable to delete the uploaded file.');
-  }
+  await readUploadApiResponse(response);
 
   resetUploadResult(true);
   setStatus('Upload deleted.', false);
@@ -142,10 +140,10 @@ form.addEventListener('submit', async (event) => {
       credentials: 'include',
     });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || 'Upload failed.');
+    const data = await readUploadApiResponse(response);
+    if (typeof data.id !== 'string' || typeof data.viewerUrl !== 'string' ||
+        typeof data.fileUrl !== 'string' || typeof data.deleteUrl !== 'string') {
+      throw new Error('The upload service returned an invalid response. Please try again.');
     }
 
     renderUploadResult(data);

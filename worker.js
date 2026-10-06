@@ -382,18 +382,27 @@ export default {
       return handleChat(request, env);
     }
 
-    if (request.method === 'POST' && pathname === '/api/uploads') {
-      return handleUpload(request, env);
-    }
-
-    const deleteMatch = pathname.match(/^\/api\/uploads\/([^/]+)\/delete$/);
-    if (deleteMatch && request.method === 'POST') {
-      return handleDelete(request, env, deleteMatch[1]);
-    }
-
-    const detailsMatch = pathname.match(/^\/api\/uploads\/([^/]+)$/);
-    if (detailsMatch && request.method === 'GET') {
-      return handleUploadDetails(request, env, detailsMatch[1]);
+    if (pathname === '/api/uploads' || pathname.startsWith('/api/uploads/')) {
+      const deleteMatch = pathname.match(/^\/api\/uploads\/([^/]+)\/delete$/);
+      const detailsMatch = pathname.match(/^\/api\/uploads\/([^/]+)$/);
+      const allowedMethod = pathname === '/api/uploads' || deleteMatch ? 'POST' : detailsMatch ? 'GET' : null;
+      if (!allowedMethod) {
+        return jsonResponse({ error: 'Upload endpoint not found.' }, { status: 404 });
+      }
+      if (request.method !== allowedMethod) {
+        return jsonResponse({ error: 'Method not allowed.' }, { status: 405, headers: { Allow: allowedMethod } });
+      }
+      if (!env.UPLOADS_BUCKET) {
+        return jsonResponse({ error: 'File storage is unavailable. Please try again later.' }, { status: 503 });
+      }
+      try {
+        if (pathname === '/api/uploads') return await handleUpload(request, env);
+        if (deleteMatch) return await handleDelete(request, env, deleteMatch[1]);
+        return await handleUploadDetails(request, env, detailsMatch[1]);
+      } catch (error) {
+        console.error('Upload storage request failed:', error);
+        return jsonResponse({ error: 'File storage is temporarily unavailable. Please try again later.' }, { status: 503 });
+      }
     }
 
     const uploadId = getUploadIdFromPath(pathname);
