@@ -1,5 +1,6 @@
-# Stephen Kanti Mahanty
+## Website
 
+<<<<<<< HEAD
 ## Secret projects
 
 Click the voltage readout at the bottom of the homepage (initially `5.0V`) to open `/secret/`. Circular, Schematic Maker (`/cad-machining/`), Upload, and Abyss / Kalman Lab (`/kalman/`) appear as cards that open their projects in new tabs. The voltage slider remains independent of the link.
@@ -21,3 +22,6 @@ GitHub Pages serves the static pages but cannot run `worker.js` or store uploads
 The viewer at `/uploads/{id}/` provides **Delete and close** and sends a best-effort deletion request when it closes. A browser crash or interrupted connection can prevent automatic deletion; **Delete now** on the upload page confirms deletion through the server.
 
 Run `node --test tests/*.test.cjs` for the navigation and private-file regression tests. Run `node tests/private-upload-server.cjs` for a local preview using the actual Worker and an in-memory bucket; preview uploads are discarded when that server stops.
+=======
+So, you found the GitHub. There's not much interesting stuff here, so just visit the website [here](https://kantimahanty.com/). I promise it's really cool!
+>>>>>>> af78994225066a34e56287fb9d76cfec6f7404a3
