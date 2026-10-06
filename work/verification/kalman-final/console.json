@@ -1,0 +1,14 @@
+[
+  {
+    "level": "error",
+    "message": "TypeError: Cannot read properties of undefined (reading 'isInitialized')\n    at Object.<anonymous> (chrome-extension://bdaafgjhhjkdplpffldcncdignokfkbo/content/scripts/multiVariateTestingCS.js:2:737250)\n    at Generator.next (<anonymous>)\n    at a (chrome-extension://bdaafgjhhjkdplpffldcncdignokfkbo/content/scripts/multiVariateTestingCS.js:2:736503)",
+    "timestamp": "2026-10-05T23:46:05.303Z",
+    "url": "chrome-extension://bdaafgjhhjkdplpffldcncdignokfkbo/content/scripts/multiVariateTestingCS.js"
+  },
+  {
+    "level": "error",
+    "message": "TypeError: Cannot read properties of undefined (reading 'isInitialized')\n    at Object.<anonymous> (chrome-extension://bdaafgjhhjkdplpffldcncdignokfkbo/content/scripts/multiVariateTestingCS.js:2:737250)\n    at Generator.next (<anonymous>)\n    at a (chrome-extension://bdaafgjhhjkdplpffldcncdignokfkbo/content/scripts/multiVariateTestingCS.js:2:736503)",
+    "timestamp": "2026-10-05T23:46:37.737Z",
+    "url": "chrome-extension://bdaafgjhhjkdplpffldcncdignokfkbo/content/scripts/multiVariateTestingCS.js"
+  }
+]

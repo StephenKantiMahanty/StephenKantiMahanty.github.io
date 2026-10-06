@@ -1,0 +1,26 @@
+{
+  "outputs": [
+    [
+      "scrub-time",
+      "off"
+    ],
+    [
+      "sensor-value",
+      "off"
+    ],
+    [
+      "accel-value",
+      "off"
+    ],
+    [
+      "r-value",
+      "off"
+    ],
+    [
+      "q-value",
+      "off"
+    ]
+  ],
+  "q": "0.0064 (meters per second squared) squared, acceleration variance q",
+  "r": "0.64 square meters, measurement variance R"
+}

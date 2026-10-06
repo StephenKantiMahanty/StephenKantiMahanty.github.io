@@ -1,0 +1,51 @@
+{
+  "scenarios": {
+    "nominal": "TRANSECT COMPLETE / 60 SECONDS\n\nMission debrief\n\nSeed 42 · nominal. 300 fixes over 300 steps. Raw-fix RMSE 0.829 m, filter 0.193 m, dead reckoning 4.906 m. Truth fell inside the assumed 95% interval on 99.7% of steps. Compare tuning on the same data to see the balance between sensor noise and motion uncertainty.\n\nSave this tuning as a baseline, change R or q, and replay to compare on identical measurements.\n\n↺ Replay this mission",
+    "current": "TRANSECT COMPLETE / 60 SECONDS\n\nMission debrief\n\nSeed 42 · current. 300 fixes over 300 steps. Raw-fix RMSE 0.829 m, filter 0.351 m, dead reckoning 15.916 m. Truth fell inside the assumed 95% interval on 76.0% of steps. The unmodeled current challenges prediction. Increasing q may let new fixes correct it sooner.\n\nSave this tuning as a baseline, change R or q, and replay to compare on identical measurements.\n\n↺ Replay this mission",
+    "bias": "TRANSECT COMPLETE / 60 SECONDS\n\nMission debrief\n\nSeed 42 · bias. 300 fixes over 300 steps. Raw-fix RMSE 1.795 m, filter 1.618 m, dead reckoning 4.906 m. Truth fell inside the assumed 95% interval on 33.3% of steps. The biased fixes pull the estimate away from truth; narrow uncertainty does not mean accuracy.\n\nSave this tuning as a baseline, change R or q, and replay to compare on identical measurements.\n\n↺ Replay this mission"
+  },
+  "viewports": {
+    "320": {
+      "canvasHeight": 300,
+      "outputs": [
+        "off",
+        "off",
+        "off",
+        "off",
+        "off"
+      ],
+      "rValue": "0.64 square meters, measurement variance R",
+      "scroll": 305,
+      "timeValue": "30.0 seconds of 60.0 seconds",
+      "width": 305
+    },
+    "390": {
+      "canvasHeight": 320,
+      "outputs": [
+        "off",
+        "off",
+        "off",
+        "off",
+        "off"
+      ],
+      "rValue": "0.64 square meters, measurement variance R",
+      "scroll": 375,
+      "timeValue": "30.0 seconds of 60.0 seconds",
+      "width": 375
+    },
+    "1440": {
+      "canvasHeight": 610.2916870117188,
+      "outputs": [
+        "off",
+        "off",
+        "off",
+        "off",
+        "off"
+      ],
+      "rValue": "0.64 square meters, measurement variance R",
+      "scroll": 1425,
+      "timeValue": "30.0 seconds of 60.0 seconds",
+      "width": 1425
+    }
+  }
+}

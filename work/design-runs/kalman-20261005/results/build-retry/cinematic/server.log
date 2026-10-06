@@ -1,0 +1,5 @@
+2026-10-05T23:19:16.112815Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in C:\Users\steph\Documents\StephenKantiMahanty.github.io\work\design-runs\kalman-20261005\worktrees\cinematic\kalman\index.html:
+      <div class="scene-wrap"><canvas
+2026-10-05T23:22:20.428816Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in C:\Users\steph\Documents\StephenKantiMahanty.github.io\work\design-runs\kalman-20261005\worktrees\cinematic\tests\kalman.test.cjs:
+  assert.ok(scores.current.filter>scores.nominal.filter);
+2026-10-05T23:29:54.066173Z ERROR codex_core::session: failed to record rollout items: thread 01a10e55-4792-7f41-9b56-ace810787e65 not found

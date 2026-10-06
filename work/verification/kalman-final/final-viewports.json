@@ -1,0 +1,425 @@
+[
+  {
+    "id": "desktop",
+    "canvas": {
+      "backingHeight": 610,
+      "backingWidth": 976,
+      "cssHeight": 610.2916870117188,
+      "cssWidth": 976.375
+    },
+    "clock": "60.0 / 60.0 s",
+    "controlHeights": [
+      {
+        "height": 44,
+        "id": "play"
+      },
+      {
+        "height": 44,
+        "id": "step"
+      },
+      {
+        "height": 44,
+        "id": "reset"
+      },
+      {
+        "height": 44,
+        "id": "speed"
+      },
+      {
+        "height": 44,
+        "id": "scrub"
+      },
+      {
+        "height": 44,
+        "id": "end"
+      },
+      {
+        "height": 44,
+        "id": "scenario"
+      },
+      {
+        "height": 44,
+        "id": "sensor-noise"
+      },
+      {
+        "height": 44,
+        "id": "accel-noise"
+      },
+      {
+        "height": 44,
+        "id": "r-noise"
+      },
+      {
+        "height": 44,
+        "id": "q-noise"
+      },
+      {
+        "height": 44,
+        "id": "match"
+      },
+      {
+        "height": 44,
+        "id": "seed"
+      },
+      {
+        "height": 44,
+        "id": "replay"
+      },
+      {
+        "height": 44,
+        "id": "pin"
+      },
+      {
+        "height": 44,
+        "id": "again"
+      },
+      {
+        "height": 44,
+        "id": "It grows as prediction continues"
+      },
+      {
+        "height": 44,
+        "id": "It shrinks because the sensor is silent"
+      },
+      {
+        "height": 44,
+        "id": "The robot stops until a fix returns"
+      },
+      {
+        "height": 44,
+        "id": "check-answer"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "See a simple exact example"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "Model, units & honest limits"
+      }
+    ],
+    "outputs": [
+      [
+        "scrub-time",
+        "off"
+      ],
+      [
+        "sensor-value",
+        "off"
+      ],
+      [
+        "accel-value",
+        "off"
+      ],
+      [
+        "r-value",
+        "off"
+      ],
+      [
+        "q-value",
+        "off"
+      ]
+    ],
+    "scrollWidth": 1425,
+    "scrub": "60.0 seconds of 60.0 seconds",
+    "summary": "Seed 42 · nominal. 300 fixes over 300 steps. Raw-fix RMSE 0.829 m, filter 0.192 m, dead reckoning 4.906 m. Truth fell inside the assumed 95% interval on 99.7% of steps. Compare tuning on the same data to see the balance between sensor noise and motion uncertainty.",
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  {
+    "id": "phone",
+    "canvas": {
+      "backingHeight": 320,
+      "backingWidth": 336,
+      "cssHeight": 320,
+      "cssWidth": 335.875
+    },
+    "clock": "60.0 / 60.0 s",
+    "controlHeights": [
+      {
+        "height": 44,
+        "id": "play"
+      },
+      {
+        "height": 44,
+        "id": "step"
+      },
+      {
+        "height": 44,
+        "id": "reset"
+      },
+      {
+        "height": 44,
+        "id": "speed"
+      },
+      {
+        "height": 44,
+        "id": "scrub"
+      },
+      {
+        "height": 44,
+        "id": "end"
+      },
+      {
+        "height": 44,
+        "id": "scenario"
+      },
+      {
+        "height": 44,
+        "id": "sensor-noise"
+      },
+      {
+        "height": 44,
+        "id": "accel-noise"
+      },
+      {
+        "height": 44,
+        "id": "r-noise"
+      },
+      {
+        "height": 44,
+        "id": "q-noise"
+      },
+      {
+        "height": 44,
+        "id": "match"
+      },
+      {
+        "height": 44,
+        "id": "seed"
+      },
+      {
+        "height": 44,
+        "id": "replay"
+      },
+      {
+        "height": 44,
+        "id": "pin"
+      },
+      {
+        "height": 44,
+        "id": "again"
+      },
+      {
+        "height": 44,
+        "id": "It grows as prediction continues"
+      },
+      {
+        "height": 44,
+        "id": "It shrinks because the sensor is silent"
+      },
+      {
+        "height": 44,
+        "id": "The robot stops until a fix returns"
+      },
+      {
+        "height": 44,
+        "id": "check-answer"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "See a simple exact example"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "Model, units & honest limits"
+      }
+    ],
+    "outputs": [
+      [
+        "scrub-time",
+        "off"
+      ],
+      [
+        "sensor-value",
+        "off"
+      ],
+      [
+        "accel-value",
+        "off"
+      ],
+      [
+        "r-value",
+        "off"
+      ],
+      [
+        "q-value",
+        "off"
+      ]
+    ],
+    "scrollWidth": 375,
+    "scrub": "60.0 seconds of 60.0 seconds",
+    "summary": "Seed 42 · nominal. 300 fixes over 300 steps. Raw-fix RMSE 0.829 m, filter 0.193 m, dead reckoning 4.906 m. Truth fell inside the assumed 95% interval on 99.7% of steps. Compare tuning on the same data to see the balance between sensor noise and motion uncertainty.",
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "id": "small",
+    "canvas": {
+      "backingHeight": 300,
+      "backingWidth": 273,
+      "cssHeight": 300,
+      "cssWidth": 272.875
+    },
+    "clock": "60.0 / 60.0 s",
+    "controlHeights": [
+      {
+        "height": 44,
+        "id": "play"
+      },
+      {
+        "height": 44,
+        "id": "step"
+      },
+      {
+        "height": 44,
+        "id": "reset"
+      },
+      {
+        "height": 44,
+        "id": "speed"
+      },
+      {
+        "height": 44,
+        "id": "scrub"
+      },
+      {
+        "height": 44,
+        "id": "end"
+      },
+      {
+        "height": 44,
+        "id": "scenario"
+      },
+      {
+        "height": 44,
+        "id": "sensor-noise"
+      },
+      {
+        "height": 44,
+        "id": "accel-noise"
+      },
+      {
+        "height": 44,
+        "id": "r-noise"
+      },
+      {
+        "height": 44,
+        "id": "q-noise"
+      },
+      {
+        "height": 44,
+        "id": "match"
+      },
+      {
+        "height": 44,
+        "id": "seed"
+      },
+      {
+        "height": 44,
+        "id": "replay"
+      },
+      {
+        "height": 44,
+        "id": "pin"
+      },
+      {
+        "height": 44,
+        "id": "again"
+      },
+      {
+        "height": 44,
+        "id": "It grows as prediction continues"
+      },
+      {
+        "height": 44,
+        "id": "It shrinks because the sensor is silent"
+      },
+      {
+        "height": 44,
+        "id": "The robot stops until a fix returns"
+      },
+      {
+        "height": 44,
+        "id": "check-answer"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "See a simple exact example"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "Model, units & honest limits"
+      }
+    ],
+    "outputs": [
+      [
+        "scrub-time",
+        "off"
+      ],
+      [
+        "sensor-value",
+        "off"
+      ],
+      [
+        "accel-value",
+        "off"
+      ],
+      [
+        "r-value",
+        "off"
+      ],
+      [
+        "q-value",
+        "off"
+      ]
+    ],
+    "scrollWidth": 305,
+    "scrub": "60.0 seconds of 60.0 seconds",
+    "summary": "Seed 42 · nominal. 300 fixes over 300 steps. Raw-fix RMSE 0.829 m, filter 0.193 m, dead reckoning 4.906 m. Truth fell inside the assumed 95% interval on 99.7% of steps. Compare tuning on the same data to see the balance between sensor noise and motion uncertainty.",
+    "viewport": [
+      320,
+      740
+    ]
+  }
+]

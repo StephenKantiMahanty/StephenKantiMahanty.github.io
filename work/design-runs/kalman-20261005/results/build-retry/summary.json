@@ -1,0 +1,97 @@
+{
+  "jobs": [
+    {
+      "name": "cinematic",
+      "cwd": "C:\\Users\\steph\\Documents\\StephenKantiMahanty.github.io\\work\\design-runs\\kalman-20261005\\worktrees\\cinematic",
+      "objective": "Build and validate the complete independent cinematic robotics Kalman lab specified in .design-input/GOAL.md. Follow AGENTS.md, preserve other projects, and deliver DELIVERY.md.",
+      "outcome": "complete",
+      "thread_id": "01a10e55-4792-7f41-9b56-ace810787e65",
+      "instruction_sources": [
+        "C:\\Users\\steph\\Documents\\StephenKantiMahanty.github.io\\work\\design-runs\\kalman-20261005\\worktrees\\cinematic\\AGENTS.md"
+      ],
+      "effective_sandbox": {
+        "type": "workspaceWrite",
+        "writableRoots": [],
+        "networkAccess": false,
+        "excludeTmpdirEnvVar": false,
+        "excludeSlashTmp": false
+      },
+      "approval_policy": "on-request",
+      "model": "gpt-6.1-sol",
+      "goal": {
+        "threadId": "01a10e55-4792-7f41-9b56-ace810787e65",
+        "objective": "Build and validate the complete independent cinematic robotics Kalman lab specified in .design-input/GOAL.md. Follow AGENTS.md, preserve other projects, and deliver DELIVERY.md.",
+        "status": "complete",
+        "tokenBudget": null,
+        "tokensUsed": 212541,
+        "timeUsedSeconds": 1136,
+        "createdAt": 1791241832,
+        "updatedAt": 1791242969
+      },
+      "updated_at": 1791242994.0528705,
+      "last_turn_status": "completed"
+    },
+    {
+      "name": "workbench",
+      "cwd": "C:\\Users\\steph\\Documents\\StephenKantiMahanty.github.io\\work\\design-runs\\kalman-20261005\\worktrees\\workbench",
+      "objective": "Build and validate the complete independent workbench robotics Kalman lab specified in .design-input/GOAL.md. Follow AGENTS.md, preserve other projects, and deliver DELIVERY.md.",
+      "outcome": "complete",
+      "thread_id": "01a10e55-4793-7173-b1d1-8d54ddb280aa",
+      "instruction_sources": [
+        "C:\\Users\\steph\\Documents\\StephenKantiMahanty.github.io\\work\\design-runs\\kalman-20261005\\worktrees\\workbench\\AGENTS.md"
+      ],
+      "effective_sandbox": {
+        "type": "workspaceWrite",
+        "writableRoots": [],
+        "networkAccess": false,
+        "excludeTmpdirEnvVar": false,
+        "excludeSlashTmp": false
+      },
+      "approval_policy": "on-request",
+      "model": "gpt-6.1-sol",
+      "goal": {
+        "threadId": "01a10e55-4793-7173-b1d1-8d54ddb280aa",
+        "objective": "Build and validate the complete independent workbench robotics Kalman lab specified in .design-input/GOAL.md. Follow AGENTS.md, preserve other projects, and deliver DELIVERY.md.",
+        "status": "complete",
+        "tokenBudget": null,
+        "tokensUsed": 180029,
+        "timeUsedSeconds": 1201,
+        "createdAt": 1791241832,
+        "updatedAt": 1791243034
+      },
+      "updated_at": 1791243057.958687,
+      "last_turn_status": "completed"
+    },
+    {
+      "name": "clarity",
+      "cwd": "C:\\Users\\steph\\Documents\\StephenKantiMahanty.github.io\\work\\design-runs\\kalman-20261005\\worktrees\\clarity",
+      "objective": "Build and validate the complete independent clarity robotics Kalman lab specified in .design-input/GOAL.md. Follow AGENTS.md, preserve other projects, and deliver DELIVERY.md.",
+      "outcome": "complete",
+      "thread_id": "01a10e55-4791-7693-ac1b-524bfc86cbff",
+      "instruction_sources": [
+        "C:\\Users\\steph\\Documents\\StephenKantiMahanty.github.io\\work\\design-runs\\kalman-20261005\\worktrees\\clarity\\AGENTS.md"
+      ],
+      "effective_sandbox": {
+        "type": "workspaceWrite",
+        "writableRoots": [],
+        "networkAccess": false,
+        "excludeTmpdirEnvVar": false,
+        "excludeSlashTmp": false
+      },
+      "approval_policy": "on-request",
+      "model": "gpt-6.1-sol",
+      "goal": {
+        "threadId": "01a10e55-4791-7693-ac1b-524bfc86cbff",
+        "objective": "Build and validate the complete independent clarity robotics Kalman lab specified in .design-input/GOAL.md. Follow AGENTS.md, preserve other projects, and deliver DELIVERY.md.",
+        "status": "complete",
+        "tokenBudget": null,
+        "tokensUsed": 153507,
+        "timeUsedSeconds": 1270,
+        "createdAt": 1791241832,
+        "updatedAt": 1791243103
+      },
+      "updated_at": 1791243123.8462956,
+      "last_turn_status": "completed"
+    }
+  ]
+}

@@ -1,0 +1,972 @@
+[
+  {
+    "label": "phone initial",
+    "controls": [
+      {
+        "height": 44,
+        "id": "play"
+      },
+      {
+        "height": 44,
+        "id": "step"
+      },
+      {
+        "height": 44,
+        "id": "reset"
+      },
+      {
+        "height": 44,
+        "id": "speed"
+      },
+      {
+        "height": 44,
+        "id": "scrub"
+      },
+      {
+        "height": 44,
+        "id": "end"
+      },
+      {
+        "height": 44,
+        "id": "scenario"
+      },
+      {
+        "height": 44,
+        "id": "sensor-noise"
+      },
+      {
+        "height": 44,
+        "id": "accel-noise"
+      },
+      {
+        "height": 44,
+        "id": "r-noise"
+      },
+      {
+        "height": 44,
+        "id": "q-noise"
+      },
+      {
+        "height": 44,
+        "id": "match"
+      },
+      {
+        "height": 44,
+        "id": "seed"
+      },
+      {
+        "height": 44,
+        "id": "replay"
+      },
+      {
+        "height": 44,
+        "id": "pin"
+      },
+      {
+        "height": 44,
+        "id": "It grows as prediction continues"
+      },
+      {
+        "height": 44,
+        "id": "It shrinks because the sensor is silent"
+      },
+      {
+        "height": 44,
+        "id": "The robot stops until a fix returns"
+      },
+      {
+        "height": 44,
+        "id": "check-answer"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "See a simple exact example"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "Model, units & honest limits"
+      }
+    ],
+    "details": [
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "See a simple exact example"
+      },
+      {
+        "open": false,
+        "summary": "Model, units & honest limits"
+      }
+    ],
+    "error": [
+      335.875,
+      336
+    ],
+    "focus": "",
+    "outputs": [
+      [
+        "scrub-time",
+        "off"
+      ],
+      [
+        "sensor-value",
+        "off"
+      ],
+      [
+        "accel-value",
+        "off"
+      ],
+      [
+        "r-value",
+        "off"
+      ],
+      [
+        "q-value",
+        "off"
+      ]
+    ],
+    "scene": [
+      335.875,
+      320,
+      336,
+      320
+    ],
+    "scrollWidth": 375,
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "label": "phone endpoint",
+    "controls": [
+      {
+        "height": 44,
+        "id": "play"
+      },
+      {
+        "height": 44,
+        "id": "step"
+      },
+      {
+        "height": 44,
+        "id": "reset"
+      },
+      {
+        "height": 44,
+        "id": "speed"
+      },
+      {
+        "height": 44,
+        "id": "scrub"
+      },
+      {
+        "height": 44,
+        "id": "end"
+      },
+      {
+        "height": 44,
+        "id": "scenario"
+      },
+      {
+        "height": 44,
+        "id": "sensor-noise"
+      },
+      {
+        "height": 44,
+        "id": "accel-noise"
+      },
+      {
+        "height": 44,
+        "id": "r-noise"
+      },
+      {
+        "height": 44,
+        "id": "q-noise"
+      },
+      {
+        "height": 44,
+        "id": "match"
+      },
+      {
+        "height": 44,
+        "id": "seed"
+      },
+      {
+        "height": 44,
+        "id": "replay"
+      },
+      {
+        "height": 44,
+        "id": "pin"
+      },
+      {
+        "height": 44,
+        "id": "again"
+      },
+      {
+        "height": 44,
+        "id": "It grows as prediction continues"
+      },
+      {
+        "height": 44,
+        "id": "It shrinks because the sensor is silent"
+      },
+      {
+        "height": 44,
+        "id": "The robot stops until a fix returns"
+      },
+      {
+        "height": 44,
+        "id": "check-answer"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "See a simple exact example"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "Model, units & honest limits"
+      }
+    ],
+    "details": [
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "See a simple exact example"
+      },
+      {
+        "open": false,
+        "summary": "Model, units & honest limits"
+      }
+    ],
+    "error": [
+      335.875,
+      336
+    ],
+    "focus": "end",
+    "outputs": [
+      [
+        "scrub-time",
+        "off"
+      ],
+      [
+        "sensor-value",
+        "off"
+      ],
+      [
+        "accel-value",
+        "off"
+      ],
+      [
+        "r-value",
+        "off"
+      ],
+      [
+        "q-value",
+        "off"
+      ]
+    ],
+    "scene": [
+      335.875,
+      320,
+      336,
+      320
+    ],
+    "scrollWidth": 375,
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "label": "small phone initial",
+    "controls": [
+      {
+        "height": 44,
+        "id": "play"
+      },
+      {
+        "height": 44,
+        "id": "step"
+      },
+      {
+        "height": 44,
+        "id": "reset"
+      },
+      {
+        "height": 44,
+        "id": "speed"
+      },
+      {
+        "height": 44,
+        "id": "scrub"
+      },
+      {
+        "height": 44,
+        "id": "end"
+      },
+      {
+        "height": 44,
+        "id": "scenario"
+      },
+      {
+        "height": 44,
+        "id": "sensor-noise"
+      },
+      {
+        "height": 44,
+        "id": "accel-noise"
+      },
+      {
+        "height": 44,
+        "id": "r-noise"
+      },
+      {
+        "height": 44,
+        "id": "q-noise"
+      },
+      {
+        "height": 44,
+        "id": "match"
+      },
+      {
+        "height": 44,
+        "id": "seed"
+      },
+      {
+        "height": 44,
+        "id": "replay"
+      },
+      {
+        "height": 44,
+        "id": "pin"
+      },
+      {
+        "height": 44,
+        "id": "It grows as prediction continues"
+      },
+      {
+        "height": 44,
+        "id": "It shrinks because the sensor is silent"
+      },
+      {
+        "height": 44,
+        "id": "The robot stops until a fix returns"
+      },
+      {
+        "height": 44,
+        "id": "check-answer"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "See a simple exact example"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "Model, units & honest limits"
+      }
+    ],
+    "details": [
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "See a simple exact example"
+      },
+      {
+        "open": false,
+        "summary": "Model, units & honest limits"
+      }
+    ],
+    "error": [
+      272.875,
+      273
+    ],
+    "focus": "",
+    "outputs": [
+      [
+        "scrub-time",
+        "off"
+      ],
+      [
+        "sensor-value",
+        "off"
+      ],
+      [
+        "accel-value",
+        "off"
+      ],
+      [
+        "r-value",
+        "off"
+      ],
+      [
+        "q-value",
+        "off"
+      ]
+    ],
+    "scene": [
+      272.875,
+      300,
+      273,
+      300
+    ],
+    "scrollWidth": 305,
+    "viewport": [
+      320,
+      740
+    ]
+  },
+  {
+    "label": "small phone exact example expanded",
+    "controls": [
+      {
+        "height": 44,
+        "id": "play"
+      },
+      {
+        "height": 44,
+        "id": "step"
+      },
+      {
+        "height": 44,
+        "id": "reset"
+      },
+      {
+        "height": 44,
+        "id": "speed"
+      },
+      {
+        "height": 44,
+        "id": "scrub"
+      },
+      {
+        "height": 44,
+        "id": "end"
+      },
+      {
+        "height": 44,
+        "id": "scenario"
+      },
+      {
+        "height": 44,
+        "id": "sensor-noise"
+      },
+      {
+        "height": 44,
+        "id": "accel-noise"
+      },
+      {
+        "height": 44,
+        "id": "r-noise"
+      },
+      {
+        "height": 44,
+        "id": "q-noise"
+      },
+      {
+        "height": 44,
+        "id": "match"
+      },
+      {
+        "height": 44,
+        "id": "seed"
+      },
+      {
+        "height": 44,
+        "id": "replay"
+      },
+      {
+        "height": 44,
+        "id": "pin"
+      },
+      {
+        "height": 44,
+        "id": "It grows as prediction continues"
+      },
+      {
+        "height": 44,
+        "id": "It shrinks because the sensor is silent"
+      },
+      {
+        "height": 44,
+        "id": "The robot stops until a fix returns"
+      },
+      {
+        "height": 44,
+        "id": "check-answer"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "See a simple exact example"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "Model, units & honest limits"
+      }
+    ],
+    "details": [
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": true,
+        "summary": "See a simple exact example"
+      },
+      {
+        "open": false,
+        "summary": "Model, units & honest limits"
+      }
+    ],
+    "error": [
+      272.875,
+      273
+    ],
+    "focus": "",
+    "outputs": [
+      [
+        "scrub-time",
+        "off"
+      ],
+      [
+        "sensor-value",
+        "off"
+      ],
+      [
+        "accel-value",
+        "off"
+      ],
+      [
+        "r-value",
+        "off"
+      ],
+      [
+        "q-value",
+        "off"
+      ]
+    ],
+    "scene": [
+      272.875,
+      300,
+      273,
+      300
+    ],
+    "scrollWidth": 305,
+    "viewport": [
+      320,
+      740
+    ]
+  },
+  {
+    "label": "small phone model expanded",
+    "controls": [
+      {
+        "height": 44,
+        "id": "play"
+      },
+      {
+        "height": 44,
+        "id": "step"
+      },
+      {
+        "height": 44,
+        "id": "reset"
+      },
+      {
+        "height": 44,
+        "id": "speed"
+      },
+      {
+        "height": 44,
+        "id": "scrub"
+      },
+      {
+        "height": 44,
+        "id": "end"
+      },
+      {
+        "height": 44,
+        "id": "scenario"
+      },
+      {
+        "height": 44,
+        "id": "sensor-noise"
+      },
+      {
+        "height": 44,
+        "id": "accel-noise"
+      },
+      {
+        "height": 44,
+        "id": "r-noise"
+      },
+      {
+        "height": 44,
+        "id": "q-noise"
+      },
+      {
+        "height": 44,
+        "id": "match"
+      },
+      {
+        "height": 44,
+        "id": "seed"
+      },
+      {
+        "height": 44,
+        "id": "replay"
+      },
+      {
+        "height": 44,
+        "id": "pin"
+      },
+      {
+        "height": 44,
+        "id": "It grows as prediction continues"
+      },
+      {
+        "height": 44,
+        "id": "It shrinks because the sensor is silent"
+      },
+      {
+        "height": 44,
+        "id": "The robot stops until a fix returns"
+      },
+      {
+        "height": 44,
+        "id": "check-answer"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "See a simple exact example"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "Model, units & honest limits"
+      }
+    ],
+    "details": [
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": true,
+        "summary": "See a simple exact example"
+      },
+      {
+        "open": true,
+        "summary": "Model, units & honest limits"
+      }
+    ],
+    "error": [
+      272.875,
+      273
+    ],
+    "focus": "",
+    "outputs": [
+      [
+        "scrub-time",
+        "off"
+      ],
+      [
+        "sensor-value",
+        "off"
+      ],
+      [
+        "accel-value",
+        "off"
+      ],
+      [
+        "r-value",
+        "off"
+      ],
+      [
+        "q-value",
+        "off"
+      ]
+    ],
+    "scene": [
+      272.875,
+      300,
+      273,
+      300
+    ],
+    "scrollWidth": 305,
+    "viewport": [
+      320,
+      740
+    ]
+  },
+  {
+    "label": "320px playback layout",
+    "controls": [
+      {
+        "height": 44,
+        "id": "play"
+      },
+      {
+        "height": 44,
+        "id": "step"
+      },
+      {
+        "height": 44,
+        "id": "reset"
+      },
+      {
+        "height": 44,
+        "id": "speed"
+      },
+      {
+        "height": 44,
+        "id": "scrub"
+      },
+      {
+        "height": 44,
+        "id": "end"
+      },
+      {
+        "height": 44,
+        "id": "scenario"
+      },
+      {
+        "height": 44,
+        "id": "sensor-noise"
+      },
+      {
+        "height": 44,
+        "id": "accel-noise"
+      },
+      {
+        "height": 44,
+        "id": "r-noise"
+      },
+      {
+        "height": 44,
+        "id": "q-noise"
+      },
+      {
+        "height": 44,
+        "id": "match"
+      },
+      {
+        "height": 44,
+        "id": "seed"
+      },
+      {
+        "height": 44,
+        "id": "replay"
+      },
+      {
+        "height": 44,
+        "id": "pin"
+      },
+      {
+        "height": 44,
+        "id": "It grows as prediction continues"
+      },
+      {
+        "height": 44,
+        "id": "It shrinks because the sensor is silent"
+      },
+      {
+        "height": 44,
+        "id": "The robot stops until a fix returns"
+      },
+      {
+        "height": 44,
+        "id": "check-answer"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 44,
+        "id": "Show the equations"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "See a simple exact example"
+      },
+      {
+        "height": 46.01041793823242,
+        "id": "Model, units & honest limits"
+      }
+    ],
+    "details": [
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": false,
+        "summary": "Show the equations"
+      },
+      {
+        "open": true,
+        "summary": "See a simple exact example"
+      },
+      {
+        "open": true,
+        "summary": "Model, units & honest limits"
+      }
+    ],
+    "error": [
+      272.875,
+      273
+    ],
+    "focus": "play",
+    "outputs": [
+      [
+        "scrub-time",
+        "off"
+      ],
+      [
+        "sensor-value",
+        "off"
+      ],
+      [
+        "accel-value",
+        "off"
+      ],
+      [
+        "r-value",
+        "off"
+      ],
+      [
+        "q-value",
+        "off"
+      ]
+    ],
+    "scene": [
+      272.875,
+      300,
+      273,
+      300
+    ],
+    "scrollWidth": 305,
+    "viewport": [
+      320,
+      740
+    ]
+  }
+]

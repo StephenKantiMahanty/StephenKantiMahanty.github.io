@@ -1,0 +1,11 @@
+{
+  "jobs": [
+    {
+      "name": "final",
+      "cwd": "C:\\Users\\steph\\Documents\\StephenKantiMahanty.github.io\\work\\design-runs\\kalman-20261005\\worktrees\\final",
+      "objective": "Integrate and freshly validate the final Abyss robotics Kalman lab according to .design-input/GOAL.md and COMPARISON.md, following AGENTS.md. Deliver completed ready-to-use implementation and DELIVERY.md.",
+      "prompt": "Read .design-input/GOAL.md and execute the concrete integration on the existing cinematic foundation. All edits only inside this final worktree.",
+      "sandbox": "workspace-write"
+    }
+  ]
+}

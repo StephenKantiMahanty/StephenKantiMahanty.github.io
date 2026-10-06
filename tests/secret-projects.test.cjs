@@ -92,11 +92,12 @@ test('voltage readout links to the hidden page and keeps its default value', () 
     assert.match(home, /class="voltage-control"[^>]*value="5"/);
 });
 
-test('exactly the requested three cards open existing projects in new tabs', () => {
+test('four cards open existing projects in new tabs and the footer matches', () => {
     const cards = [...secret.matchAll(/<a\b[^>]*class="project-bubble"[^>]*>/g)];
-    assert.equal(cards.length, 3);
+    assert.equal(cards.length, 4);
     assert.deepEqual(cards.map(match => attributes(match[0]).href),
-        ['../circular/', '../cad-machining/', '../upload/']);
+        ['../circular/', '../cad-machining/', '../upload/', '../kalman/']);
+    assert.match(secret, /END OF LINE \/ 4 PROJECTS/);
     for (const [tag] of cards) {
         const attrs = attributes(tag);
         assert.equal(attrs.target, '_blank');
@@ -210,7 +211,7 @@ test('existing Worker routing serves the hidden page, projects, and assets', asy
         if (!file.startsWith(root + path.sep)) return new Response(null, { status: 403 });
         return existsSync(file) ? new Response(readFileSync(file)) : new Response(null, { status: 404 });
     } } };
-    for (const route of ['/secret/', '/secret/index.html', '/secret/styles.css', '/styles.css', '/script.js', '/circular/', '/cad-machining/', '/upload/']) {
+    for (const route of ['/secret/', '/secret/index.html', '/secret/styles.css', '/styles.css', '/script.js', '/circular/', '/cad-machining/', '/upload/', '/kalman/', '/kalman/model.js', '/kalman/app.js', '/kalman/styles.css']) {
         const response = await worker.fetch(new Request(`https://portfolio.test${route}`), env);
         assert.equal(response.status, 200, route);
         assert.ok((await response.text()).length > 0, route);

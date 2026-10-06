@@ -1,0 +1,14 @@
+{
+  "kalman/app.js": "445178fe7331fb86ca418ad4166c348d40b6732f64745f74dd97cc5b1182a87d",
+  "kalman/controls.js": "b5ea95ea3936cfe989b1161ea9ac4d91f38158ef25d00ac8e042b4ab0c45db0c",
+  "kalman/index.html": "5e5c4cd839675b9ed24f86fdd88dedd51641b8af5d33a1a21c6bbf0e85256167",
+  "kalman/model.js": "3d28050d7f198d939c4689cbed89b7a7cfa19e9a091fc4f67103c07e2cf95209",
+  "kalman/preview.cjs": "95a9bc08d87a7b74cbd9b92128a99d494a625b9379d271215ccc1bdd3848ff74",
+  "kalman/styles.css": "4c3636667fbe96257f587acb49b74158a716f9e6a31560921617660055210427",
+  "secret/index.html": "47ec1d2334cd22446bdec2c5ac6c739c85c4de913c558f7a91d2e6a94df73855",
+  "README.md": "c0d96145f0b3b861a26f6858e8dc6d8c73c617289ef61ac7ae4b82c09c93faef",
+  "tests/secret-projects.test.cjs": "37eecc698e87cc66ed79a9a0dedcd37ec88510f4759d17cc38e3127125f149a1",
+  "tests/kalman.test.cjs": "c66a95125eaffd5cf6e60e804f7353b6d67367e2ca1dcadb8d003e53b144fc09",
+  "tests/kalman-integration.test.cjs": "dbad9a2c0eec7683f2e5a7e798e247d71304f89f72d5f26e73bbb5f998a0529f",
+  "tests/kalman-preview.html": "34b1208ed3f339cbb40c2241ceeaea336980204b2d98623973143273c9151bf4"
+}

@@ -1,29 +1,10 @@
-﻿# Goal review progress
+# Kalman design and writing goal
 
-Goal: Private uploads (make it for files, not just images) and CAD is blurred still. Fix it.
-
-Completed review cycles: 1 of 3. Latest score: 9/10. All mandatory implementation and local runtime criteria verified.
-
-## [Orchestrator - Astra]
-
-Acceptance criteria: accept arbitrary file types within the existing 10 MB limit; preserve file names, content types, and bytes; provide a usable file viewer/download flow while retaining raster previews; restrict file bytes, metadata, and deletion to the uploading session; retain existing image links and storage; verify deletion from uploader and viewer, including close/navigation requests; remove blur and retained transforms from CAD and private-upload working interfaces; preserve high-resolution drawing export and usable desktop/phone layouts.
-
-## [Builder - 5.6-Luna]
-
-Updated Worker storage, file URLs, private metadata, downloads, MIME handling, legacy-image compatibility, and multipart errors. Updated upload selection, file summaries, previews, links, size validation, and viewer download/deletion flow. Active content downloads as an attachment. Explicit viewer deletion awaits server success. Removed retained animations, content transforms, panel backdrop blur, and heading glow from CAD, Upload, and viewer. Drawing resolution scales to at least 3x and to higher device pixel ratios. Added an in-memory local Worker preview, synthetic browser fixtures, and private-upload regression tests. Updated README.
-
-## [Checker - 6.1-Sol]
-
-Score: 9/10. All mandatory criteria verified locally. No required code fixes remain.
-
-Evidence:
-- node --test tests/*.test.cjs: 20/20 pass. Covers PDF, DXF, ZIP, DOCX, text, unknown MIME, empty files, Unicode names, bytes, headers, session isolation, metadata, deletion, safe image previews, active-content attachment handling, 10 MB boundary/excess, malformed input, old records/URLs, and prior navigation checks.
-- All changed JavaScript syntax checks and git diff --check pass.
-- Edge actual upload form tested with generated CAD, ZIP, text, and PNG files. CAD download saved as verification-part.dxf with exact fixture content. Image viewer naturalWidth=1, complete=true, hidden=false. File-link copy succeeds. Oversized file rejected before upload. Delete now and Delete and close confirmed by reopening the same viewer and observing unavailable/deleted status. Navigating away from the CAD viewer also deleted its upload.
-- CAD checked at 1028px desktop, 390px phone, and 320px phone. No page overflow. CAD content has filter:none, backdrop-filter:none, transform:none, opacity:1, animation:none, and heading text-shadow:none. Raster drawing is 2700x1860. Browser PNG export saved and its binary PNG header verified as 2700x1860.
-- Upload result checked at 320px and file viewer at 390px: no horizontal overflow, no broken image element for other files, transform:none and backdrop-filter:none.
-- Screenshots visually reviewed: work/verification/cad-sharp-desktop.png, cad-sharp-phone.png, private-file-viewer-phone.png. Further screenshots, exported PNG, and JSON audits in work/verification/.
-
-Limits: Changes are local, uncommitted, and not deployed. Cloudflare/R2 production was not exercised; the local preview runs the actual Worker against an in-memory bucket. Native local-file chooser automation is blocked by the Edge extension's file-URL setting, so browser uploads used generated disposable Files through the actual form. Browser download-event observation timed out for iframe PNG export, but the generated download on disk was independently verified. Closing a viewer sends best-effort deletion; browser crashes/network interruptions can prevent that request. This existing limitation is now stated accurately in UI/README.
-
-Deliverables: worker.js, upload/index.html, upload/upload.js, upload/upload.css, upload/viewer.html, upload/viewer.js, cad-machining/styles.css, cad-machining/script.js, README.md, tests/private-uploads.test.cjs, tests/private-upload-server.cjs, tests/private-uploads-preview.html.
+Goal: match the Kalman lab to the rest of the website and adapt its language using all three files in ../Writing Samples.
+Completed review cycles: 1 of 3. Checker score 9.1/10. Mandatory criteria verified; no required fixes remain.
+All three writing samples were read: WritingSample1.txt, WritingSample2.txt, Essay 3.docx. Derived style: connected explanations, concrete examples, cause and effect, conversational language rather than slogans.
+Modified kalman/index.html to load shared styles/grid, use a direct title, rewrite introduction, lessons, controls help and error explanation. Modified kalman/styles.css with shared palette/Courier/panel overrides and responsive scene sizing. Modified app.js estimate color and removed decorative water/particles; robot hull now muted green.
+37/37 existing tests pass after edits. No browser verification yet for this revision.
+Completion audit: all three samples informed the rewrite; introduction, lessons, help, feedback and results inspected in source and rendered DOM. Shared Courier font and green heading verified via computed styles; desktop and mobile screenshots inspected. 390/320 document widths fit viewport; 320 px main descendants have no horizontal overflow. Setup and lesson feedback visually inspected at 320 px. Nominal endpoint results verified in browser. 37/37 tests and app syntax pass after final edits. Shared root and Secret styles provided the visual reference. Technical model/equations retained. DELIVERY.md distinguishes this revision from preserved historical candidate artifacts. Screenshot work/verification/kalman-restyle/desktop.png. No deployment requested. Cross-engine and screen-reader checks not performed.
+Helpers: work/restyle-kalman.py and work/simplify-scene.py. Preserve prior candidate worktrees and completed comparison artifacts. Root preview last known session55911 port8314; revalidate before use. Browser kernel requires bootstrap and documentation read per browser skill.
+Previous turn answered skill availability; no goal-state modification then. This continuation made concrete file changes and obtained passing test evidence.
