@@ -1,0 +1,176 @@
+{
+  "errors": [],
+  "motion": {
+    "sectionEntrance": {
+      "opacity": 0,
+      "animations": 2
+    },
+    "navigation": {
+      "headingTop": 185.5625,
+      "currentSection": "engineering"
+    },
+    "disclosure": {
+      "interruptedClicks": true,
+      "keyboard": true,
+      "settledHeight": "auto"
+    },
+    "scenarios": {
+      "transitions": {
+        "indicator": 2,
+        "scene": 1,
+        "telemetry": 1,
+        "chart": 1
+      },
+      "rapidClicksSettle": true,
+      "indicatorError": 0.40625
+    },
+    "replay": {
+      "samples": [
+        {
+          "pose": 520.028,
+          "sample": 520
+        },
+        {
+          "pose": 520.089,
+          "sample": 520
+        },
+        {
+          "pose": 520.15,
+          "sample": 520
+        },
+        {
+          "pose": 520.332,
+          "sample": 520
+        },
+        {
+          "pose": 520.453,
+          "sample": 520
+        },
+        {
+          "pose": 520.514,
+          "sample": 520
+        },
+        {
+          "pose": 520.574,
+          "sample": 520
+        },
+        {
+          "pose": 520.695,
+          "sample": 520
+        },
+        {
+          "pose": 520.816,
+          "sample": 520
+        },
+        {
+          "pose": 520.998,
+          "sample": 520
+        },
+        {
+          "pose": 521.12,
+          "sample": 521
+        },
+        {
+          "pose": 521.179,
+          "sample": 521
+        },
+        {
+          "pose": 521.301,
+          "sample": 521
+        },
+        {
+          "pose": 521.664,
+          "sample": 521
+        },
+        {
+          "pose": 521.785,
+          "sample": 521
+        },
+        {
+          "pose": 521.907,
+          "sample": 521
+        },
+        {
+          "pose": 521.967,
+          "sample": 521
+        },
+        {
+          "pose": 522.089,
+          "sample": 522
+        },
+        {
+          "pose": 522.21,
+          "sample": 522
+        },
+        {
+          "pose": 522.27,
+          "sample": 522
+        },
+        {
+          "pose": 522.452,
+          "sample": 522
+        },
+        {
+          "pose": 522.513,
+          "sample": 522
+        },
+        {
+          "pose": 522.634,
+          "sample": 522
+        },
+        {
+          "pose": 522.695,
+          "sample": 522
+        },
+        {
+          "pose": 522.816,
+          "sample": 522
+        },
+        {
+          "pose": 522.937,
+          "sample": 522
+        },
+        {
+          "pose": 522.997,
+          "sample": 522
+        },
+        {
+          "pose": 523.058,
+          "sample": 523
+        },
+        {
+          "pose": 523.179,
+          "sample": 523
+        },
+        {
+          "pose": 523.24,
+          "sample": 523
+        }
+      ],
+      "interpolation": true,
+      "stablePause": true
+    },
+    "liveReducedMotion": true
+  },
+  "layouts": [
+    {
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "width": 320,
+      "scrollWidth": 320
+    }
+  ],
+  "limits": [
+    "Headless Edge/Chromium with software WebGL; no physical-device or cross-engine performance claim."
+  ]
+}

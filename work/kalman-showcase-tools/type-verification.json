@@ -1,0 +1,303 @@
+{
+  "fonts": [
+    {
+      "family": "IBM Plex Sans",
+      "weight": "400",
+      "status": "loaded"
+    },
+    {
+      "family": "IBM Plex Sans",
+      "weight": "600",
+      "status": "loaded"
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "type": {
+        "h1": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 42,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "47.88px"
+        },
+        ".lede": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 17,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "28.05px"
+        },
+        ".engineering-notes p": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".technical-details>div": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".section-note": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 13,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "19.5px"
+        },
+        ".inputs strong": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 14,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "19.6px"
+        },
+        ".state-badge": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 12,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "16.8px"
+        }
+      }
+    },
+    {
+      "width": 1280,
+      "scrollWidth": 1280,
+      "overflow": [],
+      "type": {
+        "h1": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 42,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "47.88px"
+        },
+        ".lede": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 17,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "28.05px"
+        },
+        ".engineering-notes p": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".technical-details>div": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".section-note": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 13,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "19.5px"
+        },
+        ".inputs strong": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 14,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "19.6px"
+        },
+        ".state-badge": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 12,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "16.8px"
+        }
+      }
+    },
+    {
+      "width": 768,
+      "scrollWidth": 768,
+      "overflow": [],
+      "type": {
+        "h1": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 42,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "47.88px"
+        },
+        ".lede": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 17,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "28.05px"
+        },
+        ".engineering-notes p": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".technical-details>div": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".section-note": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 13,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "19.5px"
+        },
+        ".inputs strong": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 14,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "19.6px"
+        },
+        ".state-badge": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 12,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "16.8px"
+        }
+      }
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "type": {
+        "h1": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 34,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "38.76px"
+        },
+        ".lede": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".engineering-notes p": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".technical-details>div": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".section-note": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 13,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "19.5px"
+        },
+        ".inputs strong": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 15,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "21px"
+        },
+        ".state-badge": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 11,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "15.4px"
+        }
+      }
+    },
+    {
+      "width": 320,
+      "scrollWidth": 320,
+      "overflow": [],
+      "type": {
+        "h1": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 34,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "38.76px"
+        },
+        ".lede": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".engineering-notes p": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".technical-details>div": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 16,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "25.6px"
+        },
+        ".section-note": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 13,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "19.5px"
+        },
+        ".inputs strong": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 15,
+          "weight": "600",
+          "tracking": "normal",
+          "lineHeight": "21px"
+        },
+        ".state-badge": {
+          "font": "\"IBM Plex Sans\", \"Segoe UI\", Arial, sans-serif",
+          "size": 11,
+          "weight": "400",
+          "tracking": "normal",
+          "lineHeight": "15.4px"
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "expandedSpecification": {
+    "width": 280,
+    "fontSize": 16,
+    "overflow": false
+  }
+}

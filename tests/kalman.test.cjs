@@ -1,82 +1,103 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const M = require('../kalman/model.js');
-const near = (a,b,tol=1e-10) => assert.ok(Math.abs(a-b)<tol, `${a} != ${b}`);
-test('exact predict/correct fixture uses velocity cross covariance and Joseph correction', () => {
-  const prior = M.predict([0,0], [[1,0],[0,1]], 1, 0, 0);
-  assert.deepEqual(prior, {x:[0,0],P:[[2,1],[1,1]]});
-  const state = M.correct(prior,3,1);
-  near(state.x[0],2);near(state.x[1],1);
-  near(state.K[0],2/3);near(state.K[1],1/3);
-  for(const [i,j,value] of [[0,0,2/3],[0,1,1/3],[1,0,1/3],[1,1,2/3]]) near(state.P[i][j],value);
+const M = require('../kalman/navigation.js');
+const near = (a,b,tol=1e-9) => assert.ok(Math.abs(a-b)<tol, a+' != '+b);
+function positiveDefinite(P) {
+  const L = M.identity().map(r=>r.map(()=>0));
+  for(let i=0;i<6;i++)for(let j=0;j<=i;j++){
+    let s=P[i][j];for(let k=0;k<j;k++)s-=L[i][k]*L[j][k];
+    if(i===j){assert.ok(s>0,'covariance pivot '+s);L[i][j]=Math.sqrt(s);}else L[i][j]=s/L[j][j];
+  }
+}
+test('continuous process covariance and constant-acceleration state propagation have exact units',()=>{
+  const r=M.predict({x:[0,0,0,1,2,3],P:M.identity()},[2,-2,0],0.6,0.5);
+  assert.deepEqual(r.x,[0.75,0.75,1.5,2,1,3]);
+  near(r.P[0][0],1.25+0.6*0.5**3/3);
+  near(r.P[0][3],0.5+0.6*0.5**2/2);
+  near(r.P[3][3],1+0.6*0.5);
 });
-test('Q is discrete held-acceleration covariance q B B transpose', () => {
-  const p=M.predict([2,3],[[0,0],[0,0]],.2,4,.09);
-  near(p.x[0],2.68);near(p.x[1],3.8);
-  near(p.P[0][0],.09*.2**4/4);near(p.P[0][1],.09*.2**3/2);near(p.P[1][1],.09*.2**2);
+test('Joseph-form scalar correction matches an independently computed depth fixture',()=>{
+  const state={x:[0,0,0,0,0,0],P:M.identity()};
+  const r=M.correct(state,{kind:'depth',value:3,variance:1},Infinity);
+  near(r.x[2],1.5);near(r.P[2][2],0.5);near(r.nis,4.5);
+  near(r.P[0][0],1);assert.equal(state.x[2],0);assert.equal(state.P[2][2],1);
 });
-test('dropout is exactly prediction-only and grows depth uncertainty', () => {
-  const data=M.generate({scenario:'dropout'}),rows=M.estimate(data);
-  assert.equal(rows.filter(r=>r.t>=20&&r.t<36&&r.z!==null).length,0);
-  assert.equal(rows.filter(r=>r.t>=20&&r.t<36).length,80);
-  for(const row of rows.filter(r=>r.t>=20&&r.t<36)) {assert.deepEqual(row.x,row.prior.x);assert.deepEqual(row.P,row.prior.P);assert.equal(row.innovation,null);}
-  assert.ok(rows[179].P[0][0]>rows[99].P[0][0]*10);
-  assert.ok(rows[180].P[0][0]<rows[179].P[0][0]);
+test('nonlinear acoustic Jacobian matches finite differences for every beacon and axis',()=>{
+  const x=[11,-3,14,0,0,0],eps=1e-5;
+  for(let beacon=0;beacon<4;beacon++){
+    const sensor={kind:'range',beacon}, o=M.observation(x,sensor);
+    for(let axis=0;axis<3;axis++){
+      const plus=[...x],minus=[...x];plus[axis]+=eps;minus[axis]-=eps;
+      near(o.H[axis],(M.observation(plus,sensor).predicted-M.observation(minus,sensor).predicted)/(2*eps),1e-8);
+    }
+    assert.deepEqual(o.H.slice(3),[0,0,0]);
+  }
 });
-test('seed replay is deterministic; tuning never changes truth, commands or fixes', () => {
-  const a=M.generate(),b=M.generate({q:.15,r:16});assert.deepEqual(a,b);
-  assert.deepEqual(M.estimate(a),M.estimate(M.generate()));
-  assert.notDeepEqual(M.generate({seed:43}),a);
-  const tuned=M.estimate(a,{q:.15,r:16});assert.notDeepEqual(tuned,M.estimate(a));
-  assert.deepEqual(tuned.map(r=>[r.z,r.u,r.truth]),M.estimate(a).map(r=>[r.z,r.u,r.truth]));
+test('innovation gating rejects an extreme range without changing state or covariance',()=>{
+  const state={x:[...M.INITIAL],P:M.identity()};
+  const r=M.correct(state,{kind:'range',beacon:0,value:1000,variance:0.25},9);
+  assert.equal(r.accepted,false);assert.equal(r.x,state.x);assert.equal(r.P,state.P);assert.ok(r.nis>9);
+  assert.equal(M.correct(state,{kind:'range',beacon:0,value:1000,variance:0.25},Infinity).accepted,true);
 });
-test('truth is never consumed by the filter', () => {
-  const data=M.generate(),other=data.map(r=>({...r,truth:[123456,-987]}));
-  assert.deepEqual(M.estimate(data).map(r=>[r.x,r.P,r.K]),M.estimate(other).map(r=>[r.x,r.P,r.K]));
+test('world replay is seeded and estimator settings cannot alter its observations',()=>{
+  const a=M.generate({seed:42}),b=M.generate({seed:42,q:999,gate:Infinity});
+  assert.deepEqual(a,b);assert.notDeepEqual(a,M.generate({seed:43}));
+  assert.equal(a.length,1201);assert.equal(a.at(-1).t,120);
 });
-test('actual sensor noise changes fixes only; actual acceleration noise changes physics', () => {
-  const base=M.generate(), noisy=M.generate({sensorSigma:2}), calm=M.generate({accelSigma:0});
-  assert.deepEqual(base.map(r=>r.truth),noisy.map(r=>r.truth));
-  assert.notDeepEqual(base.map(r=>r.z),noisy.map(r=>r.z));
-  assert.notDeepEqual(base.map(r=>r.truth),calm.map(r=>r.truth));
-  for(const r of M.generate({sensorSigma:0,accelSigma:0}).slice(1)) near(r.z,r.truth[0]);
-  assert.deepEqual(calm.map(r=>r.u),base.map(r=>r.u));
+test('estimator state cannot consume evaluation truth',()=>{
+  const data=M.generate(), expected=M.estimate(data);
+  const changed=M.estimate(data.map(r=>({...r,truth:[999999,999999,999999,99,99,99]})));
+  expected.forEach((r,i)=>{assert.deepEqual(r.x,changed[i].x);assert.deepEqual(r.P,changed[i].P);});
 });
-test('scenario disturbances are explicit, bounded in time, and preserve random draws', () => {
-  const nominal=M.generate(),bias=M.generate({scenario:'bias'}),drop=M.generate({scenario:'dropout'}),current=M.generate({scenario:'current'});
-  bias.forEach((r,i)=>{assert.deepEqual(r.truth,nominal[i].truth);if(i)near(r.z-nominal[i].z,r.t>=20?2:0);});
-  drop.forEach((r,i)=>{assert.deepEqual(r.truth,nominal[i].truth);if(r.t<20||r.t>=36)assert.equal(r.z,nominal[i].z);});
-  current.filter(r=>r.t<20).forEach((r,i)=>assert.deepEqual(r,nominal[i]));
-  assert.ok(current.at(-1).truth[0]-nominal.at(-1).truth[0]>20);
+test('asynchronous sensor cadences and acoustic outage are exact',()=>{
+  const survey=M.generate(), blackout=M.generate({scenario:'blackout'});
+  const count=kind=>survey.reduce((s,r)=>s+r.sensors.filter(v=>v.kind===kind).length,0);
+  assert.equal(count('depth'),600);assert.equal(count('velocity'),720);assert.equal(count('range'),480);
+  assert.equal(blackout.reduce((s,r)=>s+r.sensors.filter(v=>v.kind==='range').length,0),360);
+  for(let i=0;i<survey.length;i++){
+    assert.deepEqual(survey[i].truth,blackout[i].truth);
+    assert.deepEqual(survey[i].imu,blackout[i].imu);
+    assert.deepEqual(survey[i].sensors.filter(s=>s.kind!=='range'),blackout[i].sensors.filter(s=>s.kind!=='range'));
+    if(blackout[i].t>=40&&blackout[i].t<70)assert.ok(blackout[i].sensors.every(s=>s.kind!=='range'));
+  }
 });
-test('covariance stays finite, symmetric and positive semidefinite over 100000 steps', () => {
-  for(const [q,r]of [[.0001,.01],[.0064,.64],[.16,16],[0,1]]) {
-    let s={x:[7,.1],P:[[1,0],[0,.04]]};
-    for(let i=0;i<25000;i++){
-      const p=M.predict(s.x,s.P,.2,Math.cos(i)*.1,q);s=M.correct(p,i%500<100?null:10+Math.sin(i),r);
-      assert.ok(s.x.every(Number.isFinite));assert.ok(s.P.flat().every(Number.isFinite));
-      near(s.P[0][1],s.P[1][0]);assert.ok(s.P[0][0]>=0&&s.P[1][1]>=0);
-      assert.ok(s.P[0][0]*s.P[1][1]-s.P[0][1]**2>=-1e-10);
+test('full six-state covariance remains finite, symmetric and positive definite in every mission',()=>{
+  for(const scenario of Object.keys(M.SCENARIOS)){
+    const run=M.run({scenario});
+    for(const row of run.rows){
+      assert.ok(row.x.every(Number.isFinite));
+      row.P.forEach((r,i)=>r.forEach((v,j)=>{assert.ok(Number.isFinite(v));near(v,row.P[j][i],1e-10);}));
+      positiveDefinite(row.P);
     }
   }
 });
-test('seed 42 nominal has meaningful fixed RMSE; mismatch need not improve', () => {
-  const scores=Object.fromEntries(['nominal','dropout','current','bias'].map(s=>[s,M.metrics(M.estimate(M.generate({scenario:s})))]));
-  assert.ok(scores.nominal.sensor>.6&&scores.nominal.sensor<1);
-  assert.ok(scores.nominal.filter<scores.nominal.sensor);
-  assert.ok(scores.nominal.dead>scores.nominal.filter);
-  assert.equal(scores.nominal.steps,300);assert.equal(scores.dropout.fixes,220);
-  assert.ok(scores.bias.coverage<90);assert.ok(scores.current.filter>scores.nominal.filter);
-  near(scores.nominal.sensor,0.8293703884070283);
-  near(scores.nominal.filter,0.1926924180432113);
-  near(scores.nominal.dead,4.906345826662991);
-  near(scores.dropout.filter,0.23634380647390774);
-  near(scores.current.filter,0.35129557368207154);
-  near(scores.bias.filter,1.6179357706512916);
-  console.log('Actual seed-42 scores:',JSON.stringify(scores));
+test('position ellipsoid reconstructs the full correlated covariance',()=>{
+  const P=M.identity();
+  P[0][0]=4;P[1][1]=2;P[2][2]=1;P[0][1]=P[1][0]=1;P[0][2]=P[2][0]=0.3;P[1][2]=P[2][1]=0.2;
+  const {radii,basis}=M.ellipsoid(P);
+  const reconstructed=M.multiply(M.multiply(basis,radii.map((v,i)=>radii.map((_,j)=>i===j?v*v/7.8147279:0))),M.transpose(basis));
+  for(let i=0;i<3;i++)for(let j=0;j<3;j++)near(reconstructed[i][j],P[i][j],1e-9);
 });
-test('RMSE handles no samples, missing fixes and differing denominators honestly', () => {
-  assert.equal(M.metrics(M.estimate(M.generate()).slice(0,1)).filter,null);
-  const r={x:[3,0],truth:[1,0],dead:[5,0],P:[[1,0],[0,1]],z:null};
-  const m=M.metrics([r,r]);assert.equal(m.sensor,null);near(m.filter,2);near(m.dead,4);assert.equal(m.fixes,0);assert.equal(m.coverage,0);
+test('multipath improvement is measured from the same data and every injected outlier is rejected',()=>{
+  const r=M.run({scenario:'multipath'});
+  assert.ok(r.ungatedMetrics.rmse/r.metrics.rmse>8);
+  const outliers=r.rows.flatMap(row=>row.updates).filter(v=>v.outlier);
+  assert.ok(outliers.length>50);assert.ok(outliers.every(v=>!v.accepted));
+  near(r.metrics.rmse,0.1834646492251121);
+  near(r.ungatedMetrics.rmse,1.6429100926978868);
+  assert.equal(r.metrics.accepted+r.metrics.rejected,1800);
+  r.rows.forEach((row,i)=>{assert.deepEqual(row.sensors,r.ungated[i].sensors);});
+});
+test('survey results match a separate RMSE calculation and outperform biased inertial integration',()=>{
+  const r=M.run(), sum=r.rows.slice(1).reduce((s,row)=>s+row.x.slice(0,3).reduce((v,x,i)=>v+(x-row.truth[i])**2,0),0);
+  near(r.metrics.rmse,Math.sqrt(sum/1200));
+  near(r.metrics.rmse,0.16136162361438555);
+  assert.ok(r.metrics.deadRmse>20);assert.equal(r.metrics.samples,1200);
+});
+test('input validation rejects invalid seeds, scenarios, covariance noise and measurements',()=>{
+  for(const seed of [-1,2.3,Infinity,'42',4294967296])assert.throws(()=>M.generate({seed}),/seed/);
+  for(const scenario of ['nominal','toString','missing'])assert.throws(()=>M.generate({scenario}),/scenario/);
+  for(const q of [-1,NaN,Infinity])assert.throws(()=>M.estimate(M.generate(),{q}),/settings/);
+  assert.throws(()=>M.correct({x:[...M.INITIAL],P:M.identity()},{kind:'depth',value:NaN,variance:1}),/observation/);
+  assert.throws(()=>M.correct({x:[...M.INITIAL],P:M.identity()},{kind:'depth',value:1,variance:0}),/observation/);
 });

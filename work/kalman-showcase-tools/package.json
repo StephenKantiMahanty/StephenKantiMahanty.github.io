@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "motion": "14.0.0",
+    "three": "0.186.1",
+    "uplot": "1.6.32"
+  }
+}

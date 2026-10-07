@@ -211,7 +211,7 @@ test('existing Worker routing serves the hidden page, projects, and assets', asy
         if (!file.startsWith(root + path.sep)) return new Response(null, { status: 403 });
         return existsSync(file) ? new Response(readFileSync(file)) : new Response(null, { status: 404 });
     } } };
-    for (const route of ['/secret/', '/secret/index.html', '/secret/styles.css', '/styles.css', '/script.js', '/circular/', '/cad-machining/', '/upload/', '/kalman/', '/kalman/model.js', '/kalman/app.js', '/kalman/styles.css']) {
+    for (const route of ['/secret/', '/secret/index.html', '/secret/styles.css', '/styles.css', '/script.js', '/circular/', '/cad-machining/', '/upload/', '/kalman/', '/kalman/navigation.js', '/kalman/app.js', '/kalman/styles.css', '/kalman/scene.js', '/kalman/charts.js', '/kalman/vendor.js']) {
         const response = await worker.fetch(new Request(`https://portfolio.test${route}`), env);
         assert.equal(response.status, 200, route);
         assert.ok((await response.text()).length > 0, route);

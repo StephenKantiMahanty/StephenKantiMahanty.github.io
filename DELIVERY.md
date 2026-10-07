@@ -1,83 +1,56 @@
-# Abyss / Kalman Lab
+# ABYSS / Underwater Navigation
 
-## Current design and writing revision
+## Typography and text formatting
 
-The lab now loads the portfolio's shared stylesheet and uses its Courier typography, dark backgrounds, green circuit palette, grid, and bordered panels. The introduction, lessons, tuning help, error explanation, and mission results use connected explanations and concrete examples derived from all three user-supplied writing samples. The samples themselves are not included in the site.
+The current page uses locally hosted IBM Plex Sans regular and semibold. The large compressed headline and serif italic accents are replaced by a moderate project title. Labels use sentence case, numbered section banners and scenario prefixes are removed, and engineering explanations form readable prose rows rather than three matching text columns. Main reading text and expanded specifications are at least 16 px, including on mobile. Chart axes follow the new font. Font licenses and exact source hashes are retained in kalman/fonts/.
 
-Checked the revised page in Edge at 1440, 390, and 320 px. Narrow layouts have no elements extending beyond the viewport; setup controls and lesson feedback were visually inspected at 320 px. The nominal endpoint displays the revised results correctly. All 37 existing tests and the app syntax check pass. Screenshot: `work/verification/kalman-restyle/desktop.png`. These checks do not establish cross-browser or screen-reader coverage.
+The revision follows online USWDS and Practical Typography guidance, recorded in work/kalman-showcase-tools/TYPE-RESEARCH.md. Fresh type-verification.json proves both font weights load, the typography sizes/tracking, and layout fit at 320, 390, 768, 1280 and 1440 px. Final desktop/mobile screenshots in type-screenshots/ were reviewed. A vehicle label resize issue found during validation was fixed using its measured width even while offscreen rendering is paused.
 
-The historical integration report below describes the original parallel-design build. Its preserved worktree and screenshots precede this revision; the current root `kalman/` files are the updated deliverable.
+The expanded model specification was also captured and visually inspected at 320 px: 16 px text in a 280 px content width, with no overflow. Final 44/44 Node tests, full interaction browser checks, focused motion checks, JavaScript syntax and whitespace checks pass. Requirement-level review: work/kalman-showcase-tools/TYPE-AUDIT.md. This typography revision is local and unpublished.
 
-## Original integration report
+## Motion and writing revision
 
-The finished static lab is integrated into the original portfolio at [kalman/index.html](kalman/index.html), with its fourth launch card in Secret. Three independent implementations were compared; the cinematic foundation combines clearer teaching and time-inspection ideas from the alternatives. Nothing was published, pushed or committed.
+The current Kalman page adds staggered viewport entrances, sticky section navigation with reading progress, a moving scenario indicator, coordinated scene/telemetry/chart fades, animated model details, and smoother camera transitions. The vehicle drawing interpolates between computed replay samples; telemetry, covariance, benchmark values and exported data still use the exact numerical samples. Native scrolling retains wheel/touch behavior, and a live reduced-motion preference change immediately settles transitions and disables drawing interpolation.
 
-## Preview
+The public copy now explains motivation and engineering decisions in first person, using the causal, context-first reasoning found in all three user-provided writing samples. The introduction begins “I built this simulation…” and the engineering notes connect sensor behavior to implementation choices. Numerical assumptions and the simulation label remain intact. Private writing samples are not included in public assets.
 
-Run `node kalman/preview.cjs` from this worktree. It defaults to **8314**, bound to `127.0.0.1`.
+All five supplied research links were reviewed. The existing local Motion mini dependency implements the animations without adding a React component framework or new runtime dependency. Research and writing rationale: work/kalman-showcase-tools/MOTION-RESEARCH.md.
 
-- Lab: <http://127.0.0.1:8314/kalman/>
-- Launch journey: <http://127.0.0.1:8314/secret/>
-- Fixed-size and script-disabled fixtures: <http://127.0.0.1:8314/tests/kalman-preview.html>
-- Optional override: set `PORT` before starting the server.
+Fresh browser evidence: motion-verification.json records an unobscured section anchor/current-section marker, scenario animation activity and rapid-click settlement, animated disclosure with keyboard/repeated-click behavior, fractional drawing samples alongside integer numerical samples, stable pause and live reduced-motion handling. verification.json records the complete replay/camera/chart/fullscreen/export and responsive/fallback regression journeys. Screenshots in motion-screenshots/ were visually reviewed. Verification used headless Edge/Chromium with software WebGL, not a physical-device frame-rate benchmark. The revision is local and unpublished.
 
-No build, backend, CDN or dependencies are needed.
+The project at /kalman/ is a portfolio showcase of autonomous underwater state estimation. Lessons, quizzes, worked corrections, tuning worksheets, and lab language have been removed. Secret launches the project as “Abyss / Underwater Navigation.”
 
-## Integrated behavior
+## Engineering
 
-- R and q sliders expose physical variance and units through `aria-valuetext` on every change. Actual-noise controls also expose standard deviations with units. Every `output` explicitly sets `aria-live="off"`; the chart equivalents are readable text, and announcements occur for user actions and mission completion.
-- Time inspection stays above the scene. Its readout and accessible value use seconds. Scrubbing pauses, clears playback accumulation, updates elapsed scores and worked numbers, and hides the debrief when leaving the endpoint. **To end** inspects all 60 seconds without starting playback. Controls have at least 44 px targets, including radio labels.
-- **Match actual noise** sets the exact floating-point squares `R = sensorSigma ** 2` and `q = accelSigma ** 2`, including zero q. An explicit physical-value anchor at the matched slider tick prevents quantization from changing the value on an unrelated input or replay. Spoken numbers suppress floating-point display artifacts; stored values remain exact. Tuning pauses and rewinds the same data and retains the baseline. Changes to seed, scenario or actual noise regenerate data and clear it.
-- Scenario help reflects the current match or mismatch and explains that matching random variances does not remove current or sensor bias.
-- An intro/control anchor leads directly to the live numerical correction. Plain-language prediction/listening/correction explanations remain visible. Equations and model details start collapsed. The exact numerical example remains available. A dropout question provides specific feedback for correct, incorrect and missing answers.
-- Depth bounds include truth, fixes, estimate, dead reckoning, saved estimate and both uncertainty edges. Error-chart bounds include the displayed current/baseline errors and uncertainty. The world generator remains separate from estimation; truth is used only for drawing and evaluation.
-- The numerical core rejects nonfinite/negative q, nonfinite/nonpositive R (even without a fix), invalid noise standard deviations, overflowing noise variances, invalid seeds/scenarios, invalid step/acceleration inputs and nonfinite fixes.
-- All buttons, inputs and selects start disabled and are enabled after initialization. A real script-disabled sandbox displays the explanatory fallback; native details and references remain available.
+The numerical core in kalman/navigation.js estimates east, north, depth, and three velocities. It propagates at 10 Hz using simulated global-frame inertial acceleration, fuses pressure depth at 5 Hz, three-axis Doppler velocity at 2 Hz, and four acoustic ranges at 1 Hz. Range observations are nonlinear; the EKF evaluates their Jacobians at the predicted state. Scalar NIS gating rejects updates above 9. Covariance updates use Joseph form and explicit symmetrization. The actual full 3×3 position covariance produces an oriented 95% joint ellipsoid using χ²(3) = 7.8147279.
 
-## Actual verification
+Survey, acoustic blackout, multipath, and cross-current are deterministic 120 s missions with seed 42. Gated and ungated estimators use identical data. Truth is reserved for evaluation. CSV exports contain all 1,201 states, 22 columns including the estimate, velocity, covariance, errors, and packet counts.
 
-`node --test tests/*.test.cjs`: **37/37 passed, zero failures**. The full final output is in [tests.txt](work/verification/kalman-final/tests.txt). Seven new integration tests cover invalid numerical input, exact match mapping, all-trace bounds and the actual app's data/baseline/scrub/gain lifecycle using a minimal DOM and spies at the model boundary. Existing tests retain the exact Kalman fixture, 100,000 covariance steps, deterministic replay, truth isolation, scenario timing, Worker/private-file routing and four-card Secret navigation.
+| Seed 42 / 3D position RMSE | Gated EKF | Ungated EKF | Inertial only |
+| --- | ---: | ---: | ---: |
+| Survey | 0.161 m | 0.162 m | 22.939 m |
+| Acoustic blackout | 0.167 m | 0.159 m | 22.939 m |
+| Multipath | 0.183 m | 1.643 m | 22.939 m |
+| Cross-current | 0.161 m | 0.161 m | 22.939 m |
 
-`node --check` passed for `kalman/{model,controls,app}.js` and `kalman/preview.cjs`. `git diff --check` passed. Git emitted existing LF/CRLF notices. New source files were also checked for trailing whitespace. Commands and evidence are indexed in [CHECKS.md](work/verification/kalman-final/CHECKS.md).
+Multipath gating reduces RMSE by 8.95× for this seeded mission. The outage removes acoustic ranges from 40–70 s while velocity and depth observations remain available. Gating is not universally better: the ungated filter has slightly lower RMSE in this blackout run. Multipath adds +10 m to selected ranges from 35–75 s. Current adds 0.008 m/s² northward acceleration from 40–80 s, observed by the inertial sensor.
 
-Fresh Edge checks used both the standalone page and the checked-in fixture. Final fixture dimensions were confirmed as **1440×900, 390×844 and 320×740**. Inner document widths were 1425, 375 and 305 px respectively (vertical scrollbar space); there was no lab horizontal overflow. Canvas backing sizes followed the rendered sizes. All measured buttons, ranges, selects, seed controls, summaries and radio labels were at least 44 px high. Expanded exact-example/model content also fit at 320 px. The outer fixture intentionally accommodates a 1440 px iframe; its own horizontal scrollbar is not lab overflow.
+## UI tools and presentation
 
-Verified browser journeys:
+Three.js 0.186.1 supplies WebGL rendering and OrbitControls; uPlot 1.6.32 supplies linked time-series charts; Motion 14.0.0 mini supplies entry and scenario transitions. Dependencies are pinned in work/kalman-showcase-tools/package-lock.json, bundled into kalman/vendor.js, and served locally with their licenses. No remote requests are required to run the project. Build tooling uses esbuild 0.28.2.
 
-| Journey | Observed result |
-| --- | --- |
-| Secret launch | Fourth card opened the initialized lab in a new tab. |
-| One correction by keyboard | At 0.2 s: prediction 7.021 m, fix 6.801 m, gain 0.610, corrected depth 6.887 m. |
-| Same-data R comparison | R increased from 0.64 to 16 m²: same first fix, gain 0.610 → 0.059; baseline retained; complete RMSE 0.193 → 0.232 m. |
-| Exact noise match | Rewound while retaining data/baseline; nominal RMSE returned to 0.193 m. Zero actual acceleration matched q = 0 and reached a finite endpoint. |
-| Dropout | Half-width ±0.46 m at 19.8 s → ±3.73 m at 35.8 s, no corrections while missing → ±1.45 m at the returning fix at 36 s. Correct/incorrect learner feedback checked. |
-| Scenario endpoints/replay | Nominal/dropout/current/bias filter RMSE: 0.193/0.236/0.351/1.618 m. Each replay reproduced its endpoint; 300/220/300/300 fixes. |
-| Scrub/end/reset | Seconds-valuetext, paused inspection, endpoint disables start/step, scrubbing backward hides summary and re-enables playback, reset returns to zero. |
-| Playback/keyboard | Enter activates step/play/pause; real playback advanced to 53.4 s before pause; native slider arrow/Home/End/PageUp keys operate. Focus outline observed on R. |
-| Baseline/world lifecycle | Explicit clearing and seed/world changes removed saved baseline. Fractional seed was natively invalid and left the current 0.2 s step intact. |
-| No JavaScript | Sandbox without `allow-scripts` displayed fallback and disabled all 21 actions/inputs; exact example expanded and remained readable. |
+The page uses a green/teal palette related to the portfolio, a restrained editorial layout, a procedural AUV/seabed, mission telemetry, three camera presets, orbit/zoom, layer toggles, replay and scrubbing, fullscreen, and data export. Reduced-motion preferences suppress transitions and camera easing. WebGL failure preserves telemetry, plots, and export. Without JavaScript, controls remain disabled and the engineering specification is readable.
 
-Evidence: [journeys.json](work/verification/kalman-final/journeys.json), [final-viewports.json](work/verification/kalman-final/final-viewports.json), [layouts.json](work/verification/kalman-final/layouts.json), [physical-values.json](work/verification/kalman-final/physical-values.json), [keyboard-focus.json](work/verification/kalman-final/keyboard-focus.json), [nojs.json](work/verification/kalman-final/nojs.json), [invalid-seed.json](work/verification/kalman-final/invalid-seed.json), [secret-launch.json](work/verification/kalman-final/secret-launch.json), and [console.json](work/verification/kalman-final/console.json).
+## Validation
 
-Visually inspected captures: [desktop scene](work/verification/kalman-final/desktop-mission.png), [390 px scene](work/verification/kalman-final/phone390-mission.png), [320 px scene](work/verification/kalman-final/phone320-mission.png), [320 px correction](work/verification/kalman-final/phone320-correction.png). Initial-page and script-disabled captures are in the same directory.
+44/44 Node tests passed: exact prediction/correction fixtures; finite-difference acoustic Jacobians; deterministic data and absence of truth leakage; precise sensor timing/outage; positive-definite full covariance at every step of all four missions; covariance eigensystem reconstruction; independently calculated RMSE and seeded multipath improvement; project integration; upload and existing-site regressions.
 
-## Limits and review
+Headless Edge/Chromium with software WebGL verified all four scenarios, stable idle time, play/pause, restart, keyboard scrubbing, mission completion, all camera presets, layers, fullscreen entry/exit, chart inspection near 60 s, and a 1,201-row / 22-column CSV export. Tested widths 1440, 1280, 768, 390, and 320 px fit without horizontal overflow. Normal operation made no external requests or console errors. Reduced-motion, no-JavaScript, and no-WebGL contexts passed their checks. Final desktop/mobile screenshots were visually reviewed after the small-label refinements.
 
-No application console errors were captured. The saved log includes two errors from an unrelated `chrome-extension://` script; sandbox script-blocking diagnostics are expected in the no-JS fixture. Browser automation had one scrolling timeout despite the page moving; the resulting viewport was read and captured. Two unsupported read-only DOM probes were replaced with supported frame/locator reads; those probe errors were not application errors.
+Evidence: work/kalman-showcase-tools/verification.json and screenshots/. Browser harness: work/kalman-showcase-tools/verify-ui.cjs. Numerical checks: tests/kalman.test.cjs. Project structure checks: tests/kalman-integration.test.cjs. Tool-selection research: work/kalman-showcase-tools/RESEARCH.md.
 
-The `prefers-reduced-motion: reduce` rule was inspected: it disables transitions/animations and restores automatic scrolling. There is no forced autoplay or decorative animation. Actual OS preference switching, screen-reader speech, physical touch, cross-engine behavior, formal WCAG conformance and performance benchmarks were **not tested**. Computed focus and DOM semantics are evidence only for those specific checks.
+## Model limits
 
-This remains a RoboSub-inspired, one-axis teaching simulation with processed position fixes, independent Gaussian per-step acceleration disturbance and deliberate current/bias mismatch. Its 95% interval expresses model assumptions; it is not a safety guarantee or official scoring.
+This is a synthetic portfolio simulation, not deployed AUV telemetry or a vehicle controller. Known attitude is assumed; orientation and biases are not estimated. Simulated global-frame inertial acceleration has σ = 0.025 m/s² plus fixed bias [0.006, -0.004, 0.0015] m/s². Acoustic σ = 0.5 m, pressure σ = 0.08 m, and Doppler σ = 0.045 m/s. Beacon positions are known, noise streams are independent, and latency is omitted. Assumed continuous process spectral density is q = 0.02 m²/s³. Confidence is model-based, not an empirical safety guarantee.
 
-[Checker - 6.1-Sol]: **9.2/10**, cycle 1 of at most 3. Mandatory implementation and supported journey checks passed. The cinematic scene remains coherent, the numerical fixtures/default recordings are unchanged, and the formerly failed control semantics are fixed. No required code fixes remain. The manual accessibility and cross-engine checks above remain unknown.
-
-## Finished files
-
-The coordinator reviewed and copied the final source, tests and evidence into the original repository, then reran all 37 tests, syntax and diff checks successfully. Native keyboard launch from Secret opened a distinct tab. Original-site browser checks confirmed the worked correction, physical R/seconds values, all four endpoints and prediction-only dropout; desktop1440x900/phone390x844/320x740 document widths equaled scroll widths. Fresh captures and scenario data: `work/verification/kalman-final/original-{1440,390,320}.png` and `original-audit.json`. An additional console/learner-feedback browser call timed out and is not counted as a passing check; the completed builder's feedback/console checks above remain the evidence for those journeys.
-
-Preserved final working copy: `work/design-runs/kalman-20261005/worktrees/final`, branch `design/kalman-final`. Comparison and fresh reviews: `work/design-runs/kalman-20261005/COMPARISON.md` and `results/reviews/`. The canonical Kalman PDF returned404 during research; the activity uses the verified Temple University archive of Welch/Bishop's original SIGGRAPH course document. Product source matches the reviewed final working copy; this delivery adds original-workspace verification.
-
-- `kalman/index.html`, `kalman/styles.css`, `kalman/app.js`, `kalman/model.js`, `kalman/controls.js`, `kalman/preview.cjs`
-- `tests/kalman.test.cjs`, `tests/kalman-integration.test.cjs`, `tests/kalman-preview.html`
-- Existing foundation integration: `secret/index.html`, `tests/secret-projects.test.cjs`, `README.md`
-- `DELIVERY.md`, `work/goal-loop-state.md`, `work/verification/kalman-final/`
+Validation does not establish Safari/Firefox compatibility, physical-device performance, or screen-reader coverage. No changes have been committed, pushed, or published for this goal. The previous delivery report is preserved at work/kalman-showcase-tools/PREVIOUS_DELIVERY.md.

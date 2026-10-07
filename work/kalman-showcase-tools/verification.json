@@ -1,0 +1,72 @@
+{
+  "layouts": [
+    {
+      "width": 1440,
+      "scroll": 1440,
+      "overflow": []
+    },
+    {
+      "width": 1280,
+      "scroll": 1280,
+      "overflow": []
+    },
+    {
+      "width": 768,
+      "scroll": 768,
+      "overflow": []
+    },
+    {
+      "width": 390,
+      "scroll": 390,
+      "overflow": []
+    },
+    {
+      "width": 320,
+      "scroll": 320,
+      "overflow": []
+    }
+  ],
+  "journeys": [
+    {
+      "scenario": "survey",
+      "clock": "026.0 / 120.0 s",
+      "error": "0.049 m"
+    },
+    {
+      "scenario": "blackout",
+      "clock": "052.0 / 120.0 s",
+      "error": "0.223 m"
+    },
+    {
+      "scenario": "multipath",
+      "clock": "052.0 / 120.0 s",
+      "error": "0.304 m"
+    },
+    {
+      "scenario": "current",
+      "clock": "052.0 / 120.0 s",
+      "error": "0.334 m"
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "limits": [
+    "Headless Edge/Chromium with software WebGL; no physical device, Safari, or screen-reader testing."
+  ],
+  "fullscreen": true,
+  "csv": {
+    "file": "abyss-multipath-seed42.csv",
+    "rows": 1201,
+    "columns": 22
+  },
+  "chartHoverSeconds": 59.900000000000006,
+  "reducedMotion": {
+    "animations": 0,
+    "playback": true
+  },
+  "noJavaScript": true,
+  "noWebGL": {
+    "fallback": true,
+    "telemetry": true
+  }
+}

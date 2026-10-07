@@ -3,3 +3,6 @@
 
 # Local Cloudflare runtime caches and test storage.
 /.wrangler/
+
+# Local build dependencies for the static Kalman showcase.
+/work/kalman-showcase-tools/node_modules/
